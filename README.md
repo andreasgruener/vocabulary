@@ -11,18 +11,19 @@ Done with my son for his English and Latin course.
 - no problem vocabulary - switches of default mode, which asks all wrongly answered vaocabularies at the end
 
 ## Grades
-Gives a grade based on the german school grades (1 - Best to 6 - worst)
-Ergebnis:
-============= Result ================
+Gives a grade based on the german school grades (1 - Best to 6 - worst)  
+Ergebnis:  
+
 
 	Note 		: 6.0
 
----------------------------------------
+
 	Duration   	: 0 Minuten 30 Sekunden
 	Total  		:  20
 	Correct 	:  18
 	Wrong  		:  2
-=======================================
+
+
 ## Usage Tracker
 Creates a .result file, which contains the time duration type of test and the result, e.g.:  
 2017-03-05 : 11:34:23 : 11:34:27 : 6 : 3.0 :username : 18 : 20 : mixed : ./example-voc.csv  
