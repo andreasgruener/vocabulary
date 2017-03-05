@@ -8,8 +8,8 @@ Works for ourselves - not prepared to run out of the box, e.g.
 
 # Features:
 ## Question
-- foreign language words - asks latin you answer in yout language
-- orginal language words - asks latin/english/french/german/etc. and your language
+- foreign language words - asks e.g. latin you answer in your language
+- orginal language words - asks your langauge you answer in e.g. latin
 - number of words k - the number of 
 - all variants - you need to provide all variante of a translation  
 - voice based results (say correct answer)  - says the correct answer (works on mac)
