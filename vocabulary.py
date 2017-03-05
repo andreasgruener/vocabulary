@@ -14,7 +14,7 @@ import operator
 richtig=0
 falsch = 0
 voice = False
-alleVarianten = False
+alleVarianten = False 
 ignoreProblems = False
 percentageOfProblemVokabel = 0.1
 questionType = "mixed"
