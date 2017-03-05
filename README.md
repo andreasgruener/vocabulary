@@ -19,7 +19,7 @@ fluere;fließen
 
 ### Optional Type pf Word (for Latin Test see C) )
 - A: Adjective 
-- N: Noun
+- S: Noun (Substantiv)
 - V; Verb  
 
 ```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*;<A|V|N>```
@@ -27,7 +27,7 @@ fluere;fließen
 Example:   
 		fluere,volvere;fließen:strömen;V  
 		fluere;fließen;V  
-		dominus;Herr;N   
+		dominus;Herr;S     
 		iratus;böse;A  
 
 ## Status
