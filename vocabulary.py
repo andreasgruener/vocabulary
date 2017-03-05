@@ -124,7 +124,7 @@ def runTest( vocabulary , type, problems):
 	global numberOfQuestions
 	global currentProblemVocabulary
 
-	print("================================ "+ questionMessage[type] + " ====================================")
+	print("================================ "+ QUESTION_TEXT[type] + " ====================================")
 	#print(vocabulary)
 	count = 0
 	global percentageOfProblemVokabel
@@ -163,8 +163,8 @@ def runTest( vocabulary , type, problems):
 		else:
 			# there is exactly one entry in the given array
 			questionsVocabularySize = len(question[qLanguage])
-			answerSize = len(question[answerLanguage4Question[qLanguage]])
-			a = question[answerLanguage4Question[qLanguage]]
+			answerSize = len(question[ANSWER_LANGUAGE_4_QUESTION[qLanguage]])
+			a = question[ANSWER_LANGUAGE_4_QUESTION[qLanguage]]
 			#print(a)
 			#print(questionsVocabularySize)
 			if questionsVocabularySize == 1:

@@ -1,19 +1,17 @@
+en;volvere;['fließen', 'strömen'];;0
+en;aegrotus;['krank'];;1
+en;aedificum;['das Gebäude'];;1
+en;quod;['weil'];;0
+en;iratus;['böse'];;1
 en;dum;['während'];;0
-en;fluere,volvere;['fließen', 'strömen'];;0
-en;diu;['lange'];;1
-en;quamquam;['obgleich', 'obwohl'];weil;1
-en;imperium;['das Reich'];Macht;1
-en;iratus;['böse'];wild;1
-en;caput;['der Kopf'];Haupt;1
-en;forum;['der Marktplatz'];;2
-en;aedificum;['das Gebäude'];;2
-en;aegrotus;['krank'];;3
-en;ignoscere;['verzeihen'];;0
-en;quod;['weil'];;1
-de;das Gebäude;['aedificum'];;0
+en;templum;['der Tempel'];;0
+en;ignoscere;['verzeihen'];;1
 de;weil;['quod'];;0
-de;obwohl;['quamquam'];;0
-de;verzeihen;['ignoscere'];;2
-de;lange;['diu'];;0
-de;böse;['iratus'];;2
-de;während;['dum'];;1
+de;der Marktplatz;['forum'];;0
+de;während;['dum'];;0
+de;der Tempel;['templum'];;0
+de;das Reich;['imperium'];;1
+de;strömen;['fluere', 'volvere'];;0
+de;obgleich;['quamquam'];;1
+de;lange;['diu'];;1
+de;der Kopf;['caput'];;2

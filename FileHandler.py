@@ -106,16 +106,16 @@ def readProblemFile( path, name ):
 		problemList.append(problem)
 
 		#print(problem)
-		problemVocabulary.append(problem)
+		LIST_OF_PROBLEM_VOCABULARY.append(problem)
 
-	print("In der Abfrage werden %i Problemvokabel berücksichtigt." % (len(problemVocabulary)))
+	print("In der Abfrage werden %i Problemvokabel berücksichtigt." % (len(LIST_OF_PROBLEM_VOCABULARY)))
 	return pvFull
 
 
 def writeProblemFile( path, name, pv ):
 	# write problem file 
 	with open(getProblemFileName(path, name), "w") as problemFile:
-		for language in supportedLanguages:
+		for language in SUPPORTED_LANGUAGES:
 			for problem in pv[language]:
 				problemFile.write(problem['language'] + ";" + problem['question'] + ";" + str(problem['correctAnswer']) + ";" + problem['answer'] + ";" + str(problem['count'])+ "\n")
 
