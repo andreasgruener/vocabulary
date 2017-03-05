@@ -31,20 +31,21 @@ Example:
 		iratus;böse;A  
 
 ## Status
-Works, is in daily use
+- Works, is in daily use
 - Python dependencies need to be installed first
-- internationalization 
+- internationalization missing
 - focus on our needs, not generalized
 
 ## Requirements / Dependencies
 ### Mac
-- Install Python3 
--- brew install python3
-- Install enchant (Spellchecker)
--- brew install enchant
-- Install pyenchant
--- pip3 install pyenchant
-
+~~~bash
+# Install Python3  
+bash> brew install python3 
+# Install enchant (Spellchecker)
+bash> brew install enchant
+# Install pyenchant
+bash> pip3 install pyenchant
+~~~
 # A) Vocabulary Test - Features:
 ## Question
 - foreign language words - asks e.g. latin you answer in your language
