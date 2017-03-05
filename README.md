@@ -74,14 +74,17 @@ Ergebnis:
 
 ## Usage Tracker
 Creates a .result file, which contains the time duration type of test and the result, e.g.:  
+~~~~
 2017-03-05 : 11:34:23 : 11:34:27 : 6 : 3.0 :username : 18 : 20 : mixed : ./example-voc.csv  
-
+~~~
 ## Problem Vocabulary
 Keeps track of wrong vocabulary and mixes the problem vocabulary into the question stream.
+~~~
 Example File:
 example-voc.csv_problemVocabularyFile
 de;böse;['iratus'];irratus;1  
 (Language; Vocabulary; Correct Answer(s), Wrong Ansert; Wrong Count  
+~~~~
 
 ## Vocabulary Tracker
 Keeps track that the randomly asked vocabularies are distributed somehow evenly.  
@@ -110,10 +113,10 @@ Example:
 Checks the CSV file for typos (English only)
 
 ## Usage
+~~~
 Usage: ./SpellChecker.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]  
 	-i <inputfile> :: name of the file containing the vocabulary  
 
-   
 Example:  
 	./SpellChecker.py -i voc.csv
 ~~~
@@ -122,6 +125,7 @@ Example:
 Generates a simple latin test based on the vocabulary. If the lines contains the type of word it asks for Genus and Kasus or Person and mode.
 
 ## Usage
+~~~
 Usage: ./generateLatinTest.py -i <inputfile> [-c n] [-h]
         -i <inputfile> :: name of the file containing the vocabulary
         -h             :: prints this help message
@@ -129,7 +133,9 @@ Usage: ./generateLatinTest.py -i <inputfile> [-c n] [-h]
 
 Example:
         ./generateLatinTest.py -i voc.csv -v
+~~~
 
+## Example Report
 ~~~
 bash-3.2$ ./generateLatinTest.py -i example/example-voc.csv
 Es werden 12 Vokabeln abgefragt.
