@@ -8,6 +8,15 @@ Works for ourselves - not prepared to run out of the box, e.g.
 - Python dependencies need to be installed first, 
 - internationalization 
 
+# Requirements / Dependencies
+## Mac
+- Install Python3 
+-- brew install python3
+- Install enchant (Spellchecker)
+-- brew install enchant
+- Install pyenchant
+-- pip3 install pyenchant
+
 # Features:
 ## Question
 - foreign language words - asks e.g. latin you answer in your language

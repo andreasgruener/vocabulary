@@ -1,51 +1,45 @@
 #!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
+"""Spellchecker for Vocabulary
+reads and writes files
+"""
 
+
+import getopt
+import sys
 import enchant
 from enchant.tokenize import get_tokenizer
-import sys
-import getopt
-from FileHandler import *
+from Config import Color
 
-LANGUAGE="en_GB"
+from FileHandler import read_file
 
-class color:
-	PURPLE = '\033[95m'
-	CYAN = '\033[96m'
-	BLACK = '\033[0;30m'
-	WHITE = '\033[0;37m'
-	DARKCYAN = '\033[36m'
-	BLUE = '\033[94m'
-	LIGHTBLUE = '\033[34m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-	END = '\033[0m'
+# use british english
+LANGUAGE = "en_GB"
 
-def checkFile(fileName):
+
+def check_file(fileName):
 	dictonary = enchant.Dict(LANGUAGE)
-	vocabulary = readFile(fileName)
+	vocabulary = read_file(fileName)
 
-	lineCnt = 1
-	errorCnt = 0
+	line_counter = 1
+	error_counter = 0
 	for line in vocabulary:
 		#print(questions)
-		allgood = True
-		errorLine = { "line" : lineCnt, "question" : line['en'], "words" : []}
-		lineCnt=lineCnt+1
+		#all_is_good = True
+		error_line = {"line" : line_counter, "question" : line['en'], "words" : []}
+		line_counter = line_counter+1
 		for question in line['en']:
 			tknzr = get_tokenizer(LANGUAGE)
 			#tknzr(question)
 			#words = question.split(" ")
-			for (word,pos) in tknzr(question):
+			for (word, pos) in tknzr(question):
 				if dictonary.check(word) != True:
-					allgood = False
-					errorCnt=errorCnt+1
-					errorLine["words"].append(word)
+					#all_is_good = False
+					error_counter = error_counter+1
+					error_line["words"].append(word)
 					#print(word)
 					#print("\t--> " + color.RED + question +color.END,flush=True)
-					print("%i : %s in (%s)"%(errorLine["line"], word, errorLine["question"]))
+					print("%i : %s in (%s)"%(error_line["line"], word, error_line["question"]))
 		#if allgood != True:
 		#	print("%i : %s in (%s)"%(errorLine["line"], errorLine["words"], errorLine["question"]))
 			#print(errorLine)
@@ -53,26 +47,24 @@ def checkFile(fileName):
 			#print("%i :"%(line))
 	#print(color.RED)
 	#print("%i Fehler gefunden"%(lineCnt))
-	print(color.RED +  "--> " + str(errorCnt) + " Rechtschreibfehler in der Vokabeldatei gefunden!" + color.END,flush=True)
-	return len(errorLine)
+	print(Color.RED +  "--> " + str(error_counter) +
+							" Rechtschreibfehler in der Vokabeldatei gefunden!" + Color.END, flush=True)
+	return len(error_line)
 
 
-def parseParamter(argv):
-	global voice
-	global readQuestion
-	global questionType
-	global numberOfQuestions
+def parse_paramter(argv):
+	""" parse parameters from command line using getotps
+	"""
 	inputfile = ''
-	count = 20
 	try:
-	  opts, args = getopt.getopt(argv,"i:",["inputFile="])
+		opts, args = getopt.getopt(argv, "i:", ["inputFile="])
 	except getopt.GetoptError:
 		usage()
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt in ("-i", "--inputFile"):
 			inputfile = arg
-		
+
 
 	if inputfile == '':
 		print()
@@ -90,8 +82,8 @@ def usage():
 
 def main(argv):
 	#print("argv: " + argv[0])
-	fileName = parseParamter(argv)
-	checkFile(fileName)
+	fileName = parse_paramter(argv)
+	check_file(fileName)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

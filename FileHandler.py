@@ -1,154 +1,170 @@
+# -*- coding: utf-8 -*-
+"""Filehandler for Vocabulary
+reads and writes files
+"""
+
 import os
 import ast
-from Config import *
-import operator
+from Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
 
-def readFile( name ):
-
+def read_file(name):
+	""" read a file
+	"""
 	vocabulary = []
-	f = open( name, 'r' )
-	rows = f.readlines()
+	filehandle = open(name, 'r')
+	rows = filehandle.readlines()
 
 	for row in rows:
 		try:
 			translation = row.split(";")
 
-			enTranslations = translation[0].strip().split(":")
+			entranslations = translation[0].strip().split(":")
 
-			deTranslations = translation[1].strip().split(":")
+			detranslations = translation[1].strip().split(":")
 
 			# check for vocabulary type
 			if len(translation) > 2:
-				vocabularyType = translation[2].strip()
-				dict = { 'en' : enTranslations, 'de' : deTranslations, "type" : vocabularyType }
+				vocabulary_type = translation[2].strip()
+				initial_dictionary = {'en' : entranslations, 'de' : detranslations, "type" : vocabulary_type}
 			else:
-				dict = { 'en' : enTranslations, 'de' : deTranslations }
+				initial_dictionary = {'en' : entranslations, 'de' : detranslations}
 
 			#print(dict)
-			vocabulary.append(dict)
+			vocabulary.append(initial_dictionary)
 		except IndexError:
-		 	print("Fehler in der Vokabeldatei in folgendem Eintrag, bitte korrigieren:")
-		 	print(" >>>> " +  row)
+			print("Fehler in der Vokabeldatei in folgendem Eintrag, bitte korrigieren:")
+			print(" >>>> " +  row)
 
 	return vocabulary
 
-def removeProblem(language, pv, question):
-	problemList = pv[language]
+
+def remove_problem(language, problem_vocabulary, question):
+	"""remove a problem from the problem problem_list
+	"""
+	problem_list = problem_vocabulary[language]
 	#print(pv)
-	for p in problemList:
+	for problem in problem_list:
 	#	print("%s == %s : %d"%(p['question'] ,question, p['count']))
-		if p['question'] == question:
-			p['count'] = p['count'] - 1
+		if problem['question'] == question:
+			problem['count'] = problem['count'] - 1
 			#print(p)
-			problemList.remove(p)
-			if p['count'] > 0: # in case count is not good enough add again
-				problemList.append(p)
-			pv[language]=problemList
-			return pv
-	return pv
+			problem_list.remove(problem)
+			if problem['count'] > 0: # in case count is not good enough add again
+				problem_list.append(problem)
+			problem_vocabulary[language] = problem_list
+			return problem_vocabulary
+	return problem_vocabulary
 
 
 
-def upsertProblem(language, pv, problem):
-	problemList = pv[language]
+def upsert_problem(language, problem_vocabulary, problem):
+	"""upsert a problem into the  problem_list
+	"""
+	problem_list = problem_vocabulary[language]
 	#print(pv)
-	for p in problemList:
+	for problem in problem_list:
 		#print(p)
 		#print("%s == %s : %d"%(p['question'] ,problem['question'], p['count']))
-		if p['question'] == problem['question']:
-			problem['count'] = p['count'] + 1
+		if problem['question'] == problem['question']:
+			problem['count'] = problem['count'] + 1
 			#print(p)
-			problemList.remove(p)
-			problemList.append(problem)
-			pv[language]=problemList
-			return pv
-	
-	problemList.append(problem)
-	return pv
+			problem_list.remove(problem)
+			problem_list.append(problem)
+			problem_vocabulary[language] = problem_list
+			return problem_vocabulary
 
-#
-# default name of problem file (hide with .)
-#
-def getProblemFileName ( path, name ):
+	problem_list.append(problem)
+	return problem_vocabulary
+
+
+def get_problem_filename(path, name):
+	"""	 default name of problem file (hide with .)
+	"""
 	return path + "/." + name + "_problemVocabularyFile"
 
-def readProblemFile( path, name ):
-	
-	pvFull = { 'en' : [], 'de' : [] } 
-	if os.path.isfile(getProblemFileName(path, name)) == False:
+def read_problem_file(path, name):
+	""" read the problem file from disk
+	"""
+	pv_full = {'en' : [], 'de' : []}
+	if os.path.isfile(get_problem_filename(path, name)) is False:
 		print("No Problem File exists.")
-		return pvFull
-	# read existing file	
-	f = open( getProblemFileName(path, name), 'r' )
-	rows = f.readlines()
+		return pv_full
+	# read existing file
+	problem_filehandle = open(get_problem_filename(path, name), 'r')
+	rows = problem_filehandle.readlines()
 
 	for row in rows:
-		problemRow = row.split(";")
+		problem_row = row.split(";")
 
-		language = problemRow[0].strip()
-		question = problemRow[1].strip()
-		correctAnswer =  ast.literal_eval(problemRow[2].strip())
-		answer = problemRow[3].strip()
-		count = int(problemRow[4].strip())
+		language = problem_row[0].strip()
+		question = problem_row[1].strip()
+		correct_answer = ast.literal_eval(problem_row[2].strip())
+		answer = problem_row[3].strip()
+		count = int(problem_row[4].strip())
 
 		#print("%s %s %s - %s - %d"% (language, question, correctAnswer, answer, count))
 
-		problem = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer, 'count' : count }
+		problem = {'language' : language, 'question' :  question, 'correctAnswer' : correct_answer, 'answer' :  answer, 'count' : count}
 
 		#print("	Checking " + language + " / " + question + " count: " + str(count))
 
 		#print("	- >" + pvFull[languageKey] +"<")
-		
-		problemList = pvFull[language]
-		# print("	- >" + problemList[wordKey]  +"<") 
+
+		problem_list = pv_full[language]
+		# print("	- >" + problemList[wordKey]  +"<")
 		# first check if the languag exists
 		#if problemList[wordKey] = "":
-		problemList.append(problem)
+		problem_list.append(problem)
 
 		#print(problem)
 		LIST_OF_PROBLEM_VOCABULARY.append(problem)
 
 	print("In der Abfrage werden %i Problemvokabel berücksichtigt." % (len(LIST_OF_PROBLEM_VOCABULARY)))
-	return pvFull
+	return pv_full
 
 
-def writeProblemFile( path, name, pv ):
-	# write problem file 
-	with open(getProblemFileName(path, name), "w") as problemFile:
+def write_problem_file(path, name, problem_vocabulary):
+	""" write problem file
+	"""
+	with open(get_problem_filename(path, name), "w") as problem_file:
 		for language in SUPPORTED_LANGUAGES:
-			for problem in pv[language]:
-				problemFile.write(problem['language'] + ";" + problem['question'] + ";" + str(problem['correctAnswer']) + ";" + problem['answer'] + ";" + str(problem['count'])+ "\n")
+			for problem in problem_vocabulary[language]:
+				problem_file.write(problem['language'] + ";" + problem['question'] + ";" + str(problem['correctAnswer']) + ";" + problem['answer'] + ";" + str(problem['count'])+ "\n")
 
-	print("Problemdatei ergänzt: " + getProblemFileName(path, name))
+	print("Problemdatei ergänzt: " + get_problem_filename(path, name))
 
 #
 # default name of tracker file (hide with .)
 #
-def getTrackerFileName ( path, name ):
+def get_tracker_filename(path, name):
+	"""
+	default name for tracker file
+	"""
 	return path + "/." + name + "_tracker"
 
-
-
-def writeTrackerFile( path, name, tracker):
-	
-	#tracker_sorted = sorted(tracker.items(), key=operator.itemgetter(1), reverse=False)	
-	with open(getTrackerFileName(path, name), "w") as problemFile:
+def write_tracker_file(path, name, tracker):
+	"""save tracker file with new information
+	"""
+	#tracker_sorted = sorted(tracker.items(), key=operator.itemgetter(1), reverse=False)
+	with open(get_tracker_filename(path, name), "w") as problem_file:
 		#pickle.dump(tracker, problemFile)
-		problemFile.write(str(tracker))
+		problem_file.write(str(tracker))
 
-		print("Trackerdatei ergänzt: " + getProblemFileName(path, name))
+		print("Trackerdatei ergänzt: " + get_problem_filename(path, name))
 
 
 
-def loadTrackerFile( path,name ):
-	tracker = { } 
-	if os.path.isfile(getTrackerFileName(path, name)) == False:
+def load_tracker_file(path, name):
+	"""read tracker file from disk
+	"""
+	tracker = {}
+	if os.path.isfile(get_tracker_filename(path, name)) is False:
 		print("No Tracker File exists.")
 		return tracker
-	# read existing file	
+	# read existing file
 	try:
-		trackerString = open( getTrackerFileName(path, name), 'r' ).read()
-		tracker = eval(trackerString)
+		tracker_string = open(get_tracker_filename(path, name), 'r').read()
+		tracker = eval(tracker_string)
 		#print(tracker)
 	except:
 		print("Could not read tracker file")
@@ -157,12 +173,14 @@ def loadTrackerFile( path,name ):
 
 
 
-def writeVocabularyTest( fileName, buffer):
-	# write problem file 
-	with open(fileName, "w") as vocTestFile:
-		vocTestFile.write(buffer)
+def write_vocabulary_test(file_name, buffer):
+	"""generates a vocabulary test as CSV file copy to file editor looks nice ;-)
+	"""
+	# write problem file
+	with open(file_name, "w") as vocabulary_test_filehandle:
+		vocabulary_test_filehandle.write(buffer)
 
-	print("Testdatei erzeugt: " + fileName)
+	print("Testdatei erzeugt: " + file_name)
 
 
 

@@ -6,8 +6,9 @@ import getopt
 import os
 import datetime
 import time
-from Config import *
-from FileHandler import *
+from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
+from FileHandler import read_file, write_problem_file, write_tracker_file
+from FileHandler import load_tracker_file, read_problem_file, upsert_problem
 import operator
 #from SpellChecker import checkFile
 
@@ -24,25 +25,6 @@ currentProblemVocabulary = []
 
 # keeps track of vocabulyry asked
 tracker = {}
-
-
-class color:
-	PURPLE = '\033[95m'
-	CYAN = '\033[96m'
-	BLACK = '\033[0;30m'
-	WHITE = '\033[0;37m'
-	DARKCYAN = '\033[36m'
-	BLUE = '\033[94m'
-	LIGHTBLUE = '\033[34m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-	END = '\033[0m'
-
-	BG_BLUE = '\033[44m'
-	BG_WHITE = "\033[47m"
 
 # probably mac only
 def sayQuestion(language, word):
@@ -74,15 +56,15 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 
 	if isKorrekt:
 		richtig = richtig + 1
-		problems = removeProblem(language, problems, question)
+		problems = remove_problem(language, problems, question)
 	else:
 		text2Say = "say " + voiceSelector + str(correctAnswer)
 		falsch = falsch + 1
 
 		# display problem info
-		print(color.LIGHTBLUE + "	Richtig wäre gewesen: ",end="",flush=True)
+		print(Color.LIGHTBLUE + "	Richtig wäre gewesen: ",end="",flush=True)
 		for ca in correctAnswer:
-			print(color.RED + ca +color.END,end="",flush=True)
+			print(Color.RED + ca +Color.END,end="",flush=True)
 			if ca != correctAnswer[len(correctAnswer)-1]:
 				print(" oder ",end="",flush=True)
 			else:
@@ -92,7 +74,7 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 		problem = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer, 'count' : 0 }
 	
 		# TOD CHANGE to HashMap approach
-		problems = upsertProblem(language, problems ,problem)
+		problems = upsert_problem(language, problems ,problem)
 	#print(text2Say)
 
 
@@ -174,7 +156,7 @@ def runTest( vocabulary , type, problems):
 				#print(randomKey)
 				q = question[qLanguage][randomKey]
 
-		#print("Übersetzung für " + color.BOLD + q + color.END + "  : ", end="",flush=True)
+		#print("Übersetzung für " + Color.BOLD + q + Color.END + "  : ", end="",flush=True)
 		#print("Anzahl Antworten " + str(answerSize))
 		sayQuestion(qLanguage, q)
 
@@ -191,16 +173,16 @@ def runTest( vocabulary , type, problems):
 
 			#eingabe = sys.stdin.readline().strip("\r\n")
 			if variantQuestionCounter > 0:
-				frageText = "	weitere Übersetzung für " + color.BOLD + q + color.END + "  : "
+				frageText = "	weitere Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			else:
-				frageText = str(count) + ". Übersetzung für " + color.BOLD + q + color.END + " (" + str(answerSize) +") : "
-				#frageText = "Übersetzung für " + color.BOLD + q + color.END + "  : "
+				frageText = str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
+				#frageText = "Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			
 			eingabe = input(frageText)
 			
 			# endlos schleife bis neue Vokabel
 			while eingabe in variantDuplicateDetection:
-				print(color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ color.END)
+				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
 				eingabe = input(frageText)
 
 
@@ -349,14 +331,14 @@ def main(argv):
 	#print(file)
 	# read the complete problem vocabulary
 
-	tracker = loadTrackerFile(path, file)
+	tracker = load_tracker_file(path, file)
 
 	if ( not ignoreProblems ):
-		problems = readProblemFile(path, file)
+		problems = read_problem_file(path, file)
 	else:
 		problems = { 'en' : [], 'de' : [] } 
 	
-	vocabulary = readFile(fileName)
+	vocabulary = read_file(fileName)
 	#print(vocabulary)
 	#errors = checkFile(fileName)
 
@@ -400,17 +382,17 @@ def main(argv):
 	note = calcSchulnote(gesamt, falsch)
 
 	print()
-	print(color.BOLD + "Ergebnis:" + color.END)
+	print(Color.BOLD + "Ergebnis:" + Color.END)
 	print("============= Ergebnis ================")
 	print()
-	print(color.BOLD + "	Note 		: %1.1f" % (note) + color.END)
-	#print(color.BOLD + "	Note (kor.) 	: %1.1f" % (noteKorr) + color.END)
+	print(Color.BOLD + "	Note 		: %1.1f" % (note) + Color.END)
+	#print(Color.BOLD + "	Note (kor.) 	: %1.1f" % (noteKorr) + Color.END)
 	print()
 	print("---------------------------------------")
 	print(			   "	Dauer   : %d Minuten %d Sekunden" % (minuten, sekunden))
 	print(			   "	Gesamt  :  " + str(gesamt))
-	print(color.BOLD + color.GREEN + "	Richtig :  " + str(richtig) + color.END)
-	print(color.BOLD + color.RED + "	Falsch  :  " + str(falsch) + color.END)
+	print(Color.BOLD + Color.GREEN + "	Richtig :  " + str(richtig) + Color.END)
+	print(Color.BOLD + Color.RED + "	Falsch  :  " + str(falsch) + Color.END)
 	print("=======================================")
 #	print("	Dauer  : %2d"  + str(minuten) + " : " + str(sekunden))
 	print()
@@ -419,10 +401,10 @@ def main(argv):
 #	for problem in problemVocabulary:
 #		print("%s -->  %s (%s)"%(problem['question'], problem['correctAnswer'] ,str(problem['count'])))
 	if ( not ignoreProblems ):
-		writeProblemFile(path,file, problems)
+		write_problem_file(path,file, problems)
 
 	# write tracker file
-	writeTrackerFile(path, file + "_tracker", tracker)
+	write_tracker_file(path, file + "_tracker", tracker)
 
 	# write result to file
 	with open(".result.log", "a") as logFile:#
@@ -431,33 +413,33 @@ def main(argv):
 
 	
 	if ( note <= 1.5 ):
-		print(color.GREEN + "  _________                              _____          __               ._."+ color.END)
-		print(color.GREEN + " /   _____/__ ________   ___________    /  _  \   _____/  |_  ____   ____| |"+ color.END)
-		print(color.GREEN + " \_____  \|  |  \____ \_/ __ \_  __ \  /  /_\  \ /    \   __\/  _ \ /    \ |"+ color.END)
-		print(color.GREEN + " /        \  |  /  |_> >  ___/|  | \/ /    |    \   |  \  | (  <_> )   |  \|"+ color.END)
-		print(color.GREEN + "/_______  /____/|   __/ \___  >__|    \____|__  /___|  /__|  \____/|___|  /_"+ color.END)
-		print(color.GREEN + "        \/      |__|        \/                \/     \/                 \/\/"+ color.END)
+		print(Color.GREEN + "  _________                              _____          __               ._."+ Color.END)
+		print(Color.GREEN + " /   _____/__ ________   ___________    /  _  \   _____/  |_  ____   ____| |"+ Color.END)
+		print(Color.GREEN + " \_____  \|  |  \____ \_/ __ \_  __ \  /  /_\  \ /    \   __\/  _ \ /    \ |"+ Color.END)
+		print(Color.GREEN + " /        \  |  /  |_> >  ___/|  | \/ /    |    \   |  \  | (  <_> )   |  \|"+ Color.END)
+		print(Color.GREEN + "/_______  /____/|   __/ \___  >__|    \____|__  /___|  /__|  \____/|___|  /_"+ Color.END)
+		print(Color.GREEN + "        \/      |__|        \/                \/     \/                 \/\/"+ Color.END)
 	elif ( note <= 2 ):
-		print(color.GREEN +"  ________        __       _____          __               ._."+ color.END)
-		print(color.GREEN + " /  _____/ __ ___/  |_    /  _  \   _____/  |_  ____   ____| |"+ color.END)
-		print(color.GREEN + "/   \  ___|  |  \   __\  /  /_\  \ /    \   __\/  _ \ /    \ |"+ color.END)
-		print(color.GREEN + "\    \_\  \  |  /|  |   /    |    \   |  \  | (  <_> )   |  \|"+ color.END)
-		print(color.GREEN + " \______  /____/ |__|   \____|__  /___|  /__|  \____/|___|  /_"+ color.END)
-		print(color.GREEN + "        \/                      \/     \/                 \/\/"+ color.END)
+		print(Color.GREEN +"  ________        __       _____          __               ._."+ Color.END)
+		print(Color.GREEN + " /  _____/ __ ___/  |_    /  _  \   _____/  |_  ____   ____| |"+ Color.END)
+		print(Color.GREEN + "/   \  ___|  |  \   __\  /  /_\  \ /    \   __\/  _ \ /    \ |"+ Color.END)
+		print(Color.GREEN + "\    \_\  \  |  /|  |   /    |    \   |  \  | (  <_> )   |  \|"+ Color.END)
+		print(Color.GREEN + " \______  /____/ |__|   \____|__  /___|  /__|  \____/|___|  /_"+ Color.END)
+		print(Color.GREEN + "        \/                      \/     \/                 \/\/"+ Color.END)
 	elif ( note <= 3 ):
-		print(color.YELLOW +"__________.__         ._____.         .___                   ._."+ color.END)
-		print(color.YELLOW +"\______   \  |   ____ |__\_ |__     __| _/___________    ____| |"+ color.END)
-		print(color.YELLOW +" |    |  _/  | _/ __ \|  || __ \   / __ |\_  __ \__  \  /    \ |"+ color.END)
-		print(color.YELLOW +" |    |   \  |_\  ___/|  || \_\ \ / /_/ | |  | \// __ \|   |  \|"+ color.END)
-		print(color.YELLOW +" |______  /____/\___  >__||___  / \____ | |__|  (____  /___|  /_"+ color.END)
-		print(color.YELLOW +"        \/          \/        \/       \/            \/     \/\/"+ color.END)
+		print(Color.YELLOW +"__________.__         ._____.         .___                   ._."+ Color.END)
+		print(Color.YELLOW +"\______   \  |   ____ |__\_ |__     __| _/___________    ____| |"+ Color.END)
+		print(Color.YELLOW +" |    |  _/  | _/ __ \|  || __ \   / __ |\_  __ \__  \  /    \ |"+ Color.END)
+		print(Color.YELLOW +" |    |   \  |_\  ___/|  || \_\ \ / /_/ | |  | \// __ \|   |  \|"+ Color.END)
+		print(Color.YELLOW +" |______  /____/\___  >__||___  / \____ | |__|  (____  /___|  /_"+ Color.END)
+		print(Color.YELLOW +"        \/          \/        \/       \/            \/     \/\/"+ Color.END)
 	elif ( note > 3 ):
-		print(color.RED +" __      __       .__  __                                       .__                 ._."+ color.END)
-		print(color.RED +"/  \    /  \ ____ |__|/  |_  ___________    _____ _____    ____ |  |__   ____   ____| |"+ color.END)
-		print(color.RED +"\   \/\/   // __ \|  \   __\/ __ \_  __ \  /     \\__  \ _/ ___\|  |  \_/ __ \ /    \ |"+ color.END)
-		print(color.RED +" \        /\  ___/|  ||  | \  ___/|  | \/ |  Y Y  \/ __ \\  \___|   Y  \  ___/|   |  \|"+ color.END)
-		print(color.RED +"  \__/\  /  \___  >__||__|  \___  >__|    |__|_|  (____  /\___  >___|  /\___  >___|  /_"+ color.END)
-		print(color.RED +"       \/       \/              \/              \/     \/     \/     \/     \/     \/\/"+ color.END)
+		print(Color.RED +" __      __       .__  __                                       .__                 ._."+ Color.END)
+		print(Color.RED +"/  \    /  \ ____ |__|/  |_  ___________    _____ _____    ____ |  |__   ____   ____| |"+ Color.END)
+		print(Color.RED +"\   \/\/   // __ \|  \   __\/ __ \_  __ \  /     \\__  \ _/ ___\|  |  \_/ __ \ /    \ |"+ Color.END)
+		print(Color.RED +" \        /\  ___/|  ||  | \  ___/|  | \/ |  Y Y  \/ __ \\  \___|   Y  \  ___/|   |  \|"+ Color.END)
+		print(Color.RED +"  \__/\  /  \___  >__||__|  \___  >__|    |__|_|  (____  /\___  >___|  /\___  >___|  /_"+ Color.END)
+		print(Color.RED +"       \/       \/              \/              \/     \/     \/     \/     \/     \/\/"+ Color.END)
 
 
 ### end of main 
@@ -483,7 +465,7 @@ def testRuns():
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
 
 os.system('clear')
-print(color.BG_BLUE + color.WHITE)
+print(Color.BG_BLUE + Color.WHITE)
 print("____   ____     __          ___.          .__   __                .__                     ")
 print("\   \ /   /___ |  | _______ \_ |__   ____ |  |_/  |_____________  |__| ____   ___________ ")
 print(" \   Y   /  _ \|  |/ /\__  \ | __ \_/ __ \|  |\   __\_  __ \__  \ |  |/    \_/ __ \_  __ \\")
@@ -497,7 +479,7 @@ print("                    \/     \/    \/     \/                      \/       
 # print("   |___  / ____| \____|__  /___|  /__|  \____/|___|  / \_______ \_____  /___/______  /    ")
 # print("       \/\/              \/     \/                 \/          \/     \/           \/     ")
 print("                                                                                          ")
-print(color.BLACK + color.BG_WHITE + "" + color.END)
+print(Color.BLACK + Color.BG_WHITE + "" + Color.END)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
