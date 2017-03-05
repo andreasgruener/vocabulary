@@ -17,7 +17,7 @@ Works for ourselves - not prepared to run out of the box, e.g.
 - Install pyenchant
 -- pip3 install pyenchant
 
-# Features:
+# Vocabulary Test - Features:
 ## Question
 - foreign language words - asks e.g. latin you answer in your language
 - orginal language words - asks your langauge you answer in e.g. latin
@@ -49,21 +49,11 @@ example-voc.csv_problemVocabularyFile
 de;böse;['iratus'];irratus;1  
 (Language; Vocabulary; Correct Answer(s), Wrong Ansert; Wrong Count  
 
-### Vocabulary Tracker
+## Vocabulary Tracker
 Keeps track that the randomly asked vocabularies are distributed somehow evenly.  
 {'dum': 2, 'fluere,volvere': 2, 'aegrotus': 2, 'forum': 2, 'iratus': 2, 'quamquam': 2, 'ignoscere': 2, 'diu': 2, 'quod': 2, 'imperium': 2, 'caput': 2, 'templum': 2, 'aedificum': 2}
 
-### Spellchecker
-Checks the CSV file for typos (English only)
-
-CSV based vocabulary files. Strcuture of vocabulary files:  
-
-```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*```
-Example:  
-fluere,volvere;fließen:strömen  
-fluere;fließen
-
-
+## Usage
 Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]  
 	-i <inputfile> :: name of the file containing the vocabulary  
 	-v             :: voice based results (say correct answer)  
@@ -77,3 +67,35 @@ Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]
    
 Example:  
 	./vocabulary.py -i voc.csv
+
+
+# Spellchecker
+Checks the CSV file for typos (English only)
+
+CSV based vocabulary files. Strcuture of vocabulary files:  
+
+```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*```
+Example:  
+fluere,volvere;fließen:strömen  
+fluere;fließen
+
+## Usage
+Usage: ./SpellChecker.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]  
+	-i <inputfile> :: name of the file containing the vocabulary  
+
+   
+Example:  
+	./SpellChecker.py -i voc.csv
+
+
+# Generate Latin Test 
+Generates a simple latin test based on the vocabulary. If the lines contains the type of word it asks for Genus and Kasus or Person and mode.
+
+## Usage
+Usage: ./generateLatinTest.py -i <inputfile> [-c n] [-h]
+        -i <inputfile> :: name of the file containing the vocabulary
+        -h             :: prints this help message
+        -c <Anzahl>    :: number of words to ask
+
+Example:
+        ./generateLatinTest.py -i voc.csv -v

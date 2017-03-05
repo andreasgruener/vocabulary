@@ -1,28 +1,28 @@
-en;ignoscere;['verzeihen'];;7
-en;fluere;['fließen', 'strömen'];;3
-en;forum;['der Marktplatz'];;7
-en;imperium;['das Reich'];;3
-en;iratus;['böse'];;7
-en;aedificum;['das Gebäude'];;6
-en;caput;['der Kopf'];;4
-en;volvere;['fließen', 'strömen'];;5
-en;templum;['der Tempel'];;5
-en;dum;['während'];;8
-en;diu;['lange'];;6
-en;aegrotus;['krank'];;8
-en;quod;['weil'];;5
-de;der Kopf;['caput'];;8
-de;fließen;['fluere', 'volvere'];;4
-de;das Reich;['imperium'];;7
-de;böse;['iratus'];;5
-de;obwohl;['quamquam'];;3
-de;während;['dum'];;5
-de;krank;['aegrotus'];;5
-de;obgleich;['quamquam'];;6
-de;weil;['quod'];;5
-de;verzeihen;['ignoscere'];;4
-de;der Tempel;['templum'];;7
-de;strömen;['fluere', 'volvere'];;4
+en;fluere;['fließen', 'strömen'];;4
+en;forum;['der Marktplatz'];;8
+en;imperium;['das Reich'];;4
+en;iratus;['böse'];;8
+en;aedificum;['das Gebäude'];;7
+en;caput;['der Kopf'];;5
+en;volvere;['fließen', 'strömen'];;6
+en;templum;['der Tempel'];;6
+en;dum;['während'];;9
+en;diu;['lange'];;7
+en;aegrotus;['krank'];;9
+en;quod;['weil'];;6
+en;ignoscere;['verzeihen'];;9
 de;das Gebäude;['aedificum'];;5
 de;der Marktplatz;['forum'];;6
 de;lange;['diu'];;6
+de;der Kopf;['caput'];;9
+de;fließen;['fluere', 'volvere'];;5
+de;das Reich;['imperium'];;8
+de;böse;['iratus'];;6
+de;obwohl;['quamquam'];;4
+de;während;['dum'];;6
+de;krank;['aegrotus'];;6
+de;obgleich;['quamquam'];;7
+de;weil;['quod'];;6
+de;verzeihen;['ignoscere'];;5
+de;der Tempel;['templum'];;8
+de;strömen;['fluere', 'volvere'];;5

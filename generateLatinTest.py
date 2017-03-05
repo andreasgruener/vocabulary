@@ -6,8 +6,7 @@ import getopt
 import os
 import datetime
 import time
-from Config import *
-from FileHandler import *
+from FileHandler import read_file, write_vocabulary_test
 import operator
 #from SpellChecker import checkFile
 
@@ -24,24 +23,6 @@ PERSON = ["1. Pers",  "2. Pers", "3. Pers"]
 # keeps track of vocabulyry asked
 tracker = {}
 
-
-class color:
-	PURPLE = '\033[95m'
-	CYAN = '\033[96m'
-	BLACK = '\033[0;30m'
-	WHITE = '\033[0;37m'
-	DARKCYAN = '\033[36m'
-	BLUE = '\033[94m'
-	LIGHTBLUE = '\033[34m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-	END = '\033[0m'
-
-	BG_BLUE = '\033[44m'
-	BG_WHITE = "\033[47m"
 
 
 
@@ -89,7 +70,7 @@ def printTest(path, file, vocabulary, count):
 
 	printDocument = printDocument + printFooter()
 	print(printDocument)
-	writeVocabularyTest(path+"/Vokabeltest"+uniqueName + ".txt",printDocument)
+	write_vocabulary_test(path+"/Vokabeltest"+uniqueName + ".txt",printDocument)
 
 def printHeader(fileName, uniqueName):
 	global width
@@ -172,14 +153,14 @@ def appendLine(buffer, text):
 	return buffer + text + "\n"
 
 def usage():
-	print('Usage: ./vocabulary.py -i <inputfile> [-c n] [-h]')
+	print('Usage: ./generateLatinTest.py -i <inputfile> [-c n] [-h]')
 	print('	-i <inputfile> :: name of the file containing the vocabulary')
 	print('	-h             :: prints this help message')
 
 	print('	-c <Anzahl>    :: number of words to ask')
 	print()
 	print('Example:')
-	print('	./vocabulary.py -i voc.csv -v')
+	print('	./generateLatinTest.py -i voc.csv -v')
 
 
 
@@ -230,7 +211,7 @@ def main(argv):
 	file = os.path.basename(fileName)
 	print(path)
 
-	vocabulary = readFile(fileName)
+	vocabulary = read_file(fileName)
 	random.shuffle(vocabulary)
 
 	printTest(path,file, vocabulary, int(count))	

@@ -1,13 +1,13 @@
 quod;weil
-aegrotus;krank
-ignoscere;verzeihen
+aegrotus;krank;A
+ignoscere;verzeihen;V
 quamquam;obgleich:obwohl
 diu;lange
-iratus;böse
+iratus;böse;A
 dum;während
-forum;der Marktplatz
-aedificum;das Gebäude
-templum;der Tempel
-caput;der Kopf
-imperium;das Reich
-fluere:volvere;fließen:strömen
+forum;der Marktplatz;S
+aedificum;das Gebäude;S
+templum;der Tempel;S
+caput;der Kopf;S
+imperium;das Reich;S
+fluere:volvere;fließen:strömen;V
