@@ -1,6 +1,11 @@
 Simple Python3 Command Line tool to train foreign languange vocabulary.   
 Done with my son for his English and Latin course.   
 
+# Status
+Works for ourselves - not prepared to run out of the box, e.g.
+- Python dependencies need to be installed first, 
+- internationalization 
+
 # Features:
 ## Question
 - foreign language words - asks latin you answer in yout language
@@ -14,9 +19,7 @@ Done with my son for his English and Latin course.
 Gives a grade based on the german school grades (1 - Best to 6 - worst)  
 Ergebnis:  
 
-
 	Note 		: 6.0
-
 
 	Duration   	: 0 Minuten 30 Sekunden
 	Total  		:  20
