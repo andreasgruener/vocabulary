@@ -1,6 +1,8 @@
 Simple Python3 Command Line tool to train foreign languange vocabulary.   
 Done with my son for his English and Latin course.   
 
+![alt text](https://github.com/andreasgruener/vocabulary/blob/master/example/Example-Screenshot.png?raw=true "Example Screen of running Vocabulary Test")
+
 # Status
 Works for ourselves - not prepared to run out of the box, e.g.
 - Python dependencies need to be installed first, 
@@ -11,7 +13,7 @@ Works for ourselves - not prepared to run out of the box, e.g.
 - foreign language words - asks e.g. latin you answer in your language
 - orginal language words - asks your langauge you answer in e.g. latin
 - number of words k - the number of 
-- all variants - you need to provide all variante of a translation  
+- all variants - you need to provide all variants of a translation 
 - voice based results (say correct answer)  - says the correct answer (works on mac)
 - no problem vocabulary - switches of default mode, which asks all wrongly answered vaocabularies at the end
 
