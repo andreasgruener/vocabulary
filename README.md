@@ -35,8 +35,8 @@ example-voc.csv_problemVocabularyFile
 de;böse;['iratus'];irratus;1  
 (Language; Vocabulary; Correct Answer(s), Wrong Ansert; Wrong Count  
 
-### Tracker
-Keeps track that the randomly asked vocabularies are distributed evenly.  
+### Vocabulary Tracker
+Keeps track that the randomly asked vocabularies are distributed somehow evenly.  
 {'dum': 2, 'fluere,volvere': 2, 'aegrotus': 2, 'forum': 2, 'iratus': 2, 'quamquam': 2, 'ignoscere': 2, 'diu': 2, 'quod': 2, 'imperium': 2, 'caput': 2, 'templum': 2, 'aedificum': 2}
 
 ### Spellchecker
