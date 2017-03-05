@@ -3,13 +3,41 @@ Done with my son for his English and Latin course.
 
 ![alt text](https://github.com/andreasgruener/vocabulary/blob/master/example/Example-Screenshot.png?raw=true "Example Screen of running Vocabulary Test")
 
-# Status
-Works for ourselves - not prepared to run out of the box, e.g.
-- Python dependencies need to be installed first, 
-- internationalization 
+It offers three features:
+- A) Vocabulary Trainer
+- B) Spellchecker for english vocabulary files 
+- C) Generate Latin declination & konjugation
+All three use the same file format
 
-# Requirements / Dependencies
-## Mac
+## File Format
+CSV based vocabulary files. Strcuture of vocabulary files:  
+```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*```
+
+Example:  
+fluere,volvere;fließen:strömen  
+fluere;fließen
+
+### Optional Type pf Word (for Latin Test see C) )
+- A: Adjective 
+- N: Noun
+- V; Verb  
+
+```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*;<A|V|N>```
+
+Example:   
+		fluere,volvere;fließen:strömen;V  
+		fluere;fließen;V  
+		dominus;Herr;N   
+		iratus;böse;A  
+
+## Status
+Works, is in daily use
+- Python dependencies need to be installed first
+- internationalization 
+- focus on our needs, not generalized
+
+## Requirements / Dependencies
+### Mac
 - Install Python3 
 -- brew install python3
 - Install enchant (Spellchecker)
@@ -17,7 +45,7 @@ Works for ourselves - not prepared to run out of the box, e.g.
 - Install pyenchant
 -- pip3 install pyenchant
 
-# Vocabulary Test - Features:
+# A) Vocabulary Test - Features:
 ## Question
 - foreign language words - asks e.g. latin you answer in your language
 - orginal language words - asks your langauge you answer in e.g. latin
@@ -28,14 +56,19 @@ Works for ourselves - not prepared to run out of the box, e.g.
 
 ## Grades
 Gives a grade based on the german school grades (1 - Best to 6 - worst)  
-Ergebnis:  
+~~~
+Ergebnis:
+============= Ergebnis ================
 
-	Note 		: 6.0
+        Note            : 6.0
 
-	Duration   	: 0 Minuten 30 Sekunden
-	Total  		:  20
-	Correct 	:  18
-	Wrong  		:  2
+---------------------------------------
+        Dauer   : 0 Minuten 4 Sekunden
+        Gesamt  :  26
+        Richtig :  0
+        Falsch  :  26
+=======================================
+~~~
 
 
 ## Usage Tracker
@@ -51,9 +84,12 @@ de;böse;['iratus'];irratus;1
 
 ## Vocabulary Tracker
 Keeps track that the randomly asked vocabularies are distributed somehow evenly.  
+~~~~
 {'dum': 2, 'fluere,volvere': 2, 'aegrotus': 2, 'forum': 2, 'iratus': 2, 'quamquam': 2, 'ignoscere': 2, 'diu': 2, 'quod': 2, 'imperium': 2, 'caput': 2, 'templum': 2, 'aedificum': 2}
+~~~~
 
 ## Usage
+~~~
 Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]  
 	-i <inputfile> :: name of the file containing the vocabulary  
 	-v             :: voice based results (say correct answer)  
@@ -67,17 +103,10 @@ Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]
    
 Example:  
 	./vocabulary.py -i voc.csv
+~~~
 
-
-# Spellchecker
+# B) Spellchecker
 Checks the CSV file for typos (English only)
-
-CSV based vocabulary files. Strcuture of vocabulary files:  
-
-```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*```
-Example:  
-fluere,volvere;fließen:strömen  
-fluere;fließen
 
 ## Usage
 Usage: ./SpellChecker.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]  
@@ -86,9 +115,9 @@ Usage: ./SpellChecker.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]
    
 Example:  
 	./SpellChecker.py -i voc.csv
+~~~
 
-
-# Generate Latin Test 
+# C) Generate Latin Test 
 Generates a simple latin test based on the vocabulary. If the lines contains the type of word it asks for Genus and Kasus or Person and mode.
 
 ## Usage
@@ -100,8 +129,41 @@ Usage: ./generateLatinTest.py -i <inputfile> [-c n] [-h]
 Example:
         ./generateLatinTest.py -i voc.csv -v
 
-
-## Sample Test
+~~~
+bash-3.2$ ./generateLatinTest.py -i example/example-voc.csv
+Es werden 12 Vokabeln abgefragt.
+example
+====================================================================
+ Vokabeldatei : example/example-voc.csv
+ Erzeugt am   : 2017-03-05_19-23
+====================================================================
+--------------------------------------------------------------------
+                               |
+caput :                        |
+  Gen. Pl.                     |
+--------------------------------------------------------------------
+                               |
+fluere :                       |
+  2. Pers Pl.                  |
+--------------------------------------------------------------------
+                               |
+imperium :                     |
+  Gen. Pl.                     |
+--------------------------------------------------------------------
+                               |
+forum :                        |
+  Akk. Pl.                     |
+--------------------------------------------------------------------
+                               |
+quod :                         |
+                               |
+--------------------------------------------------------------------
+                               |
+iratus :                       |
+  m. Gen. Sg.                  |
+--------------------------------------------------------------------
+                               |
+templum :                      |
   Gen. Pl.                     |
 --------------------------------------------------------------------
                                |
@@ -112,15 +174,4 @@ aedificum :                    |
 quamquam :                     |
                                |
 --------------------------------------------------------------------
-                               |
-aegrotus :                     |
-  m. Akk. Sg.                  |
---------------------------------------------------------------------
-                               |
-dum :                          |
-                               |
---------------------------------------------------------------------
-                               |
-diu :                          |
-                               |
---------------------------------------------------------------------
+~~~
