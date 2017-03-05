@@ -11,10 +11,10 @@ from FileHandler import *
 import operator
 #from SpellChecker import checkFile
 
-richtig=0
+richtig = 0
 falsch = 0
 voice = False
-alleVarianten = False 
+alleVarianten = False
 ignoreProblems = False
 percentageOfProblemVokabel = 0.1
 questionType = "mixed"
@@ -44,39 +44,39 @@ class color:
 	BG_BLUE = '\033[44m'
 	BG_WHITE = "\033[47m"
 
-
-def sayQuestion (language, word):
+# probably mac only
+def sayQuestion(language, word):
 	#set default value if no language is provided
 	if readQuestion:
 		voiceSelector = "-v Anna "
 		if language == "de":
 			voiceSelector = "-v Daniel "
-		text2Say="say " + voiceSelector + word
+		text2Say = "say " + voiceSelector + word
 
-		os.system(text2Say) 	
+		os.system(text2Say)
 
 
-def result( language, isKorrekt, answer, correctAnswer, question, problems ):
+def result(language, isKorrekt, answer, correctAnswer, question, problems):
 
 	#set default value if no language is provided
 	voiceSelector = "-v Daniel "
-	korrektText =" correct"
+	korrektText = " correct"
 
 
 	if language == "en":
 		voiceSelector = "-v Anna "
 		korrektText = " richtig"
-	
-	text2Say="say " + voiceSelector + korrektText
+
+	text2Say = "say " + voiceSelector + korrektText
 
 	global richtig
 	global falsch
 
 	if isKorrekt:
 		richtig = richtig + 1
-		problems = removeProblem(language, problems ,question)
+		problems = removeProblem(language, problems, question)
 	else:
-		text2Say="say " + voiceSelector + str(correctAnswer)
+		text2Say = "say " + voiceSelector + str(correctAnswer)
 		falsch = falsch + 1
 
 		# display problem info
@@ -503,7 +503,7 @@ if __name__ == "__main__":
    main(sys.argv[1:])
    #testRuns()
 
-# TODO / IDEAS
+#TODO
 # - Parameter -d : deutsche Wörter fragen
 # - Parameter -e : englische Wörter fragen
 # - Parameter -m : mixed (deutsch / english)
