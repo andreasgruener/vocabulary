@@ -1,4 +1,4 @@
-Simple Command Line tool to train foreign languange vocabulary.   
+Simple Python3 Command Line tool to train foreign languange vocabulary.   
 Done with my son for his English and Latin course.   
   
 CSV based vocabulary files. Strcuture of vocabulary files:  
