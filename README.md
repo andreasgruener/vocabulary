@@ -49,7 +49,7 @@ Checks the CSV file for typos (English only)
 
 CSV based vocabulary files. Strcuture of vocabulary files:  
 
-```<Orignial Language Term>[,<Alternate Orig Language Termin]*;<Translation>[:<Alternate Translation>]*```
+```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*```
 Example:  
 fluere,volvere;fließen:strömen  
 fluere;fließen
