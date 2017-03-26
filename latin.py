@@ -16,9 +16,9 @@ richtig = 0
 falsch = 0
 voice = False
 alleVarianten = False
-ignoreProblems = False
+ignoreProblems = True
 percentageOfProblemVokabel = 0.1
-questionType = "mixed"
+questionType = "translation"
 readQuestion = False
 numberOfQuestions = 100
 currentProblemVocabulary = []
@@ -111,26 +111,17 @@ def runTest( vocabulary , type, problems):
 	count = 0
 	global percentageOfProblemVokabel
 
-	# default is english
+	# default is latin (other way round not useful)
+	# there is alway one single latin word
 	qLanguage = "translation"
 	problemCount = { 'translation' : len(problems['translation']), 'source' : len(problems['source'])}
 
 
-	#print("Problem Count :" + str(problemCount))
-	#print(problems)
-	print("")
-	if type == 'source':
-		qLanguage = "source"
-
 	for question in vocabulary:
+		wrongAnswer = False
 		count = count + 1
+		#print("question:")
 		#print(question)
-		# randomize langauge each time
-		if type == 'mixed':
-			if random.choice([True, False]):
-				qLanguage = "translation"
-			else:
-				qLanguage = "source"
 
 		# mix problems randomly in questions
 		if random.random() < percentageOfProblemVokabel and problemCount[qLanguage] > 1:
@@ -146,21 +137,13 @@ def runTest( vocabulary , type, problems):
 			answerSize = 1
 		else:
 			# there is exactly one entry in the given array
-			questionsVocabularySize = len(question[qLanguage])
-			answerSize = len(question[ANSWER_LANGUAGE_4_QUESTION[qLanguage]])
-			a = question[ANSWER_LANGUAGE_4_QUESTION[qLanguage]]
-			#a_genetiv = question['genetiv']
-			#a_kasus = question['genetiv']
-			#print(a)
-			#print(str(questionsVocabularySize))
-			if questionsVocabularySize == 1:
-				q = question[qLanguage][0]
-			else:
-				randomKey = random.randint(0, questionsVocabularySize-1)
-				#print(randomKey)
-				q = question[qLanguage][randomKey]
+			q = question[qLanguage][0]
+			answerSize = len(question["source"])
+			a = question["source"] # is an array
 
-		print("Frage >> " + str(question[qLanguage]))
+
+
+		#print("Frage >> " + str(question[qLanguage]))
 		#print("Übersetzung für " + Color.BOLD + q + Color.END + "  : ", end="",flush=True)
 		#print("Anzahl Antworten " + str(answerSize))
 		sayQuestion(qLanguage, q)
@@ -172,6 +155,29 @@ def runTest( vocabulary , type, problems):
 			loop = answerSize
 
 		variantDuplicateDetection = []
+		print(Color.BOLD + q + Color.END)
+		# first ask genetiv genus
+		if "genetiv" in question:
+			frageText = " " + str(count) + ". Genetiv für " + Color.BOLD + q + Color.END + " : "
+			eingabe = input(frageText)
+			if eingabe == question['genetiv']:
+				result(qLanguage, True, eingabe, [question['genetiv']],q, problems)
+			else:
+				result(qLanguage, False, eingabe, [question['genetiv']],q, problems)
+				#currentProblemVocabulary.append(question)
+				wrongAnswer = True
+
+		# second ask genus 
+		if "genus" in question:
+			frageText = " " + str(count) + ". Genus für " + Color.BOLD + q + Color.END + " : "
+			eingabe = input(frageText)
+			if eingabe == question['genus']:
+				result(qLanguage, True, eingabe, [question['genus']],q, problems)
+			else:
+				result(qLanguage, False, eingabe, [question['genus']],q, problems)
+				#currentProblemVocabulary.append(question)
+				wrongAnswer = True
+
 
 		# loop over variants - answer (a) contains all variants
 		for variantQuestionCounter in range(0,loop):
@@ -180,7 +186,7 @@ def runTest( vocabulary , type, problems):
 			if variantQuestionCounter > 0:
 				frageText = "	weitere Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			else:
-				frageText = str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
+				frageText = " " + str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
 				#frageText = "Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			
 			eingabe = input(frageText)
@@ -197,7 +203,8 @@ def runTest( vocabulary , type, problems):
 				result(qLanguage, True, eingabe, a,q, problems)
 			else:
 				result(qLanguage, False, eingabe, a,q, problems)
-				currentProblemVocabulary.append(question)
+				wrongAnswer = True
+				
 
 			
 
@@ -213,6 +220,9 @@ def runTest( vocabulary , type, problems):
 			#if loop > variantQuestionCounter+1:
 			#		print("   weitere Übersetzung : ")
 
+		if wrongAnswer:
+			currentProblemVocabulary.append(question)
+		
 		if count >= numberOfQuestions:
 				print("\nAnzahl der Fragen erreicht.")
 				break
@@ -223,14 +233,9 @@ def usage():
 	print('Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]')
 	print('	-i <inputfile> :: name of the file containing the vocabulary')
 	print('	-v             :: voice based results (say correct answer)')
-#	print('	-v             :: voice based question (say question)')
 	print('	-n             :: no problem vocabulary')
 	print('	-h             :: prints this help message')
-	print('	-f             :: asks foreign language words')
-	print('	-d             :: asks german words')
-	print('	-m             :: asks mixed')
 	print('	-c <Anzahl>    :: number of words to ask')
-	print('	-a             :: all variants are asked')
 	print()
 	print('Example:')
 	print('	./vocabulary.py -i voc.csv -v')
@@ -261,16 +266,8 @@ def parseParamter(argv):
 			count = arg
 		elif opt in ("-v", "--voice"):
 			voice = True
-		elif opt in ("-f", "--foreign"):
-			questionType = "translation"
-		elif opt in ("-d", "--deutsch"):
-			questionType = "source"
-		elif opt in ("-m", "--mixed"):
-			questionType = "mixed"
 		elif opt in ("-n", "--noProblemVocabulary"):
 			ignoreProblems = True
-		elif opt in ("-a", "--alle"):
-			alleVarianten = True
 		elif opt in ("-r", "--read"):
 			readQuestion = True
 		elif opt in ("-t", "--test"):

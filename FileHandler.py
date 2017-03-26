@@ -8,7 +8,11 @@ import ast
 from Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
 
 def read_file(name):
-	""" read a file
+	""" 
+	read a file
+	; separates the entries TRANSLATION;SOURCE;[TYPE]
+	: separates multiple options in TRANSLATION or SOURCE
+	, separates word, genetiv, genus (e.g. latin dominus,domini,m)
 	"""
 	vocabulary = []
 	filehandle = open(name, 'r')
@@ -18,16 +22,32 @@ def read_file(name):
 		try:
 			translation = row.split(";")
 
-			entranslations = translation[0].strip().split(":")
+			# parse multiple options in the foreign langauge
+			lang_translations = translation[0].strip().split(":")
+			# parse multiple options in your language
+			lange_source = translation[1].strip().split(":")
 
-			detranslations = translation[1].strip().split(":")
+			initial_dictionary = {'translation' : lang_translations, 'source' : lange_source}
+
+			#check if we have genetiv and genus
+			for translation_row in lang_translations:
+				#print(translation_row)
+				full_stack = translation_row.split(",")
+				if len(full_stack) == 2:
+					print("Error parsing Genetiv, Genus - missing one entry" + translation)
+				elif len(full_stack) == 3:
+					initial_dictionary["translation"] = [full_stack[0]]
+					#print(full_stack[0])
+					initial_dictionary["genetiv"] = str(full_stack[1])
+					initial_dictionary["genus"] = str(full_stack[2])
+				else:
+					print("no genetiv, genus")
 
 			# check for vocabulary type
 			if len(translation) > 2:
-				vocabulary_type = translation[2].strip()
-				initial_dictionary = {'en' : entranslations, 'de' : detranslations, "type" : vocabulary_type}
-			else:
-				initial_dictionary = {'en' : entranslations, 'de' : detranslations}
+				vocabulary_type = translation_row[2].strip()
+				initial_dictionary["type"] = vocabulary_type
+
 
 			#print(dict)
 			vocabulary.append(initial_dictionary)
@@ -61,15 +81,17 @@ def upsert_problem(language, problem_vocabulary, problem):
 	"""upsert a problem into the  problem_list
 	"""
 	problem_list = problem_vocabulary[language]
-	#print(pv)
+	#print(problem_list)
 	for problem in problem_list:
-		#print(p)
-		#print("%s == %s : %d"%(p['question'] ,problem['question'], p['count']))
+		print(problem)
+
+		#print("%s == %s : %d"%(['question'] ,problem['question'], p['count']))
 		if problem['question'] == problem['question']:
 			problem['count'] = problem['count'] + 1
-			#print(p)
+			#print(problem_list)
 			problem_list.remove(problem)
 			problem_list.append(problem)
+			#print(problem_list)
 			problem_vocabulary[language] = problem_list
 			return problem_vocabulary
 
@@ -85,7 +107,7 @@ def get_problem_filename(path, name):
 def read_problem_file(path, name):
 	""" read the problem file from disk
 	"""
-	pv_full = {'en' : [], 'de' : []}
+	pv_full = {'translation' : [], 'source' : []}
 	if os.path.isfile(get_problem_filename(path, name)) is False:
 		print("No Problem File exists.")
 		return pv_full
@@ -109,6 +131,13 @@ def read_problem_file(path, name):
 		#print("	Checking " + language + " / " + question + " count: " + str(count))
 
 		#print("	- >" + pvFull[languageKey] +"<")
+		print(problem)
+		print(language)
+		# legacy stuff
+		if language == 'en':
+			language = 'translation'
+		if language == 'de':
+			language = 'source'
 
 		problem_list = pv_full[language]
 		# print("	- >" + problemList[wordKey]  +"<")
