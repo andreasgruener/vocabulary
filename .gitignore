@@ -1,6 +1,7 @@
 # project specific
 .vscode
-
+/example/Vokabeltest*
+/example/.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
