@@ -45,7 +45,7 @@ def read_file(name):
 
 			# check for vocabulary type
 			if len(translation) > 2:
-				vocabulary_type = translation_row[2].strip()
+				vocabulary_type = translation[2].strip()
 				initial_dictionary["type"] = vocabulary_type
 
 
