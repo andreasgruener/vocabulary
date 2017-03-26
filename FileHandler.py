@@ -34,14 +34,14 @@ def read_file(name):
 				#print(translation_row)
 				full_stack = translation_row.split(",")
 				if len(full_stack) == 2:
-					print("Error parsing Genetiv, Genus - missing one entry" + translation)
+					print("Error parsing Genetiv, Genus - missing one entry" + str(translation))
 				elif len(full_stack) == 3:
 					initial_dictionary["translation"] = [full_stack[0]]
 					#print(full_stack[0])
 					initial_dictionary["genetiv"] = str(full_stack[1])
 					initial_dictionary["genus"] = str(full_stack[2])
-				else:
-					print("no genetiv, genus")
+				#else:
+					#print("no genetiv, genus")
 
 			# check for vocabulary type
 			if len(translation) > 2:

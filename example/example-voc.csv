@@ -1,7 +1,21 @@
-dominus,domini,m;Herr:Mann
-forum,fori,n;der Marktplatz
-aedificum,aedifici,n;das Gebäude
-templum;der Tempel
-caput,caputis,m;der Kopf
-imperium,imperi,m;das Reich
-fluere;fließen:strömen
+dominus,domini,m;Herr:Mann;S
+forum,fori;der Marktplatz;S
+aedificum,aedifici,n;das Gebäude;S
+templum;der Tempel;S
+caput,caputis,m;der Kopf;S
+imperium,imperi,m;das Reich;S
+fluere;fließen:strömen;V
+quod;weil
+aegrotus,agroti,m;krank;A
+ignoscere;verzeihen;V
+quamquam;obgleich:obwohl
+diu;lange
+iratus,iratis,m;böse;A
+dum;während
+forum;der Marktplatz;S
+aedificum;das Gebäude;S
+templum;der Tempel;S
+caput;der Kopf;S
+imperium;das Reich;S
+fluere:volvere;fließen:strömen;V
+dominus;Herr;S
