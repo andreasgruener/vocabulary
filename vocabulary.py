@@ -6,7 +6,9 @@ import getopt
 import os
 import datetime
 import time
-from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
+import smtplib
+from email.mime.text import MIMEText
+from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION_MAIL,NOTIFICATION_SMTP_RCPT,NOTIFICATION_SMTP_SERVER,NOTIFICATION_SMTP_USER,NOTIFICATION_SMTP_PWD,NOTIFICATION_SMTP_FROM
 from FileHandler import read_file, write_problem_file, write_tracker_file
 from FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
@@ -25,6 +27,41 @@ currentProblemVocabulary = []
 
 # keeps track of vocabulyry asked
 tracker = {}
+
+def send_email(subject, body):
+    import smtplib
+
+    mail_user = NOTIFICATION_SMTP_USER
+    mail_pwd = NOTIFICATION_SMTP_PWD
+    FROM = NOTIFICATION_SMTP_FROM
+    TO = NOTIFICATION_SMTP_RCPT if type(NOTIFICATION_SMTP_RCPT) is list else [NOTIFICATION_SMTP_RCPT]
+    SUBJECT = subject
+    TEXT = body
+
+    # Prepare actual message
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP(NOTIFICATION_SMTP_SERVER, 587)
+        server.ehlo()
+        server.starttls()
+        server.login(mail_user, mail_pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        print('successfully sent the mail')
+    except:
+        print("failed to send mail")
+
+
+def sendInfoMail(datum, start, ende, note, dauer, user, gesamt, falsch, frage_art, vokabel_datei):
+
+	info = (
+		"Vokabeltrainer\n"
+		"\n"
+		"Gestartet am:\t"+datum+"\n""Beginn:\t"+start+"\n""Ende:\t"+ende+"\n""Note:\t"+note+"\n""Dauer:\t"+dauer+" Sekunden\n""Benutzer:\t"+user+"\n""Anzahl Vokabeln:\t"+gesamt+"\n""Davon Falsch:\t"+falsch+"\n""Abfrageart:\t"+frage_art+"\n""Vokabeldatei\t"+vokabel_datei+"\n"
+	)
+	send_email("Vokabeltrainer :: Note %s ( %s / %s )" % (note, gesamt,falsch), info)
+
 
 # probably mac only
 def sayQuestion(language, word):
@@ -160,7 +197,7 @@ def runTest( vocabulary , type, problems):
 				#print(randomKey)
 				q = question[qLanguage][randomKey]
 
-		print("Frage >> " + str(question[qLanguage]))
+		#print("Frage >> " + str(question[qLanguage]))
 		#print("Übersetzung für " + Color.BOLD + q + Color.END + "  : ", end="",flush=True)
 		#print("Anzahl Antworten " + str(answerSize))
 		sayQuestion(qLanguage, q)
@@ -229,6 +266,7 @@ def usage():
 	print('	-f             :: asks foreign language words')
 	print('	-d             :: asks german words')
 	print('	-m             :: asks mixed')
+	print(' -e 			   :: sends result-email to given address') # TODO - it's always on right now
 	print('	-c <Anzahl>    :: number of words to ask')
 	print('	-a             :: all variants are asked')
 	print()
@@ -327,6 +365,9 @@ def calcSchulnote(gesamt, fehler):
 	return note
 
 def main(argv):
+
+#	sendInfoMail("datum", "start", "ende", "6", "1h", "user", "27", "12", "frage_art", "vokabel_datei")
+
 	global tracker
 	#print("argv: " + argv[0])
 	fileName = parseParamter(argv)
@@ -415,6 +456,7 @@ def main(argv):
 	with open(".result.log", "a") as logFile:#
 		logFile.write(str(start.date()) + " : " + start.time().strftime("%H:%M:%S") + " : " + end.time().strftime("%H:%M:%S") + " : " + str(note) + " : " + str(duration) + " :" + user + " : " + str(richtig+falsch) + " : " + str(falsch)+ " : " + questionType + " : " + str(fileName) +  "\n")
 
+	sendInfoMail(str(start.date()),start.time().strftime("%H:%M:%S"), end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,str(richtig+falsch),str(falsch),questionType,str(fileName))
 
 	
 	if ( note <= 1.5 ):

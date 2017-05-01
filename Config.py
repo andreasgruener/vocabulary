@@ -10,7 +10,12 @@ QUESTION_TEXT = {'translation' : 'Fremdsprache --> Deutsch',
          'source' : 'Deutsch --> Fremdsprache ',
          'mixed' : 'Deutsch/Fremdsprache gemischt'}
 LIST_OF_PROBLEM_VOCABULARY = []
-
+NOTIFICATION_MAIL='user@gmail.com'
+NOTIFICATION_SMTP_SERVER = "smtp.gmail.de"
+NOTIFICATION_SMTP_USER= "vokabel-trainer"
+NOTIFICATION_SMTP_PWD= "secret"
+NOTIFICATION_SMTP_FROM= "vokabel-trainer@gmail.com"
+NOTIFICATION_SMTP_RCPT= "your-address@example.com"
 
 class Color:
     """Color codes for terminal
