@@ -8,7 +8,7 @@ import datetime
 import time
 import smtplib
 from email.mime.text import MIMEText
-from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION_MAIL,NOTIFICATION_SMTP_RCPT,NOTIFICATION_SMTP_SERVER,NOTIFICATION_SMTP_USER,NOTIFICATION_SMTP_PWD,NOTIFICATION_SMTP_FROM
+from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION_SMTP_RCPT,NOTIFICATION_SMTP_SERVER,NOTIFICATION_SMTP_USER,NOTIFICATION_SMTP_PWD,NOTIFICATION_SMTP_FROM
 from FileHandler import read_file, write_problem_file, write_tracker_file
 from FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
@@ -29,29 +29,31 @@ currentProblemVocabulary = []
 tracker = {}
 
 def send_email(subject, body):
-    import smtplib
+	import smtplib
 
-    mail_user = NOTIFICATION_SMTP_USER
-    mail_pwd = NOTIFICATION_SMTP_PWD
-    FROM = NOTIFICATION_SMTP_FROM
-    TO = NOTIFICATION_SMTP_RCPT if type(NOTIFICATION_SMTP_RCPT) is list else [NOTIFICATION_SMTP_RCPT]
-    SUBJECT = subject
-    TEXT = body
-
-    # Prepare actual message
-    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
-    try:
-        server = smtplib.SMTP(NOTIFICATION_SMTP_SERVER, 587)
-        server.ehlo()
-        server.starttls()
-        server.login(mail_user, mail_pwd)
-        server.sendmail(FROM, TO, message)
-        server.close()
-        print('successfully sent the mail')
-    except:
-        print("failed to send mail")
-
+	mail_user = NOTIFICATION_SMTP_USER
+	mail_pwd = NOTIFICATION_SMTP_PWD
+	FROM = NOTIFICATION_SMTP_FROM
+	TO = NOTIFICATION_SMTP_RCPT if type(NOTIFICATION_SMTP_RCPT) is list else [NOTIFICATION_SMTP_RCPT]
+	SUBJECT = subject
+	TEXT = body
+	print("Connect to " + NOTIFICATION_SMTP_SERVER)
+	# Prepare actual message
+	message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+	""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
+	try:
+		server = smtplib.SMTP_SSL(NOTIFICATION_SMTP_SERVER, 465)
+		# server.set_debuglevel(self, True)
+		# server.ehlo()
+		# print(server.ehlo_resp)
+		# server.starttls()
+		server.login(mail_user, mail_pwd)
+		server.sendmail(FROM, TO, message)
+		server.close()
+		print('successfully sent the mail')
+	except:
+		print("failed to send mail")
+		print(sys.exc_info())
 
 def sendInfoMail(datum, start, ende, note, dauer, user, gesamt, falsch, frage_art, vokabel_datei):
 
@@ -494,7 +496,7 @@ def main(argv):
 ### TEST PART ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
 def testRuns():
   
-    calcSchulnote(20,0)
+	calcSchulnote(20,0)
    # calcSchulnote(20,1)
    # calcSchulnote(20,2)
    # calcSchulnote(20,3)
