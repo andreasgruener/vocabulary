@@ -131,8 +131,8 @@ def read_problem_file(path, name):
 		#print("	Checking " + language + " / " + question + " count: " + str(count))
 
 		#print("	- >" + pvFull[languageKey] +"<")
-		print(problem)
-		print(language)
+		#print(problem)
+		#print(language)
 		# legacy stuff
 		if language == 'en':
 			language = 'translation'
