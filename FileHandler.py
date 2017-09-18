@@ -8,7 +8,7 @@ import ast
 from Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
 
 def read_file(name):
-	""" 
+	"""
 	read a file
 	; separates the entries TRANSLATION;SOURCE;[TYPE]
 	: separates multiple options in TRANSLATION or SOURCE
@@ -26,7 +26,10 @@ def read_file(name):
 			lang_translations = translation[0].strip().split(":")
 			# parse multiple options in your language
 			lange_source = translation[1].strip().split(":")
-
+		#	print(lange_source)
+			if len(lange_source[0]) < 2:
+				print("Fehler in Datei: Leere oder zu kurze Vokabel. >" + lange_source[0] +  "< Beende lesen der Datei. Datei korrigieren")
+				return []
 			initial_dictionary = {'translation' : lang_translations, 'source' : lange_source}
 
 			#check if we have genetiv and genus
