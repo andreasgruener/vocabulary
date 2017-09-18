@@ -86,7 +86,7 @@ def upsert_problem(language, problem_vocabulary, problem):
 	problem_list = problem_vocabulary[language]
 	#print(problem_list)
 	for problem in problem_list:
-		print(problem)
+		#print(problem)
 
 		#print("%s == %s : %d"%(['question'] ,problem['question'], p['count']))
 		if problem['question'] == problem['question']:
