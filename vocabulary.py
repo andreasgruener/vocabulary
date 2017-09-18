@@ -473,7 +473,7 @@ def calcSchulnote(gesamt, fehler):
 	faktor = schulprozent // 75
 	note = 1 + faktor * 0.5
 	if note > 6:
-		note = 0
+		note = 6
 
 	#print("Gesamt:%d Fehler:%d Prozent:%d Schulprozent:%d faktor:%d Note:%f" % (gesamt, fehler,prozent, schulprozent, faktor,note))
 	return note
