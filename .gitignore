@@ -3,6 +3,8 @@
 /example/Vokabeltest*
 /example/.*
 MyConfig.py
+POSTConfig.py
+Config.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
