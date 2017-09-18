@@ -427,7 +427,7 @@ def parseParamter(argv):
 
 	if inputfile == '':
 		print()
-		print("You need to provide a input file with the vocabulary.")
+		print("V2.0.  You need to provide a input file with the vocabulary.")
 		usage()
 		sys.exit(3)
 	# set number of questions
