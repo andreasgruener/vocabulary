@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Configuration File for Vocabulary
-
+   Rename to Config.py
 """
 # need to i18n
 NAME_OF_PROBLEM_VOCABULARY_FILE = "problem-vocabulary.csv"
