@@ -31,27 +31,35 @@ def read_file(name):
 				print("Fehler in Datei: Leere oder zu kurze Vokabel. >" + lange_source[0] +  "< Beende lesen der Datei. Datei korrigieren")
 				return []
 			initial_dictionary = {'translation' : lang_translations, 'source' : lange_source}
+		
+		
+			# check for vocabulary type
+			if len(translation) > 2:
+				vocabulary_type = translation[2].strip()
+				initial_dictionary["type"] = vocabulary_type
 
 			#check if we have genetiv and genus
 			for translation_row in lang_translations:
 				#print(translation_row)
 				full_stack = translation_row.split(",")
 				if len(full_stack) == 2:
-					print("Error parsing Genetiv, Genus - missing one entry" + str(translation))
+					if initial_dictionary["type"] == 'V':
+						print("Error parsing 1st Presten, Perfect - missing one entry" + str(translation))
+					else:
+						print("Error parsing Genetiv, Genus - missing one entry" + str(translation))
 				elif len(full_stack) == 3:
 					initial_dictionary["translation"] = [full_stack[0]]
 					#print(full_stack[0])
-					initial_dictionary["genetiv"] = str(full_stack[1])
-					initial_dictionary["genus"] = str(full_stack[2])
+					if initial_dictionary["type"] == 'V':
+						initial_dictionary["present"] = str(full_stack[1])
+						initial_dictionary["perfect"] = str(full_stack[2])
+					else:
+						initial_dictionary["genetiv"] = str(full_stack[1])
+						initial_dictionary["genus"] = str(full_stack[2])
 				#else:
 					#print("no genetiv, genus")
 
-			# check for vocabulary type
-			if len(translation) > 2:
-				vocabulary_type = translation[2].strip()
-				initial_dictionary["type"] = vocabulary_type
-
-
+		
 			#print(dict)
 			vocabulary.append(initial_dictionary)
 		except IndexError:

@@ -4,7 +4,6 @@ aedificum,aedifici,n;das Gebäude;S
 templum;der Tempel;S
 caput,caputis,m;der Kopf;S
 imperium,imperi,m;das Reich;S
-fluere;fließen:strömen;V
 quod;weil
 aegrotus,agroti,m;krank;A
 ignoscere;verzeihen;V
@@ -17,5 +16,6 @@ aedificum;das Gebäude;S
 templum;der Tempel;S
 caput;der Kopf;S
 imperium;das Reich;S
-fluere:volvere;fließen:strömen;V
+fluere,fluo,fluxi;fließen:strömen;V
 dominus;Herr;S
+ire,eo,ii;gehen;V

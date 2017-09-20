@@ -143,7 +143,7 @@ def runTest( vocabulary , type, problems):
 
 
 
-		#print("Frage >> " + str(question[qLanguage]))
+		#print("Frage >> " + str(question))
 		#print("Übersetzung für " + Color.BOLD + q + Color.END + "  : ", end="",flush=True)
 		#print("Anzahl Antworten " + str(answerSize))
 		sayQuestion(qLanguage, q)
@@ -155,28 +155,52 @@ def runTest( vocabulary , type, problems):
 			loop = answerSize
 
 		variantDuplicateDetection = []
-		print(Color.BOLD + q + Color.END)
-		# first ask genetiv genus
-		if "genetiv" in question:
-			frageText = " " + str(count) + ". Genetiv für " + Color.BOLD + q + Color.END + " : "
-			eingabe = input(frageText)
-			if eingabe == question['genetiv']:
-				result(qLanguage, True, eingabe, [question['genetiv']],q, problems)
-			else:
-				result(qLanguage, False, eingabe, [question['genetiv']],q, problems)
-				#currentProblemVocabulary.append(question)
-				wrongAnswer = True
+		#print(Color.BOLD + q + Color.END)
+		if "type" in question and question["type"] == "V":
+			# first ask present genus
+			if "present" in question:
+				frageText = "    " + str(count) + ". 1. Person Präsens für " + Color.BOLD + q + Color.END + " : "
+				eingabe = input(frageText)
+				if eingabe == question['present']:
+					result(qLanguage, True, eingabe, [question['present']],q, problems)
+				else:
+					result(qLanguage, False, eingabe, [question['present']],q, problems)
+					#currentProblemVocabulary.append(question)
+					wrongAnswer = True
 
-		# second ask genus 
-		if "genus" in question:
-			frageText = " " + str(count) + ". Genus für " + Color.BOLD + q + Color.END + " : "
-			eingabe = input(frageText)
-			if eingabe == question['genus']:
-				result(qLanguage, True, eingabe, [question['genus']],q, problems)
-			else:
-				result(qLanguage, False, eingabe, [question['genus']],q, problems)
-				#currentProblemVocabulary.append(question)
-				wrongAnswer = True
+			# second ask genus 
+			if "perfect" in question:
+				frageText = "    " + str(count) + ". 1.Person Perfekt für " + Color.BOLD + q + Color.END + " : "
+				eingabe = input(frageText)
+				if eingabe == question['perfect']:
+					result(qLanguage, True, eingabe, [question['perfect']],q, problems)
+				else:
+					result(qLanguage, False, eingabe, [question['perfect']],q, problems)
+					#currentProblemVocabulary.append(question)
+					wrongAnswer = True
+
+		elif "type" in question and question["type"] != "V":
+			# first ask genetiv genus
+			if "genetiv" in question:
+				frageText = "    " + str(count) + ". Genetiv für " + Color.BOLD + q + Color.END + " : "
+				eingabe = input(frageText)
+				if eingabe == question['genetiv']:
+					result(qLanguage, True, eingabe, [question['genetiv']],q, problems)
+				else:
+					result(qLanguage, False, eingabe, [question['genetiv']],q, problems)
+					#currentProblemVocabulary.append(question)
+					wrongAnswer = True
+
+			# second ask genus 
+			if "genus" in question:
+				frageText = "    " + str(count) + ". Genus für " + Color.BOLD + q + Color.END + " : "
+				eingabe = input(frageText)
+				if eingabe == question['genus']:
+					result(qLanguage, True, eingabe, [question['genus']],q, problems)
+				else:
+					result(qLanguage, False, eingabe, [question['genus']],q, problems)
+					#currentProblemVocabulary.append(question)
+					wrongAnswer = True
 
 
 		# loop over variants - answer (a) contains all variants
