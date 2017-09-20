@@ -141,7 +141,7 @@ def sendInfoMail(datum, start, ende, note, dauer, user, gesamt, falsch, frage_ar
 	)
 	info = info + "\nFalsch beantwortet:" + falscheFragenText + "\n\n\nRichtig beantwortet: " + richtigeFragenText
 
-	print(info)
+	#print(info)
 	asciimail = info # info.encode('ascii')
 	#send_email("Vokabeltrainer :: Note %s ( %s / %s )" % (note, gesamt,falsch), asciimail)
 	send_email_multipart("Vokabeltrainer :: Note %s ( %s / %s )" % (note, gesamt,falsch), info)
