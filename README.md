@@ -36,6 +36,10 @@ Example:
 - internationalization missing
 - focus on our needs, not generalized
 
+## Progress
+- Latin: Genus, Genetiv & Verbs, Times
+  - additional file format | for genetiv, genus and fpr present, perfect
+
 ## Requirements / Dependencies
 ### Mac
 ~~~bash
