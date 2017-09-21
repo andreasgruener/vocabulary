@@ -14,7 +14,7 @@ CSV based vocabulary files. Strcuture of vocabulary files:
 ```<Vocabulary>[:<Alternate Vocabulary>]*;<Translation>[:<Alternate Translation>]*```
 
 Example:  
-fluere,volvere;fließen:strömen  
+fluere:volvere;fließen:strömen  
 fluere;fließen
 
 ### Optional Type pf Word (for Latin Test see C) )

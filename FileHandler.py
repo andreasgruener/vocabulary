@@ -41,7 +41,7 @@ def read_file(name):
 			#check if we have genetiv and genus
 			for translation_row in lang_translations:
 				#print(translation_row)
-				full_stack = translation_row.split(",")
+				full_stack = translation_row.split("|")
 				if len(full_stack) == 2:
 					if initial_dictionary["type"] == 'V':
 						print("Error parsing 1st Presten, Perfect - missing one entry" + str(translation))
