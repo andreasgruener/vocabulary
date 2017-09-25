@@ -39,7 +39,7 @@ def check_file(fileName):
 					error_line["words"].append(word)
 					#print(word)
 					#print("\t--> " + color.RED + question +color.END,flush=True)
-					print("%i : %s in (%s)"%(error_line["line"], word, error_line["question"]))
+					print("Zeile %i : Begriff >%s< falsch oder unbekannt in: %s"%(error_line["line"], word, error_line["question"]))
 		#if allgood != True:
 		#	print("%i : %s in (%s)"%(errorLine["line"], errorLine["words"], errorLine["question"]))
 			#print(errorLine)
