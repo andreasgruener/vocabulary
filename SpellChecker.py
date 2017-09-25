@@ -26,9 +26,9 @@ def check_file(fileName):
 	for line in vocabulary:
 		#print(questions)
 		#all_is_good = True
-		error_line = {"line" : line_counter, "question" : line['en'], "words" : []}
+		error_line = {"line" : line_counter, "question" : line['translation'], "words" : []}
 		line_counter = line_counter+1
-		for question in line['en']:
+		for question in line['translation']:
 			tknzr = get_tokenizer(LANGUAGE)
 			#tknzr(question)
 			#words = question.split(" ")
