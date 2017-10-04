@@ -6,6 +6,7 @@ reads and writes files
 import os
 import ast
 from Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
+import json
 
 def read_file(name):
 	"""
@@ -17,8 +18,9 @@ def read_file(name):
 	vocabulary = []
 	filehandle = open(name, 'r')
 	rows = filehandle.readlines()
-
+	rowCount = 0
 	for row in rows:
+		rowCount += 1
 		try:
 			translation = row.split(";")
 
@@ -28,7 +30,7 @@ def read_file(name):
 			lange_source = translation[1].strip().split(":")
 		#	print(lange_source)
 			if len(lange_source[0]) < 2:
-				print("Fehler in Datei: Leere oder zu kurze Vokabel. >" + lange_source[0] +  "< Beende lesen der Datei. Datei korrigieren")
+				print("Fehler in Datei: Leere oder zu kurze Vokabel. >" + lange_source[0] +  "< Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount))
 				return []
 			initial_dictionary = {'translation' : lang_translations, 'source' : lange_source}
 		
@@ -211,8 +213,6 @@ def load_tracker_file(path, name):
 	return tracker
 
 
-
-
 def write_vocabulary_test(file_name, buffer):
 	"""generates a vocabulary test as CSV file copy to file editor looks nice ;-)
 	"""
@@ -224,3 +224,8 @@ def write_vocabulary_test(file_name, buffer):
 
 
 
+def readDeklination():
+	with open('latein/deklinationen.json') as data_file:    
+		data = json.load(data_file)
+	#print(data)
+	return data

@@ -1,0 +1,62 @@
+{
+"Deklinationen" : [{
+    "name" : "a-Deklination",
+    "basis" : "cas",
+    "translated" : "Haus",
+    "nominativ" : "casa",
+    "genus" : "f",
+    "numerus" : [
+        {
+            "name" : "singular",
+            "kasus" : [
+                { "kasus" : "Nominativ", "endung" : "a"},
+                { "kasus" : "Genetiv", "endung" : "ae"},
+                { "kasus" : "Dativ", "endung" : "ae"},
+                { "kasus" : "Akkusativ", "endung" : "am"},
+                { "kasus" : "Ablativ", "endung" : "a"}
+            ]
+        },
+        {
+            "name" : "plural",
+            "kasus" : [
+                { "kasus" : "Nominativ", "endung" : "ae"},
+                { "kasus" : "Genetiv", "endung" : "arum"},
+                { "kasus" : "Dativ", "endung" : "is"},
+                { "kasus" : "Akkusativ", "endung" : "as"},
+                { "kasus" : "Ablativ", "endung" : "is"}
+                ]
+        }
+        ]
+    },
+    {
+    "name" : "o-Deklination",
+    "basis" : "av",
+    "translated" : "Vogel",
+    "nominativ" : "avus",
+    "genus" : "m",
+    "numerus" : [
+        {
+            "name" : "singular",
+            "kasus" : [
+                { "kasus" : "Nominativ", "endung" : "us"},
+                { "kasus" : "Genetiv", "endung" : "i"},
+                { "kasus" : "Dativ", "endung" : "o"},
+                { "kasus" : "Akkusativ", "endung" : "um"},
+                { "kasus" : "Ablativ", "endung" : "o"}
+            ]
+        },
+        {
+            "name" : "plural",
+            "kasus" : [
+                { "kasus" : "Nominativ", "endung" : "i"},
+                { "kasus" : "Genetiv", "endung" : "orum"},
+                { "kasus" : "Dativ", "endung" : "is"},
+                { "kasus" : "Akkusativ", "endung" : "os"},
+                { "kasus" : "Ablativ", "endung" : "is"}
+            ]
+        }
+    ]
+    }
+
+]
+}
