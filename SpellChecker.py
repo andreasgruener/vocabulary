@@ -23,9 +23,11 @@ def check_file(fileName):
 
 	line_counter = 1
 	error_counter = 0
+	printHeader = False
 	for line in vocabulary:
 		#print(questions)
 		#all_is_good = True
+
 		error_line = {"line" : line_counter, "question" : line['translation'], "words" : []}
 		line_counter = line_counter+1
 		for question in line['translation']:
@@ -39,16 +41,23 @@ def check_file(fileName):
 					error_line["words"].append(word)
 					#print(word)
 					#print("\t--> " + color.RED + question +color.END,flush=True)
+					if not printHeader:
+						printHeader = True
+						print(Color.RED + "\n============== FEHLER IN DATEI " + fileName + "==============" + Color.END)
 					print("Zeile %i : Begriff >%s< falsch oder unbekannt in: %s"%(error_line["line"], word, error_line["question"]))
 		#if allgood != True:
 		#	print("%i : %s in (%s)"%(errorLine["line"], errorLine["words"], errorLine["question"]))
 			#print(errorLine)
 			#line = errorLine["line"]
 			#print("%i :"%(line))
-	#print(color.RED)
+	#print(Color.RED)
 	#print("%i Fehler gefunden"%(lineCnt))
-	print(Color.RED +  "--> " + str(error_counter) +
-							" Rechtschreibfehler in der Vokabeldatei gefunden!" + Color.END, flush=True)
+	if error_counter == 0:
+		print(Color.GREEN)
+	else:
+		print(Color.RED)
+	print("--> " + str(error_counter) +
+							" Rechtschreibfehler in der Vokabeldatei gefunden!\n" + Color.END, flush=True)
 	return len(error_line)
 
 

@@ -12,7 +12,7 @@ from FileHandler import read_file, write_problem_file, write_tracker_file
 from FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
 from mail import sendInfoMail
-#from SpellChecker import checkFile
+from SpellChecker import check_file
 
 richtig = 0
 falsch = 0
@@ -343,6 +343,7 @@ def calcSchulnote(gesamt, fehler):
 
 def main(argv):
 
+
 #	sendInfoMail("datum", "start", "ende", "6", "1h", "user", "27", "12", "frage_art", "vokabel_datei")
 
 	global tracker
@@ -350,6 +351,8 @@ def main(argv):
 	fileName = parseParamter(argv)
 	path = path, folder = os.path.split(fileName)
 	file = os.path.basename(fileName)
+	if fileName.startswith("englis"):
+		check_file(fileName)
 	#print(path)
 	#print(file)
 	# read the complete problem vocabulary
