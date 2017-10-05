@@ -13,6 +13,7 @@ from FileHandler import load_tracker_file, read_problem_file, upsert_problem, re
 import operator
 from mail import sendInfoMail
 from SpellChecker import check_file
+from util import show_diff
 
 richtig = 0
 falsch = 0
@@ -44,7 +45,7 @@ def sayQuestion(language, word):
 		os.system(text2Say)
 
 
-def result(language, isKorrekt, answer, correctAnswer, question, problems):
+def result(language, isKorrekt, answer, correctAnswer, question, problems, frageText):
 
 	#set default value if no language is provided
 	voiceSelector = "-v Daniel "
@@ -70,16 +71,23 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 		text2Say = "say " + voiceSelector + str(correctAnswer)
 		falsch = falsch + 1
 		falscheVokabeln.append(asked)
-		
+
+		length = len(frageText) + len(answer)
+		moveString = "\033[{}C\033[1A".format(length) # \033[1C (one Column right) \033[1A (one row up)
+
 		# display problem info
-		print(Color.LIGHTBLUE + "	Richtig wäre gewesen: >",end="",flush=True)
+		print(moveString + Color.RED + " --> "+Color.END,end="",flush=True)
 		for ca in correctAnswer:
 			print(Color.RED + ca +Color.END,end="",flush=True)
 			if ca != correctAnswer[len(correctAnswer)-1]:
 				print(" oder ",end="",flush=True)
-			else:
-				print("<")
-	
+
+		if len(correctAnswer) == 1:
+			diffed_result = show_diff(answer, correctAnswer[0])
+			print(Color.DARKCYAN +" Unterschied: >" + Color.END + diffed_result + Color.DARKCYAN +"<" + Color.END,end="",flush=True)
+
+		print("",flush=True)
+
 		#print("\n")
 		problem = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer, 'count' : 0 }
 	
@@ -190,11 +198,11 @@ def runTest( vocabulary , type, problems):
 			if variantQuestionCounter > 0:
 				frageText = "	weitere Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			else:
-				frageText = str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
+				frageText = str(count) + ". " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
 				#frageText = "Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			
 			eingabe = input(frageText)
-			
+
 			# endlos schleife bis neue Vokabel
 			while eingabe in variantDuplicateDetection:
 				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
@@ -204,9 +212,9 @@ def runTest( vocabulary , type, problems):
 			variantDuplicateDetection.append(eingabe)
 			#print ( eingabe + " == " + a )
 			if eingabe in a:
-				result(qLanguage, True, eingabe, a,q, problems)
+				result(qLanguage, True, eingabe, a,q, problems, frageText)
 			else:
-				result(qLanguage, False, eingabe, a,q, problems)
+				result(qLanguage, False, eingabe, a,q, problems, frageText)
 				currentProblemVocabulary.append(question)
 
 			
@@ -224,7 +232,8 @@ def runTest( vocabulary , type, problems):
 			#		print("   weitere Übersetzung : ")
 
 		if count >= numberOfQuestions:
-				print("\nAnzahl der Fragen erreicht.")
+				print("\nAnzahl der eingestellen Fragen ist erreicht.")
+				input(Color.BLUE + " Return / Enter für weiter ..." + Color.END)
 				break
 
 	return problems
