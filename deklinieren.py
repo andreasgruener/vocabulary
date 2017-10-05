@@ -9,6 +9,7 @@ import datetime
 import time
 from FileHandler import readDeklination
 from mail import sendInfoMail
+from util import show_diff
 
 
 def plural(json):
@@ -91,16 +92,20 @@ def checkKasusList(deklinationJson, numerus, kasusList):
     result = {}
     basis = deklinationJson["basis"]
     nominativ = deklinationJson["nominativ"]
-    frageText = "\t"+kasusList["kasus"] + ", " + numerus
+    frageText = " " +kasusList["kasus"] + ", " + numerus
     frageText = frageText.ljust(25) 
     ergebnis = basis+kasusList["endung"]
     eingabe = input(frageText+ "> ")
-    	
+
+    length = 25 + len(eingabe) + 4
+    moveString = "\033[{}C\033[1A".format(length) # \033[1C (one Column right) \033[1A (one row up)
+
     asked = { 'language' : "la", 'question' :  frageText.ljust(25), 'correctAnswer' : [ergebnis], 'answer' :  eingabe.ljust(18) }
     result["question"] = asked
     
     if (eingabe != ergebnis):
-        print(Color.RED + "\tFalsch richtig wäre: " + ergebnis +Color.END,flush=True)
+        diffed_result = show_diff(eingabe, ergebnis)
+        print(moveString + ">> Falsch richtig wäre: " + Color.BOLD + Color.RED + ergebnis + Color.END + Color.DARKCYAN +" >" + Color.END + diffed_result + Color.DARKCYAN +"<" + Color.END,flush=True)
         result["correct"] =  False
     else:
         result["correct"] = True
