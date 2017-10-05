@@ -234,6 +234,7 @@ def printHeader():
     print(header)
 
 def main(argv):
+    os.system('clear')
     printHeader()
     setting = parseParamter(argv)
     deklinationen = readDeklination()
