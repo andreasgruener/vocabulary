@@ -65,7 +65,7 @@ def read_file(name):
 			#print(dict)
 			vocabulary.append(initial_dictionary)
 		except IndexError:
-			print("Fehler in der Vokabeldatei in folgendem Eintrag, bitte korrigieren:")
+			print("Fehler in der Vokabeldatei in folgendem Eintrag, bitte korrigieren " )
 			print(" >>>> " +  row)
 
 	return vocabulary
