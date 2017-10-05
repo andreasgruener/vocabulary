@@ -198,7 +198,7 @@ def parseParamter(argv):
 def main(argv):
     deklination = parseParamter(argv)
     deklinationen = readDeklination()
-    print(deklination)
+    # print(deklination)
     runTest(deklinationen['Deklinationen'], deklination)
 
 
