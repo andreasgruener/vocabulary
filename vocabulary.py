@@ -72,13 +72,13 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 		falscheVokabeln.append(asked)
 		
 		# display problem info
-		print(Color.LIGHTBLUE + "	Richtig wäre gewesen: ",end="",flush=True)
+		print(Color.LIGHTBLUE + "	Richtig wäre gewesen: >",end="",flush=True)
 		for ca in correctAnswer:
 			print(Color.RED + ca +Color.END,end="",flush=True)
 			if ca != correctAnswer[len(correctAnswer)-1]:
 				print(" oder ",end="",flush=True)
 			else:
-				print(".")
+				print("<")
 	
 		#print("\n")
 		problem = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer, 'count' : 0 }
