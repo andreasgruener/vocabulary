@@ -18,7 +18,7 @@ def singular(json):
     return [x for x in json["numerus"] if x['name'] == "singular"][0]
 
 
-def runTest(deklinationen, type):
+def runTest(deklinationen, settingDeklination, settingGenus):
 
     # measure time
     startTime = time.time()
@@ -26,10 +26,22 @@ def runTest(deklinationen, type):
 
     # do the test
     try:
-        deklination = [x for x in deklinationen if x['name'] == type+"-Deklination"][0]
+        if settingDeklination == "":
+            zufallsIndex = random.randint(0,len(deklinationen)-1)
+            deklination = deklinationen[zufallsIndex]  
+        else: # deklination is given by user
+            deklinationen = [x for x in deklinationen if x['name'] == settingDeklination+"-Deklination"]
+            if len(deklinationen) == 1: # there is exactly one hit ignoring genus
+                deklination = deklinationen[0]
+            elif len(deklinationen) > 1: # there is more than one hit
+                if settingGenus == "": # no genus but multiple hits
+                    zufallsIndex = random.randint(0,len(deklinationen)-1)
+                    deklination = deklinationen[zufallsIndex]
+                else: # genus is given trying
+                    deklination = [x for x in deklinationen if x['genus'] == settingGenus][0]
     except IndexError:
         print("")
-        print(Color.RED + type + "-Deklination kann nicht geladen werden" + Color.END)
+        print(Color.RED + settingDeklination + "-Deklination für " + settingGenus + "kann nicht geladen werden" + Color.END)
         sys.exit(3)
 
     #print(deklination)
@@ -70,7 +82,7 @@ def runTest(deklinationen, type):
     #sendInfoMail(start.strftime('%H:%M Uhr am %A, dem %d.%m.%Y'),start.time().strftime("%H:%M:%S"), 
     end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,
     str(gesamt),str(fehler),
-    type+"-Deklinination",
+    settingDeklination+"-Deklinination",
     "Pauken", 
     richtigListe, fehlerListe)
 
@@ -164,18 +176,21 @@ def calcSchulnote(gesamt, fehler):
 	return note
 
 def usage():
-    print('Usage: ./deklinieren.py [-o] [-e] [-a] ]')
+    print('Usage: ./deklinieren.py [-o] [-e] [-a] [-k] [-g <m|n|f>]]')
     print('	-a             :: a Dekliniation)')
     print('	-o             :: o Dekliniation)')
     print('	-e             :: e Dekliniation)')
-    print()
+    print('	-k             :: konsonantische Dekliniation)')
+    print(' -g <m|n|f>     :: genus')
     print('Example:')
     print('	./deklinieren.py -a')
 
 def parseParamter(argv):
-    deklination = "a"
+    setting = {}
+    deklination = ""
+    numerus = ""
     try:
-        opts, args = getopt.getopt(argv,"aoe",["a","o","e"])
+        opts, args = getopt.getopt(argv,"aoekg:",["a","o","e","k","g="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -189,17 +204,37 @@ def parseParamter(argv):
            deklination = "o"
         elif opt in ("-e", "--e"):
            deklination = "e"
+        elif opt in ("-g", "--g"):
+            if arg == "f":
+               numerus = "femininum"
+            elif arg == "m":
+                numerus = "maskulinum"
+            elif arg == "n":
+                numerus ="neutrum"
 
-    return deklination
+    setting["deklination"] = deklination
+    setting["numerus"] = numerus
+    return setting
 
 
-
+def printHeader():
+    header = (
+        "________          __   .__  .__       .__                             \n"
+        "\______ \   ____ |  | _|  | |__| ____ |__| ___________  ____   ____   \n"
+        " |    |  \_/ __ \|  |/ |  | |  |/    \|  _/ __ \_  __ _/ __ \ /    \  \n"
+        " |    `   \  ___/|    <|  |_|  |   |  |  \  ___/|  | \\\\  ___/|   |  \ \n"
+        "/_______  /\___  |__|_ |____|__|___|  |__|\___  |__|   \___  |___|  / \n"
+        "        \/     \/     \/            \/        \/           \/     \/ 2.0"
+    )
+    print(header)
 
 def main(argv):
-    deklination = parseParamter(argv)
+    printHeader()
+    setting = parseParamter(argv)
     deklinationen = readDeklination()
     # print(deklination)
-    runTest(deklinationen['Deklinationen'], deklination)
+    # print(setting)
+    runTest(deklinationen['Deklinationen'], setting["deklination"], setting["numerus"])
 
 
 if __name__ == "__main__":
