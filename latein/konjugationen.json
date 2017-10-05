@@ -1,0 +1,104 @@
+{
+    "Konjugationen" : [
+        {
+        "name" : "a-Konjugation",
+        "translated" : "lieben",
+        "infinitive" : "amare",
+        "tempus" : [
+            {
+                "name" : "Präsens",
+                "genusverbi" : "Aktiv",
+                "modus" : "Indikativ",
+                "basis" : "ama",
+                "faelle" : [
+                    { "fall" : "1. Person Singular", "sonderform" : "amo", "endung" : "o"},
+                    { "fall" : "2. Person Singular", "endung" : "s"},
+                    { "fall" : "3. Person Singular", "endung" : "t"},
+                    { "fall" : "1. Person Plural", "endung" : "mus"},
+                    { "fall" : "2. Person Plural", "endung" : "tis"},
+                    { "fall" : "3. Person Plural", "endung" : "nt"}
+                ]
+            },
+            {
+                "name" : "Imperfekt",
+                "genusverbi" : "Aktiv",
+                "modus" : "Indikativ",
+                "basis" : "ame",
+                "faelle" : [
+                    { "fall" : "1. Person Singular", "endung" : "m"},
+                    { "fall" : "2. Person Singular", "endung" : "s"},
+                    { "fall" : "3. Person Singular", "endung" : "t"},
+                    { "fall" : "1. Person Plural", "endung" : "mus"},
+                    { "fall" : "2. Person Plural", "endung" : "tis"},
+                    { "fall" : "3. Person Plural", "endung" : "nt"}
+                ]
+            },
+            {
+                "name" : "Perfekt",
+                "genusverbi" : "aktiv",
+                "modus" : "indikativ",
+                "basis" : "amav",
+                "faelle" : [
+                    { "fall" : "1. Person Singular",  "endung" : "i"},
+                    { "fall" : "2. Person Singular", "endung" : "isti"},
+                    { "fall" : "3. Person Singular", "endung" : "it"},
+                    { "fall" : "1. Person Plural", "endung" : "imus"},
+                    { "fall" : "2. Person Plural", "endung" : "istis"},
+                    { "fall" : "3. Person Plural", "endung" : "erunt"}
+                ]
+            }
+        
+        ]
+     },
+     {
+        "name" : "e-Konjugation",
+        "translated" : "mahnen",
+        "infinitive" : "monere",
+        "tempus" : [
+            {
+                "name" : "Präsens",
+                "genusverbi" : "Aktiv",
+                "modus" : "Indikativ",
+                "basis" : "mone",
+                "faelle" : [
+                    { "fall" : "1. Person Singular",  "endung" : "o"},
+                    { "fall" : "2. Person Singular", "endung" : "s"},
+                    { "fall" : "3. Person Singular", "endung" : "t"},
+                    { "fall" : "1. Person Plural", "endung" : "mus"},
+                    { "fall" : "2. Person Plural", "endung" : "tis"},
+                    { "fall" : "3. Person Plural", "endung" : "nt"}
+                ]
+            },
+            {
+                "name" : "Imperfekt",
+                "genusverbi" : "Aktiv",
+                "modus" : "Indikativ",
+                "basis" : "monea",
+                "faelle" : [
+                    { "fall" : "1. Person Singular", "endung" : "m"},
+                    { "fall" : "2. Person Singular", "endung" : "s"},
+                    { "fall" : "3. Person Singular", "endung" : "t"},
+                    { "fall" : "1. Person Plural", "endung" : "mus"},
+                    { "fall" : "2. Person Plural", "endung" : "tis"},
+                    { "fall" : "3. Person Plural", "endung" : "nt"}
+                ]
+            },
+            {
+                "name" : "Perfekt",
+                "genusverbi" : "aktiv",
+                "modus" : "indikativ",
+                "basis" : "monu",
+                "faelle" : [
+                    { "fall" : "1. Person Singular",  "endung" : "i"},
+                    { "fall" : "2. Person Singular", "endung" : "isti"},
+                    { "fall" : "3. Person Singular", "endung" : "it"},
+                    { "fall" : "1. Person Plural", "endung" : "imus"},
+                    { "fall" : "2. Person Plural", "endung" : "istis"},
+                    { "fall" : "3. Person Plural", "endung" : "erunt"}
+                ]
+            }
+        
+        ]
+     }
+    ]
+}

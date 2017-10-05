@@ -229,3 +229,10 @@ def readDeklination():
 		data = json.load(data_file)
 	#print(data)
 	return data
+
+
+def readKonjugationen():
+	with open('latein/konjugationen.json') as data_file:    
+		data = json.load(data_file)
+	#print(data)
+	return data
