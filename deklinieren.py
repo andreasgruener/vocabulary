@@ -32,7 +32,7 @@ def runTest(deklinationen, type):
         print(Color.RED + type + "-Deklination kann nicht geladen werden" + Color.END)
         sys.exit(3)
 
-    print(deklination)
+    #print(deklination)
     result = checkDeklination(deklination)
     richtigListe = result["richtig"]
     fehlerListe = result["falsch"]
