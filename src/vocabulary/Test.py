@@ -14,6 +14,7 @@ import operator
 from vocabulary.util.Mail import sendInfoMail
 from vocabulary.util.SpellChecker import check_file
 from vocabulary.util.Diff import show_diff
+from vocabulary.util.MqttClient import publishResult
 
 richtig = 0
 falsch = 0
@@ -354,7 +355,7 @@ def startTest(argv):
 
 
 #	sendInfoMail("datum", "start", "ende", "6", "1h", "user", "27", "12", "frage_art", "vokabel_datei")
-
+	language = "Englisch"
 	global tracker
 	#print("argv: " + argv[0])
 	fileName = parseParamter(argv)
@@ -362,6 +363,9 @@ def startTest(argv):
 	file = os.path.basename(fileName)
 	if fileName.startswith("englis"):
 		check_file(fileName)
+	else:
+		language = "Latein"
+
 	#print(path)
 	#print(file)
 	# read the complete problem vocabulary
@@ -445,6 +449,7 @@ def startTest(argv):
 	with open(".result.log", "a") as logFile:#
 		logFile.write(str(start.date()) + " : " + start.time().strftime("%H:%M:%S") + " : " + end.time().strftime("%H:%M:%S") + " : " + str(note) + " : " + str(duration) + " :" + user + " : " + str(richtig+falsch) + " : " + str(falsch)+ " : " + questionType + " : " + str(fileName) +  "\n")
 
+	publishResult(user, language,"Vokabeln",questionType, file,  note, duration, gesamt, falsch)
 	sendInfoMail(str(start.date()),start.time().strftime("%H:%M:%S"), end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,str(richtig+falsch),str(falsch),questionType,str(fileName), richtigeVokabeln, falscheVokabeln)
 
 	

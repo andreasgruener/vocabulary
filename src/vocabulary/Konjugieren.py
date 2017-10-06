@@ -4,12 +4,13 @@ import random
 import sys
 import getopt
 import os
-from Config import Color
+from  vocabulary.Config import Color
 import datetime
 import time
-from util.FileHandler import readKonjugationen
-from util.Mail import sendInfoMail
-from util.Diff import show_diff
+from vocabulary.util.FileHandler import readKonjugationen
+from vocabulary.util.Mail import sendInfoMail
+from vocabulary.util.Diff import show_diff
+from vocabulary.util.MqttClient import publishResult
 
 
 def prasens(json):
@@ -77,6 +78,7 @@ def runTest(konjugationen, settingKonjugation):
     #	print("	Dauer  : %2d"  + str(minuten) + " : " + str(sekunden))
     print()
 
+    publishResult(user, "Latein","Konjugieren", settingKonjugation, "Pauken",  note, duration, gesamt, fehler)
     sendInfoMail(start.strftime('%A, der %d.%m.%Y'),start.time().strftime("%H:%M:%S"), 
     #sendInfoMail(start.strftime('%H:%M Uhr am %A, dem %d.%m.%Y'),start.time().strftime("%H:%M:%S"), 
     end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,
