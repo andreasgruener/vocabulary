@@ -7,9 +7,9 @@ import os
 from Config import Color
 import datetime
 import time
-from vocabulary.util.FileHandler import readKonjugationen
-from mail import sendInfoMail
-from util import show_diff
+from util.FileHandler import readKonjugationen
+from util.mail import sendInfoMail
+from util.diff import show_diff
 
 
 def prasens(json):

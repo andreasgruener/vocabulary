@@ -7,9 +7,9 @@ import os
 from Config import Color
 import datetime
 import time
-from FileHandler import readDeklination
-from mail import sendInfoMail
-from util import show_diff
+from util.FileHandler import readDeklination
+from util.mail import sendInfoMail
+from util.diff import show_diff
 
 
 def plural(json):

@@ -11,8 +11,8 @@ from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION
 from util.FileHandler import read_file, write_problem_file, write_tracker_file
 from util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
-from mail import sendInfoMail
-from SpellChecker import check_file
+from util.mail import sendInfoMail
+from util.SpellChecker import check_file
 from util.diff import show_diff
 
 richtig = 0
