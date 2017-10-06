@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 import sys
-from vocabulary.test import startTest
+from vocabulary.Test import startTest
 
 def main(args):
     startTest(args)
