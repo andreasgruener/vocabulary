@@ -4,7 +4,7 @@ import random
 import sys
 import getopt
 import os
-from Config import Color
+from vocabulary.Config import Color
 import datetime
 import time
 from vocabulary.util.FileHandler import readDeklination
@@ -235,7 +235,7 @@ def printHeader():
     )
     print(header)
 
-def main(argv):
+def startTest(argv):
     os.system('clear')
     printHeader()
     setting = parseParamter(argv)
@@ -246,4 +246,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+   startTest(sys.argv[1:])

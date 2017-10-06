@@ -225,14 +225,14 @@ def write_vocabulary_test(file_name, buffer):
 
 
 def readDeklination():
-	with open('latein/deklinationen.json') as data_file:    
+	with open('src/vocabulary/latein/deklinationen.json') as data_file:    
 		data = json.load(data_file)
 	#print(data)
 	return data
 
 
 def readKonjugationen():
-	with open('latein/konjugationen.json') as data_file:    
+	with open('src/vocabulary/latein/konjugationen.json') as data_file:    
 		data = json.load(data_file)
 	#print(data)
 	return data
