@@ -1,5 +1,6 @@
 Simple Python3 Command Line tool to train foreign languange vocabulary.   
 Done with my son for his English and Latin course.   
+Documentation is a bit outdated though...
 
 ![alt text](https://github.com/andreasgruener/vocabulary/blob/master/example/Example-Screenshot.png?raw=true "Example Screen of running Vocabulary Test")
 

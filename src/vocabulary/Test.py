@@ -452,21 +452,29 @@ def startTest(argv):
 	publishResult(user, language,"Vokabeln",questionType, file,  note, duration, gesamt, falsch)
 	sendInfoMail(str(start.date()),start.time().strftime("%H:%M:%S"), end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,str(richtig+falsch),str(falsch),questionType,str(fileName), richtigeVokabeln, falscheVokabeln)
 
-	
+	yourock = (
+		"_____.___.                                    __   ._.\n"
+		"\\__  |   | ____  __ __  _______  ____   ____ |  | _| |\n"
+		" /   |   |/  _ \\|  |  \\ \\_  __ \\/  _ \\_/ ___\\|  |/ / |\n"
+		" \\____   (  <_> )  |  /  |  | \\(  <_> )  \\___|    < \\|\n"
+		" / ______|\\____/|____/   |__|   \\____/ \\___  >__|_ \\__\n"
+		" \\/                                        \\/     \\/\\/\n"
+	)	
+
+
+	rising_star = (
+		"   _____           .__       .__                           __               ._.\n"
+		"  /  _  \\   _______|__| _____|__| ____    ____     _______/  |______ _______| |\n"
+		" /  /_\\  \\  \\_  __ \\  |/  ___/  |/    \\  / ___\\   /  ___/\\   __\\__  \\\\_  __ \\ |\n"
+		"/    |    \\  |  | \\/  |\\___ \\|  |   |  \\/ /_/  >  \\___ \\  |  |  / __ \\|  | \\/\\|\n"
+		"\\____|__  /  |__|  |__/____  >__|___|  /\\___  /  /____  > |__| (____  /__|   __\n"
+		"        \\/                 \\/        \\//_____/        \\/            \\/       \\/\n"
+	)
+
 	if ( note <= 1.5 ):
-		print(Color.GREEN + "  _________                              _____          __               ._."+ Color.END)
-		print(Color.GREEN + " /   _____/__ ________   ___________    /  _  \   _____/  |_  ____   ____| |"+ Color.END)
-		print(Color.GREEN + " \_____  \|  |  \____ \_/ __ \_  __ \  /  /_\  \ /    \   __\/  _ \ /    \ |"+ Color.END)
-		print(Color.GREEN + " /        \  |  /  |_> >  ___/|  | \/ /    |    \   |  \  | (  <_> )   |  \|"+ Color.END)
-		print(Color.GREEN + "/_______  /____/|   __/ \___  >__|    \____|__  /___|  /__|  \____/|___|  /_"+ Color.END)
-		print(Color.GREEN + "        \/      |__|        \/                \/     \/                 \/\/"+ Color.END)
+		print(Color.GREEN + Color.BOLD+ yourock + Color.END)
 	elif ( note <= 2 ):
-		print(Color.GREEN +"  ________        __       _____          __               ._."+ Color.END)
-		print(Color.GREEN + " /  _____/ __ ___/  |_    /  _  \   _____/  |_  ____   ____| |"+ Color.END)
-		print(Color.GREEN + "/   \  ___|  |  \   __\  /  /_\  \ /    \   __\/  _ \ /    \ |"+ Color.END)
-		print(Color.GREEN + "\    \_\  \  |  /|  |   /    |    \   |  \  | (  <_> )   |  \|"+ Color.END)
-		print(Color.GREEN + " \______  /____/ |__|   \____|__  /___|  /__|  \____/|___|  /_"+ Color.END)
-		print(Color.GREEN + "        \/                      \/     \/                 \/\/"+ Color.END)
+		print(Color.GREEN +rising_star+ Color.END)
 	elif ( note <= 3 ):
 		print(Color.YELLOW +"__________.__         ._____.         .___                   ._."+ Color.END)
 		print(Color.YELLOW +"\______   \  |   ____ |__\_ |__     __| _/___________    ____| |"+ Color.END)
