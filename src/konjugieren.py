@@ -7,7 +7,7 @@ import os
 from Config import Color
 import datetime
 import time
-from FileHandler import readKonjugationen
+from vocabulary.util.FileHandler import readKonjugationen
 from mail import sendInfoMail
 from util import show_diff
 

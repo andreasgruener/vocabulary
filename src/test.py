@@ -6,25 +6,32 @@ import getopt
 import os
 import datetime
 import time
-from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
-from FileHandler import read_file, write_problem_file, write_tracker_file
-from FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
+
+from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION_SMTP_RCPT,NOTIFICATION_SMTP_SERVER,NOTIFICATION_SMTP_USER,NOTIFICATION_SMTP_PWD,NOTIFICATION_SMTP_FROM
+from util.FileHandler import read_file, write_problem_file, write_tracker_file
+from util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
-#from SpellChecker import checkFile
+from mail import sendInfoMail
+from SpellChecker import check_file
+from util.diff import show_diff
 
 richtig = 0
 falsch = 0
 voice = False
 alleVarianten = False
-ignoreProblems = True
+ignoreProblems = False
 percentageOfProblemVokabel = 0.1
-questionType = "translation"
+questionType = "mixed"
 readQuestion = False
 numberOfQuestions = 100
 currentProblemVocabulary = []
+richtigeVokabeln = []
+falscheVokabeln = []
+
 
 # keeps track of vocabulyry asked
 tracker = {}
+
 
 # probably mac only
 def sayQuestion(language, word):
@@ -38,12 +45,14 @@ def sayQuestion(language, word):
 		os.system(text2Say)
 
 
-def result(language, isKorrekt, answer, correctAnswer, question, problems):
+def result(language, isKorrekt, answer, correctAnswer, question, problems, frageText):
 
 	#set default value if no language is provided
 	voiceSelector = "-v Daniel "
 	korrektText = " correct"
 
+	asked = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer }
+	
 
 	if language == "translation":
 		voiceSelector = "-v Anna "
@@ -57,19 +66,28 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 	if isKorrekt:
 		richtig = richtig + 1
 		problems = remove_problem(language, problems, question)
+		richtigeVokabeln.append(asked)
 	else:
 		text2Say = "say " + voiceSelector + str(correctAnswer)
 		falsch = falsch + 1
+		falscheVokabeln.append(asked)
+
+		length = len(frageText) + len(answer)
+		moveString = "\033[{}C\033[1A".format(length) # \033[1C (one Column right) \033[1A (one row up)
 
 		# display problem info
-		print(Color.LIGHTBLUE + "	Richtig wäre gewesen: ",end="",flush=True)
+		print(moveString + Color.RED + " --> "+Color.END,end="",flush=True)
 		for ca in correctAnswer:
 			print(Color.RED + ca +Color.END,end="",flush=True)
 			if ca != correctAnswer[len(correctAnswer)-1]:
 				print(" oder ",end="",flush=True)
-			else:
-				print(".")
-	
+
+		if len(correctAnswer) == 1:
+			diffed_result = show_diff(answer, correctAnswer[0])
+			print(Color.DARKCYAN +" Unterschied: >" + Color.END + diffed_result + Color.DARKCYAN +"<" + Color.END,end="",flush=True)
+
+		print("",flush=True)
+
 		#print("\n")
 		problem = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer, 'count' : 0 }
 	
@@ -111,17 +129,26 @@ def runTest( vocabulary , type, problems):
 	count = 0
 	global percentageOfProblemVokabel
 
-	# default is latin (other way round not useful)
-	# there is alway one single latin word
+	# default is english
 	qLanguage = "translation"
 	problemCount = { 'translation' : len(problems['translation']), 'source' : len(problems['source'])}
 
 
+	#print("Problem Count :" + str(problemCount))
+	#print(problems)
+	print("")
+	if type == 'source':
+		qLanguage = "source"
+
 	for question in vocabulary:
-		wrongAnswer = False
 		count = count + 1
-		#print("question:")
 		#print(question)
+		# randomize langauge each time
+		if type == 'mixed':
+			if random.choice([True, False]):
+				qLanguage = "translation"
+			else:
+				qLanguage = "source"
 
 		# mix problems randomly in questions
 		if random.random() < percentageOfProblemVokabel and problemCount[qLanguage] > 1:
@@ -137,13 +164,21 @@ def runTest( vocabulary , type, problems):
 			answerSize = 1
 		else:
 			# there is exactly one entry in the given array
-			q = question[qLanguage][0]
-			answerSize = len(question["source"])
-			a = question["source"] # is an array
+			questionsVocabularySize = len(question[qLanguage])
+			answerSize = len(question[ANSWER_LANGUAGE_4_QUESTION[qLanguage]])
+			a = question[ANSWER_LANGUAGE_4_QUESTION[qLanguage]]
+			#a_genetiv = question['genetiv']
+			#a_kasus = question['genetiv']
+			#print(a)
+			#print(str(questionsVocabularySize))
+			if questionsVocabularySize == 1:
+				q = question[qLanguage][0]
+			else:
+				randomKey = random.randint(0, questionsVocabularySize-1)
+				#print(randomKey)
+				q = question[qLanguage][randomKey]
 
-
-
-		#print("Frage >> " + str(question))
+		#print("Frage >> " + str(question[qLanguage]))
 		#print("Übersetzung für " + Color.BOLD + q + Color.END + "  : ", end="",flush=True)
 		#print("Anzahl Antworten " + str(answerSize))
 		sayQuestion(qLanguage, q)
@@ -155,53 +190,6 @@ def runTest( vocabulary , type, problems):
 			loop = answerSize
 
 		variantDuplicateDetection = []
-		#print(Color.BOLD + q + Color.END)
-		if "type" in question and question["type"] == "V":
-			# first ask present genus
-			if "present" in question:
-				frageText = "    " + str(count) + ". 1. Person Präsens für " + Color.BOLD + q + Color.END + " : "
-				eingabe = input(frageText)
-				if eingabe == question['present']:
-					result(qLanguage, True, eingabe, [question['present']],q, problems)
-				else:
-					result(qLanguage, False, eingabe, [question['present']],q, problems)
-					#currentProblemVocabulary.append(question)
-					wrongAnswer = True
-
-			# second ask genus 
-			if "perfect" in question:
-				frageText = "    " + str(count) + ". 1.Person Perfekt für " + Color.BOLD + q + Color.END + " : "
-				eingabe = input(frageText)
-				if eingabe == question['perfect']:
-					result(qLanguage, True, eingabe, [question['perfect']],q, problems)
-				else:
-					result(qLanguage, False, eingabe, [question['perfect']],q, problems)
-					#currentProblemVocabulary.append(question)
-					wrongAnswer = True
-
-		elif "type" in question and question["type"] != "V":
-			# first ask genetiv genus
-			if "genetiv" in question:
-				frageText = "    " + str(count) + ". Genetiv für " + Color.BOLD + q + Color.END + " : "
-				eingabe = input(frageText)
-				if eingabe == question['genetiv']:
-					result(qLanguage, True, eingabe, [question['genetiv']],q, problems)
-				else:
-					result(qLanguage, False, eingabe, [question['genetiv']],q, problems)
-					#currentProblemVocabulary.append(question)
-					wrongAnswer = True
-
-			# second ask genus 
-			if "genus" in question:
-				frageText = "    " + str(count) + ". Genus für " + Color.BOLD + q + Color.END + " : "
-				eingabe = input(frageText)
-				if eingabe == question['genus']:
-					result(qLanguage, True, eingabe, [question['genus']],q, problems)
-				else:
-					result(qLanguage, False, eingabe, [question['genus']],q, problems)
-					#currentProblemVocabulary.append(question)
-					wrongAnswer = True
-
 
 		# loop over variants - answer (a) contains all variants
 		for variantQuestionCounter in range(0,loop):
@@ -210,11 +198,11 @@ def runTest( vocabulary , type, problems):
 			if variantQuestionCounter > 0:
 				frageText = "	weitere Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			else:
-				frageText = " " + str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
+				frageText = str(count) + ". " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
 				#frageText = "Übersetzung für " + Color.BOLD + q + Color.END + "  : "
 			
 			eingabe = input(frageText)
-			
+
 			# endlos schleife bis neue Vokabel
 			while eingabe in variantDuplicateDetection:
 				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
@@ -224,11 +212,10 @@ def runTest( vocabulary , type, problems):
 			variantDuplicateDetection.append(eingabe)
 			#print ( eingabe + " == " + a )
 			if eingabe in a:
-				result(qLanguage, True, eingabe, a,q, problems)
+				result(qLanguage, True, eingabe, a,q, problems, frageText)
 			else:
-				result(qLanguage, False, eingabe, a,q, problems)
-				wrongAnswer = True
-				
+				result(qLanguage, False, eingabe, a,q, problems, frageText)
+				currentProblemVocabulary.append(question)
 
 			
 
@@ -244,11 +231,9 @@ def runTest( vocabulary , type, problems):
 			#if loop > variantQuestionCounter+1:
 			#		print("   weitere Übersetzung : ")
 
-		if wrongAnswer:
-			currentProblemVocabulary.append(question)
-		
 		if count >= numberOfQuestions:
-				print("\nAnzahl der Fragen erreicht.")
+				print("\nAnzahl der eingestellen Fragen ist erreicht.")
+				input(Color.BLUE + " Return / Enter für weiter ..." + Color.END)
 				break
 
 	return problems
@@ -257,9 +242,15 @@ def usage():
 	print('Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]')
 	print('	-i <inputfile> :: name of the file containing the vocabulary')
 	print('	-v             :: voice based results (say correct answer)')
+#	print('	-v             :: voice based question (say question)')
 	print('	-n             :: no problem vocabulary')
 	print('	-h             :: prints this help message')
+	print('	-f             :: asks foreign language words')
+	print('	-d             :: asks german words')
+	print('	-m             :: asks mixed')
+	print(' -e 			   :: sends result-email to given address') # TODO - it's always on right now
 	print('	-c <Anzahl>    :: number of words to ask')
+	print('	-a             :: all variants are asked')
 	print()
 	print('Example:')
 	print('	./vocabulary.py -i voc.csv -v')
@@ -290,8 +281,16 @@ def parseParamter(argv):
 			count = arg
 		elif opt in ("-v", "--voice"):
 			voice = True
+		elif opt in ("-f", "--foreign"):
+			questionType = "translation"
+		elif opt in ("-d", "--deutsch"):
+			questionType = "source"
+		elif opt in ("-m", "--mixed"):
+			questionType = "mixed"
 		elif opt in ("-n", "--noProblemVocabulary"):
 			ignoreProblems = True
+		elif opt in ("-a", "--alle"):
+			alleVarianten = True
 		elif opt in ("-r", "--read"):
 			readQuestion = True
 		elif opt in ("-t", "--test"):
@@ -300,7 +299,7 @@ def parseParamter(argv):
 
 	if inputfile == '':
 		print()
-		print("You need to provide a input file with the vocabulary.")
+		print("V2.0.  You need to provide a input file with the vocabulary.")
 		usage()
 		sys.exit(3)
 	# set number of questions
@@ -322,6 +321,8 @@ def ask4Korrektur():
 	return korrekturAnzahl
 
 def calcSchulnoteKorrektur(gesamt, fehler, korrekturAnzahl):
+	if gesamt == 0:
+		return 0
 	fehler = fehler - korrekturAnzahl
 	if fehler < 0:
 		fehler = 0
@@ -337,6 +338,8 @@ def calcSchulnoteKorrektur(gesamt, fehler, korrekturAnzahl):
 
 
 def calcSchulnote(gesamt, fehler):
+	if gesamt == 0:
+		return 6
 	prozent = fehler / gesamt * 100
 	schulprozent = prozent * 10 
 	faktor = schulprozent // 75
@@ -348,11 +351,17 @@ def calcSchulnote(gesamt, fehler):
 	return note
 
 def main(argv):
+
+
+#	sendInfoMail("datum", "start", "ende", "6", "1h", "user", "27", "12", "frage_art", "vokabel_datei")
+
 	global tracker
 	#print("argv: " + argv[0])
 	fileName = parseParamter(argv)
 	path = path, folder = os.path.split(fileName)
 	file = os.path.basename(fileName)
+	if fileName.startswith("englis"):
+		check_file(fileName)
 	#print(path)
 	#print(file)
 	# read the complete problem vocabulary
@@ -436,6 +445,7 @@ def main(argv):
 	with open(".result.log", "a") as logFile:#
 		logFile.write(str(start.date()) + " : " + start.time().strftime("%H:%M:%S") + " : " + end.time().strftime("%H:%M:%S") + " : " + str(note) + " : " + str(duration) + " :" + user + " : " + str(richtig+falsch) + " : " + str(falsch)+ " : " + questionType + " : " + str(fileName) +  "\n")
 
+	sendInfoMail(str(start.date()),start.time().strftime("%H:%M:%S"), end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,str(richtig+falsch),str(falsch),questionType,str(fileName), richtigeVokabeln, falscheVokabeln)
 
 	
 	if ( note <= 1.5 ):
@@ -473,7 +483,7 @@ def main(argv):
 ### TEST PART ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
 def testRuns():
   
-    calcSchulnote(20,0)
+	calcSchulnote(20,0)
    # calcSchulnote(20,1)
    # calcSchulnote(20,2)
    # calcSchulnote(20,3)
@@ -496,15 +506,9 @@ print("____   ____     __          ___.          .__   __                .__    
 print("\   \ /   /___ |  | _______ \_ |__   ____ |  |_/  |_____________  |__| ____   ___________ ")
 print(" \   Y   /  _ \|  |/ /\__  \ | __ \_/ __ \|  |\   __\_  __ \__  \ |  |/    \_/ __ \_  __ \\")
 print("  \     (  <_> )    <  / __ \| \_\ \  ___/|  |_|  |  |  | \// __ \|  |   |  \  ___/|  | \/")
-print("   \___/ \____/|__|_ \(____  /___  /\___  >____/__|  |__|  (____  /__|___|  /\___  >__| 2.0")
+print("   \___/ \____/|__|_ \(____  /___  /\___  >____/__|  |__|  (____  /__|___|  /\___  >__| 2.1")
 print("                    \/     \/    \/     \/                      \/        \/     \/       ")
-# print("  ___.              _____          __                  _______________  ____ .________    ")
-# print("  \_ |__ ___.__.   /  _  \   _____/  |_  ____   ____   \_____  \   _  \/_   ||   ____/    ")
-# print("   | __ <   |  |  /  /_\  \ /    \   __\/  _ \ /    \   /  ____/  /_\  \|   ||____  \     ")
-# print("   | \_\ \___  | /    |    \   |  \  | (  <_> )   |  \ /       \  \_/   \   |/       \\    ")
-# print("   |___  / ____| \____|__  /___|  /__|  \____/|___|  / \_______ \_____  /___/______  /    ")
-# print("       \/\/              \/     \/                 \/          \/     \/           \/     ")
-print("                                                                                          ")
+
 print(Color.BLACK + Color.BG_WHITE + "" + Color.END)
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ reads and writes files
 
 import os
 import ast
-from Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
+from vocabulary.Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
 import json
 
 def read_file(name):
