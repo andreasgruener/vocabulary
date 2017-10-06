@@ -7,8 +7,8 @@ import os
 import datetime
 import time
 from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
-from FileHandler import read_file, write_problem_file, write_tracker_file
-from util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
+from vocabulary.util.FileHandler import read_file, write_problem_file, write_tracker_file
+from vocabulary.util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
 #from SpellChecker import checkFile
 

@@ -1,5 +1,5 @@
 import difflib
-from Config import Color
+from ..Config import Color
 
 def show_diff(text, n_text):
     """

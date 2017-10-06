@@ -7,13 +7,13 @@ import os
 import datetime
 import time
 
-from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION_SMTP_RCPT,NOTIFICATION_SMTP_SERVER,NOTIFICATION_SMTP_USER,NOTIFICATION_SMTP_PWD,NOTIFICATION_SMTP_FROM
-from util.FileHandler import read_file, write_problem_file, write_tracker_file
-from util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
+from vocabulary.Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION,NOTIFICATION_SMTP_RCPT,NOTIFICATION_SMTP_SERVER,NOTIFICATION_SMTP_USER,NOTIFICATION_SMTP_PWD,NOTIFICATION_SMTP_FROM
+from vocabulary.util.FileHandler import read_file, write_problem_file, write_tracker_file
+from vocabulary.util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
-from util.mail import sendInfoMail
-from util.SpellChecker import check_file
-from util.diff import show_diff
+from vocabulary.util.Mail import sendInfoMail
+from vocabulary.util.SpellChecker import check_file
+from vocabulary.util.Diff import show_diff
 
 richtig = 0
 falsch = 0
@@ -350,7 +350,7 @@ def calcSchulnote(gesamt, fehler):
 	#print("Gesamt:%d Fehler:%d Prozent:%d Schulprozent:%d faktor:%d Note:%f" % (gesamt, fehler,prozent, schulprozent, faktor,note))
 	return note
 
-def main(argv):
+def startTest(argv):
 
 
 #	sendInfoMail("datum", "start", "ende", "6", "1h", "user", "27", "12", "frage_art", "vokabel_datei")
@@ -512,7 +512,7 @@ print("                    \/     \/    \/     \/                      \/       
 print(Color.BLACK + Color.BG_WHITE + "" + Color.END)
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+	startTest(sys.argv[1:])
    #testRuns()
 
 #TODO

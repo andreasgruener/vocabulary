@@ -9,9 +9,9 @@ import getopt
 import sys
 import enchant
 from enchant.tokenize import get_tokenizer
-from Config import Color
+from ..Config import Color
 
-from util.FileHandler import read_file
+from ..util.FileHandler import read_file
 
 # use british english
 LANGUAGE = "en_GB"

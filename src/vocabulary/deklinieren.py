@@ -8,8 +8,8 @@ from Config import Color
 import datetime
 import time
 from util.FileHandler import readDeklination
-from util.mail import sendInfoMail
-from util.diff import show_diff
+from util.Mail import sendInfoMail
+from util.Diff import show_diff
 
 
 def plural(json):
