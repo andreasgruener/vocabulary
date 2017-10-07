@@ -6,7 +6,7 @@ import getopt
 import os
 import datetime
 import time
-from Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
+from vocabulary.Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
 from vocabulary.util.FileHandler import read_file, write_problem_file, write_tracker_file
 from vocabulary.util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
@@ -347,7 +347,7 @@ def calcSchulnote(gesamt, fehler):
 	#print("Gesamt:%d Fehler:%d Prozent:%d Schulprozent:%d faktor:%d Note:%f" % (gesamt, fehler,prozent, schulprozent, faktor,note))
 	return note
 
-def main(argv):
+def startTest(argv):
 	global tracker
 	#print("argv: " + argv[0])
 	fileName = parseParamter(argv)
@@ -508,7 +508,7 @@ print("                                                                         
 print(Color.BLACK + Color.BG_WHITE + "" + Color.END)
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+   startTest(sys.argv[1:])
    #testRuns()
 
 #TODO

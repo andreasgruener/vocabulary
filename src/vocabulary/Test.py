@@ -45,6 +45,15 @@ def sayQuestion(language, word):
 
 		os.system(text2Say)
 
+def say(language, word):
+	#set default value if no language is provided
+	voiceSelector = "-v Anna "
+	if language == "english":
+		voiceSelector = "-v Daniel "
+	text2Say = "say " + voiceSelector + word
+
+	os.system(text2Say)
+
 
 def result(language, isKorrekt, answer, correctAnswer, question, problems, frageText):
 
@@ -472,10 +481,13 @@ def startTest(argv):
 	)
 
 	if ( note <= 1.5 ):
+		say("english", user+" you rock, really")
 		print(Color.GREEN + Color.BOLD+ yourock + Color.END)
 	elif ( note <= 2 ):
+		say("english", "good work"+ user)
 		print(Color.GREEN +rising_star+ Color.END)
 	elif ( note <= 3 ):
+		say("english", "keep on working "+ user)
 		print(Color.YELLOW +"__________.__         ._____.         .___                   ._."+ Color.END)
 		print(Color.YELLOW +"\______   \  |   ____ |__\_ |__     __| _/___________    ____| |"+ Color.END)
 		print(Color.YELLOW +" |    |  _/  | _/ __ \|  || __ \   / __ |\_  __ \__  \  /    \ |"+ Color.END)
@@ -483,6 +495,7 @@ def startTest(argv):
 		print(Color.YELLOW +" |______  /____/\___  >__||___  / \____ | |__|  (____  /___|  /_"+ Color.END)
 		print(Color.YELLOW +"        \/          \/        \/       \/            \/     \/\/"+ Color.END)
 	elif ( note > 3 ):
+		say("english", "there is room for improvement "+ user)
 		print(Color.RED +" __      __       .__  __                                       .__                 ._."+ Color.END)
 		print(Color.RED +"/  \    /  \ ____ |__|/  |_  ___________    _____ _____    ____ |  |__   ____   ____| |"+ Color.END)
 		print(Color.RED +"\   \/\/   // __ \|  \   __\/ __ \_  __ \  /     \\__  \ _/ ___\|  |  \_/ __ \ /    \ |"+ Color.END)
