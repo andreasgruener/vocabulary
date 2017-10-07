@@ -10,12 +10,13 @@ from vocabulary.Config import Color, QUESTION_TEXT, ANSWER_LANGUAGE_4_QUESTION
 from vocabulary.util.FileHandler import read_file, write_problem_file, write_tracker_file
 from vocabulary.util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
+from vocabulary.util.ASCIIArt import ASCII_LATEIN_TRAINER,  ASCII_RISING_STAR, ASCII_YOU_ROCK, ASCII_KEEP_WORKING, ASCII_DONT_GIVE_UP
 #from SpellChecker import checkFile
 
 richtig = 0
 falsch = 0
 voice = False
-alleVarianten = False
+alleVarianten = True
 ignoreProblems = True
 percentageOfProblemVokabel = 0.1
 questionType = "translation"
@@ -43,7 +44,6 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 	#set default value if no language is provided
 	voiceSelector = "-v Daniel "
 	korrektText = " correct"
-
 
 	if language == "translation":
 		voiceSelector = "-v Anna "
@@ -76,8 +76,6 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 		# TOD CHANGE to HashMap approach
 		problems = upsert_problem(language, problems ,problem)
 	#print(text2Say)
-
-
 
 	if voice and not(isKorrekt):
 		os.system(text2Say) 
@@ -182,9 +180,6 @@ def runTest( vocabulary , type, problems):
 				result(qLanguage, False, eingabe, a,q, problems)
 				wrongAnswer = True
 				
-
-			
-
 			#print(question['translation'][0])
 			keepTrackOf = question['translation'][0]
 			if ( keepTrackOf in tracker ):
@@ -263,7 +258,7 @@ def usage():
 	print('	-n             :: no problem vocabulary')
 	print('	-h             :: prints this help message')
 	print('	-c <Anzahl>    :: number of words to ask')
-	print('	-a             :: all variants are asked')
+#	print('	-a             :: all variants are asked')
 	print()
 	print('Example:')
 	print('	./vocabulary.py -i voc.csv -v')
@@ -443,21 +438,14 @@ def startTest(argv):
 		logFile.write(str(start.date()) + " : " + start.time().strftime("%H:%M:%S") + " : " + end.time().strftime("%H:%M:%S") + " : " + str(note) + " : " + str(duration) + " :" + user + " : " + str(richtig+falsch) + " : " + str(falsch)+ " : " + questionType + " : " + str(fileName) +  "\n")
 
 
+	publishResult(user, "Latein","Vokabeln",questionType, file,  note, duration, gesamt, falsch)
+	sendInfoMail(str(start.date()),start.time().strftime("%H:%M:%S"), end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,str(richtig+falsch),str(falsch),"Latein "+ questionType,str(fileName), richtigeVokabeln, falscheVokabeln)
+
 	
 	if ( note <= 1.5 ):
-		print(Color.GREEN + "  _________                              _____          __               ._."+ Color.END)
-		print(Color.GREEN + " /   _____/__ ________   ___________    /  _  \   _____/  |_  ____   ____| |"+ Color.END)
-		print(Color.GREEN + " \_____  \|  |  \____ \_/ __ \_  __ \  /  /_\  \ /    \   __\/  _ \ /    \ |"+ Color.END)
-		print(Color.GREEN + " /        \  |  /  |_> >  ___/|  | \/ /    |    \   |  \  | (  <_> )   |  \|"+ Color.END)
-		print(Color.GREEN + "/_______  /____/|   __/ \___  >__|    \____|__  /___|  /__|  \____/|___|  /_"+ Color.END)
-		print(Color.GREEN + "        \/      |__|        \/                \/     \/                 \/\/"+ Color.END)
+		print(Color.GREEN + ASCII_YOU_ROCK + Color.END)
 	elif ( note <= 2 ):
-		print(Color.GREEN +"  ________        __       _____          __               ._."+ Color.END)
-		print(Color.GREEN + " /  _____/ __ ___/  |_    /  _  \   _____/  |_  ____   ____| |"+ Color.END)
-		print(Color.GREEN + "/   \  ___|  |  \   __\  /  /_\  \ /    \   __\/  _ \ /    \ |"+ Color.END)
-		print(Color.GREEN + "\    \_\  \  |  /|  |   /    |    \   |  \  | (  <_> )   |  \|"+ Color.END)
-		print(Color.GREEN + " \______  /____/ |__|   \____|__  /___|  /__|  \____/|___|  /_"+ Color.END)
-		print(Color.GREEN + "        \/                      \/     \/                 \/\/"+ Color.END)
+		print(Color.GREEN +ASCII_RISING_STAR+ Color.END)
 	elif ( note <= 3 ):
 		print(Color.YELLOW +"__________.__         ._____.         .___                   ._."+ Color.END)
 		print(Color.YELLOW +"\______   \  |   ____ |__\_ |__     __| _/___________    ____| |"+ Color.END)
@@ -474,57 +462,9 @@ def startTest(argv):
 		print(Color.RED +"       \/       \/              \/              \/     \/     \/     \/     \/     \/\/"+ Color.END)
 
 
-### end of main 
-
-### TEST PART ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
-def testRuns():
-  
-    calcSchulnote(20,0)
-   # calcSchulnote(20,1)
-   # calcSchulnote(20,2)
-   # calcSchulnote(20,3)
-   # calcSchulnote(20,4)     
-   # calcSchulnote(20,11)
-   # calcSchulnote(20,15)
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
-
-
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
-
-### start main from here
-# Hier gehts wirklich los..
-
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
 
 os.system('clear')
-print(Color.BG_BLUE + Color.WHITE)
-print("____   ____     __          ___.          .__   __                .__                     ")
-print("\   \ /   /___ |  | _______ \_ |__   ____ |  |_/  |_____________  |__| ____   ___________ ")
-print(" \   Y   /  _ \|  |/ /\__  \ | __ \_/ __ \|  |\   __\_  __ \__  \ |  |/    \_/ __ \_  __ \\")
-print("  \     (  <_> )    <  / __ \| \_\ \  ___/|  |_|  |  |  | \// __ \|  |   |  \  ___/|  | \/")
-print("   \___/ \____/|__|_ \(____  /___  /\___  >____/__|  |__|  (____  /__|___|  /\___  >__| 2.0")
-print("                    \/     \/    \/     \/                      \/        \/     \/       ")
-# print("  ___.              _____          __                  _______________  ____ .________    ")
-# print("  \_ |__ ___.__.   /  _  \   _____/  |_  ____   ____   \_____  \   _  \/_   ||   ____/    ")
-# print("   | __ <   |  |  /  /_\  \ /    \   __\/  _ \ /    \   /  ____/  /_\  \|   ||____  \     ")
-# print("   | \_\ \___  | /    |    \   |  \  | (  <_> )   |  \ /       \  \_/   \   |/       \\    ")
-# print("   |___  / ____| \____|__  /___|  /__|  \____/|___|  / \_______ \_____  /___/______  /    ")
-# print("       \/\/              \/     \/                 \/          \/     \/           \/     ")
-print("                                                                                          ")
-print(Color.BLACK + Color.BG_WHITE + "" + Color.END)
+print(Color.BG_BLUE + Color.WHITE + ASCII_LATEIN_TRAINER + Color.END)
 
 if __name__ == "__main__":
    startTest(sys.argv[1:])
-   #testRuns()
-
-#TODO
-# - Parameter -d : deutsche Wörter fragen
-# - Parameter -e : englische Wörter fragen
-# - Parameter -m : mixed (deutsch / english)
-# - Schulnoten geben
-#		- a googlen wie die Regeln für die Schulnoten bei Vokabeltest sind
-#		- regeln implementieren
-# - kleine Ninjas reinmachen (Cole) - Idee von Papa Unicode Zeichen suchen
-# - Fortschritt / Highscore speichern (Gamification)
-
-

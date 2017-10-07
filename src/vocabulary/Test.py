@@ -15,6 +15,7 @@ from vocabulary.util.Mail import sendInfoMail
 from vocabulary.util.SpellChecker import check_file
 from vocabulary.util.Diff import show_diff
 from vocabulary.util.MqttClient import publishResult
+from vocabulary.util.ASCIIArt import ASCII_VOKABELTRAINER, ASCII_RISING_STAR, ASCII_YOU_ROCK, ASCII_KEEP_WORKING, ASCII_DONT_GIVE_UP
 
 richtig = 0
 falsch = 0
@@ -461,94 +462,23 @@ def startTest(argv):
 	publishResult(user, language,"Vokabeln",questionType, file,  note, duration, gesamt, falsch)
 	sendInfoMail(str(start.date()),start.time().strftime("%H:%M:%S"), end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,str(richtig+falsch),str(falsch),questionType,str(fileName), richtigeVokabeln, falscheVokabeln)
 
-	yourock = (
-		"_____.___.                                    __   ._.\n"
-		"\\__  |   | ____  __ __  _______  ____   ____ |  | _| |\n"
-		" /   |   |/  _ \\|  |  \\ \\_  __ \\/  _ \\_/ ___\\|  |/ / |\n"
-		" \\____   (  <_> )  |  /  |  | \\(  <_> )  \\___|    < \\|\n"
-		" / ______|\\____/|____/   |__|   \\____/ \\___  >__|_ \\__\n"
-		" \\/                                        \\/     \\/\\/\n"
-	)	
-
-
-	rising_star = (
-		"   _____           .__       .__                           __               ._.\n"
-		"  /  _  \\   _______|__| _____|__| ____    ____     _______/  |______ _______| |\n"
-		" /  /_\\  \\  \\_  __ \\  |/  ___/  |/    \\  / ___\\   /  ___/\\   __\\__  \\\\_  __ \\ |\n"
-		"/    |    \\  |  | \\/  |\\___ \\|  |   |  \\/ /_/  >  \\___ \\  |  |  / __ \\|  | \\/\\|\n"
-		"\\____|__  /  |__|  |__/____  >__|___|  /\\___  /  /____  > |__| (____  /__|   __\n"
-		"        \\/                 \\/        \\//_____/        \\/            \\/       \\/\n"
-	)
+	
 
 	if ( note <= 1.5 ):
 		say("english", user+" you rock, really")
-		print(Color.GREEN + Color.BOLD+ yourock + Color.END)
+		print(Color.GREEN + Color.BOLD+ ASCII_YOU_ROCK + Color.END)
 	elif ( note <= 2 ):
 		say("english", "good work"+ user)
-		print(Color.GREEN +rising_star+ Color.END)
+		print(Color.GREEN + ASCII_RISING_STAR + Color.END)
 	elif ( note <= 3 ):
 		say("english", "keep on working "+ user)
-		print(Color.YELLOW +"__________.__         ._____.         .___                   ._."+ Color.END)
-		print(Color.YELLOW +"\______   \  |   ____ |__\_ |__     __| _/___________    ____| |"+ Color.END)
-		print(Color.YELLOW +" |    |  _/  | _/ __ \|  || __ \   / __ |\_  __ \__  \  /    \ |"+ Color.END)
-		print(Color.YELLOW +" |    |   \  |_\  ___/|  || \_\ \ / /_/ | |  | \// __ \|   |  \|"+ Color.END)
-		print(Color.YELLOW +" |______  /____/\___  >__||___  / \____ | |__|  (____  /___|  /_"+ Color.END)
-		print(Color.YELLOW +"        \/          \/        \/       \/            \/     \/\/"+ Color.END)
+		print(Color.YELLOW +ASCII_KEEP_WORKING+ Color.END)
 	elif ( note > 3 ):
 		say("english", "there is room for improvement "+ user)
-		print(Color.RED +" __      __       .__  __                                       .__                 ._."+ Color.END)
-		print(Color.RED +"/  \    /  \ ____ |__|/  |_  ___________    _____ _____    ____ |  |__   ____   ____| |"+ Color.END)
-		print(Color.RED +"\   \/\/   // __ \|  \   __\/ __ \_  __ \  /     \\__  \ _/ ___\|  |  \_/ __ \ /    \ |"+ Color.END)
-		print(Color.RED +" \        /\  ___/|  ||  | \  ___/|  | \/ |  Y Y  \/ __ \\  \___|   Y  \  ___/|   |  \|"+ Color.END)
-		print(Color.RED +"  \__/\  /  \___  >__||__|  \___  >__|    |__|_|  (____  /\___  >___|  /\___  >___|  /_"+ Color.END)
-		print(Color.RED +"       \/       \/              \/              \/     \/     \/     \/     \/     \/\/"+ Color.END)
-
-
-### end of main 
-
-### TEST PART ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
-def testRuns():
-  
-	calcSchulnote(20,0)
-   # calcSchulnote(20,1)
-   # calcSchulnote(20,2)
-   # calcSchulnote(20,3)
-   # calcSchulnote(20,4)     
-   # calcSchulnote(20,11)
-   # calcSchulnote(20,15)
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
-
-
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
-
-### start main from here
-# Hier gehts wirklich los..
-
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
+		print(Color.RED +ASCII_DONT_GIVE_UP+ Color.END)
 
 os.system('clear')
-print(Color.BG_BLUE + Color.WHITE)
-print("____   ____     __          ___.          .__   __                .__                     ")
-print("\   \ /   /___ |  | _______ \_ |__   ____ |  |_/  |_____________  |__| ____   ___________ ")
-print(" \   Y   /  _ \|  |/ /\__  \ | __ \_/ __ \|  |\   __\_  __ \__  \ |  |/    \_/ __ \_  __ \\")
-print("  \     (  <_> )    <  / __ \| \_\ \  ___/|  |_|  |  |  | \// __ \|  |   |  \  ___/|  | \/")
-print("   \___/ \____/|__|_ \(____  /___  /\___  >____/__|  |__|  (____  /__|___|  /\___  >__| 2.1")
-print("                    \/     \/    \/     \/                      \/        \/     \/       ")
-
-print(Color.BLACK + Color.BG_WHITE + "" + Color.END)
+print(Color.BG_BLUE + Color.WHITE+ ASCII_VOKABELTRAINER +Color.BLACK + Color.BG_WHITE + "" + Color.END)
 
 if __name__ == "__main__":
 	startTest(sys.argv[1:])
-   #testRuns()
-
-#TODO
-# - Parameter -d : deutsche Wörter fragen
-# - Parameter -e : englische Wörter fragen
-# - Parameter -m : mixed (deutsch / english)
-# - Schulnoten geben
-#		- a googlen wie die Regeln für die Schulnoten bei Vokabeltest sind
-#		- regeln implementieren
-# - kleine Ninjas reinmachen (Cole) - Idee von Papa Unicode Zeichen suchen
-# - Fortschritt / Highscore speichern (Gamification)
-
-

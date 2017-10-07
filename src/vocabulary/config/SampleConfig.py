@@ -17,6 +17,11 @@ NOTIFICATION_SMTP_PWD= "secret"
 NOTIFICATION_SMTP_FROM= "vokabel-trainer@gmail.com"
 NOTIFICATION_SMTP_RCPT= "your-address@example.com"
 
+MQTT_SERVER="localhost"
+MQTT_PORT=1883
+MQTT_USER=""
+MQTT_PASSWORD=""
+
 class Color:
     """Color codes for terminal
     """
