@@ -196,7 +196,7 @@ def runTest( vocabulary , type, problems):
 		# ask all variants if enable via parameter
 		loop = 1
 		if alleVarianten:
-			#print("ALLE VARAINTS" + str(answerSize))
+			print("ALLE VARAINTS" + str(answerSize))
 			loop = answerSize
 
 		variantDuplicateDetection = []

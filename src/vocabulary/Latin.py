@@ -149,12 +149,59 @@ def runTest( vocabulary , type, problems):
 		sayQuestion(qLanguage, q)
 
 		# ask all variants if enable via parameter
+		variantDuplicateDetection = []
 		loop = 1
 		if alleVarianten:
 			#print("ALLE VARAINTS" + str(answerSize))
 			loop = answerSize
 
-		variantDuplicateDetection = []
+
+		# loop over variants - answer (a) contains all variants
+		for variantQuestionCounter in range(0,loop):
+
+			#eingabe = sys.stdin.readline().strip("\r\n")
+			if variantQuestionCounter > 0:
+				frageText = "	weitere Übersetzung für " + Color.BOLD + q + Color.END + "  : "
+			else:
+				frageText = " " + str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
+				#frageText = "Übersetzung für " + Color.BOLD + q + Color.END + "  : "
+			
+			eingabe = input(frageText)
+			
+			# endlos schleife bis neue Vokabel
+			while eingabe in variantDuplicateDetection:
+				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
+				eingabe = input(frageText)
+
+
+			variantDuplicateDetection.append(eingabe)
+			#print ( eingabe + " == " + a )
+			if eingabe in a:
+				result(qLanguage, True, eingabe, a,q, problems)
+			else:
+				result(qLanguage, False, eingabe, a,q, problems)
+				wrongAnswer = True
+				
+
+			
+
+			#print(question['translation'][0])
+			keepTrackOf = question['translation'][0]
+			if ( keepTrackOf in tracker ):
+				cnt = int(tracker[keepTrackOf])
+				tracker[keepTrackOf] = cnt + 1
+			else:
+				tracker[keepTrackOf] = 1
+			#print(tracker)
+			#print("Anzahl Antworten=" + str(answerSize) + " Schleife=" + str(loop) + "  Aktuelle Frage=" + str(variantQuestionCounter))
+			#if loop > variantQuestionCounter+1:
+			#		print("   weitere Übersetzung : ")
+
+		if wrongAnswer:
+			currentProblemVocabulary.append(question)
+		
+
+
 		#print(Color.BOLD + q + Color.END)
 		if "type" in question and question["type"] == "V":
 			# first ask present genus
@@ -203,50 +250,6 @@ def runTest( vocabulary , type, problems):
 					wrongAnswer = True
 
 
-		# loop over variants - answer (a) contains all variants
-		for variantQuestionCounter in range(0,loop):
-
-			#eingabe = sys.stdin.readline().strip("\r\n")
-			if variantQuestionCounter > 0:
-				frageText = "	weitere Übersetzung für " + Color.BOLD + q + Color.END + "  : "
-			else:
-				frageText = " " + str(count) + ". Übersetzung für " + Color.BOLD + q + Color.END + " (" + str(answerSize) +") : "
-				#frageText = "Übersetzung für " + Color.BOLD + q + Color.END + "  : "
-			
-			eingabe = input(frageText)
-			
-			# endlos schleife bis neue Vokabel
-			while eingabe in variantDuplicateDetection:
-				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
-				eingabe = input(frageText)
-
-
-			variantDuplicateDetection.append(eingabe)
-			#print ( eingabe + " == " + a )
-			if eingabe in a:
-				result(qLanguage, True, eingabe, a,q, problems)
-			else:
-				result(qLanguage, False, eingabe, a,q, problems)
-				wrongAnswer = True
-				
-
-			
-
-			#print(question['translation'][0])
-			keepTrackOf = question['translation'][0]
-			if ( keepTrackOf in tracker ):
-				cnt = int(tracker[keepTrackOf])
-				tracker[keepTrackOf] = cnt + 1
-			else:
-				tracker[keepTrackOf] = 1
-			#print(tracker)
-			#print("Anzahl Antworten=" + str(answerSize) + " Schleife=" + str(loop) + "  Aktuelle Frage=" + str(variantQuestionCounter))
-			#if loop > variantQuestionCounter+1:
-			#		print("   weitere Übersetzung : ")
-
-		if wrongAnswer:
-			currentProblemVocabulary.append(question)
-		
 		if count >= numberOfQuestions:
 				print("\nAnzahl der Fragen erreicht.")
 				break
@@ -260,6 +263,7 @@ def usage():
 	print('	-n             :: no problem vocabulary')
 	print('	-h             :: prints this help message')
 	print('	-c <Anzahl>    :: number of words to ask')
+	print('	-a             :: all variants are asked')
 	print()
 	print('Example:')
 	print('	./vocabulary.py -i voc.csv -v')
@@ -292,6 +296,8 @@ def parseParamter(argv):
 			voice = True
 		elif opt in ("-n", "--noProblemVocabulary"):
 			ignoreProblems = True
+		elif opt in ("-a", "--alle"):
+			alleVarianten = True			
 		elif opt in ("-r", "--read"):
 			readQuestion = True
 		elif opt in ("-t", "--test"):
