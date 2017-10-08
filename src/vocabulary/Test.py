@@ -22,6 +22,7 @@ falsch = 0
 voice = False
 alleVarianten = False
 ignoreProblems = False
+detectDuplicates = True
 percentageOfProblemVokabel = 0.1
 questionType = "mixed"
 readQuestion = False
@@ -215,9 +216,10 @@ def runTest( vocabulary , type, problems):
 			eingabe = input(frageText)
 
 			# endlos schleife bis neue Vokabel
-			while eingabe in variantDuplicateDetection:
-				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
-				eingabe = input(frageText)
+			if detectDuplicates:
+				while eingabe in variantDuplicateDetection :
+					print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
+					eingabe = input(frageText)
 
 
 			variantDuplicateDetection.append(eingabe)
@@ -250,7 +252,7 @@ def runTest( vocabulary , type, problems):
 	return problems
 
 def usage():
-	print('Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]')
+	print('Usage: ./vocabulary.py -i <inputfile> [-v] [-x] [-e] [-d] [-m] [-r] [-c n] [-h]')
 	print('	-i <inputfile> :: name of the file containing the vocabulary')
 	print('	-v             :: voice based results (say correct answer)')
 #	print('	-v             :: voice based question (say question)')
@@ -261,6 +263,7 @@ def usage():
 	print('	-m             :: asks mixed')
 	print(' -e 			   :: sends result-email to given address') # TODO - it's always on right now
 	print('	-c <Anzahl>    :: number of words to ask')
+	print('	-x    		   :: do not check duplicates')
 	print('	-a             :: all variants are asked')
 	print()
 	print('Example:')
@@ -275,10 +278,11 @@ def parseParamter(argv):
 	global readQuestion
 	global questionType
 	global numberOfQuestions
+	global detectDuplicates
 	inputfile = ''
 	count = 100
 	try:
-	  opts, args = getopt.getopt(argv,"hvdanrmfc:i:",["help","voice","deutsch","alle", "noProblemVocabulary","read","mixed","foreign","count=","inputFile="])
+	  opts, args = getopt.getopt(argv,"hvdaxnrmfc:i:",["help","voice","deutsch","alle", "allow duplicates", "noProblemVocabulary","read","mixed","foreign","count=","inputFile="])
 	except getopt.GetoptError:
 		usage()
 		sys.exit(2)
@@ -302,6 +306,8 @@ def parseParamter(argv):
 			ignoreProblems = True
 		elif opt in ("-a", "--alle"):
 			alleVarianten = True
+		elif opt in ("-x", "--allow duplicates"):
+			detectDuplicates = False
 		elif opt in ("-r", "--read"):
 			readQuestion = True
 		elif opt in ("-t", "--test"):
