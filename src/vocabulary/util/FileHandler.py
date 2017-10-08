@@ -41,7 +41,7 @@ def read_file(name):
 			#	print("Latin entry")
 				subentries = lang_translations[0].split("|")
 				if len(subentries) < 3 or len(subentries) > 4:
-					print("Error parsing latin entry expected three entries in " + str(lang_translations) + " got " + len(subentries) + " Full Entry: " + str(translation))
+					print("Error parsing latin entry expected three entries in " + str(lang_translations) + " got " + str(len(subentries)) + " Full Entry: " + str(translation))
 					print( "Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount))
 					return []
 				else:
