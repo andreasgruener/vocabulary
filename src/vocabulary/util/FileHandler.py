@@ -2,11 +2,12 @@
 """Filehandler for Vocabulary
 reads and writes files
 """
-
+from sys import exit
 import os
 import ast
-from ..Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES
+from ..Config import LIST_OF_PROBLEM_VOCABULARY, SUPPORTED_LANGUAGES, Color
 import json
+
 
 def read_file(name):
 	"""
@@ -41,21 +42,21 @@ def read_file(name):
 			#	print("Latin entry")
 				subentries = lang_translations[0].split("|")
 				if len(subentries) < 3 or len(subentries) > 4:
-					print("Error parsing latin entry expected three entries in " + str(lang_translations) + " got " + str(len(subentries)) + " Full Entry: " + str(translation))
-					print( "Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount))
-					return []
+					print(Color.RED + "Error parsing latin entry expected three entries in " + str(lang_translations) + " got " + str(len(subentries)) + " Full Entry: " + str(translation)+ Color.END)
+					print(Color.RED + "Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount) + Color.END)
+					exit(4)
 				else:
 					if len(subentries) == 3: # noun
 						vocabulary_type = "S" # substantive
 						if subentries[2] not in ("m","f","n"):
-							print("Found unknown GENUS " + subentries[2])
-							return []
+							print(Color.RED + "Found unknown GENUS " + subentries[2]+Color.END)
+							exit(4)
 					elif len(subentries) == 4: # verb
 						vocabulary_type = "V" # substantive
 		#	print("Vocabulary Type "+ vocabulary_type)
 			if len(lange_source[0]) < 2:
 				print("Fehler in Datei: Leere oder zu kurze Vokabel: >" + lange_source[0] +  "< .Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount))
-				return []
+				exit(4)
 
 			initial_dictionary = {'translation' : lang_translations, 'source' : lange_source, 'type' : vocabulary_type}
 		
