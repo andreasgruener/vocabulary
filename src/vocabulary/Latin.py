@@ -11,6 +11,8 @@ from vocabulary.util.FileHandler import read_file, write_problem_file, write_tra
 from vocabulary.util.FileHandler import load_tracker_file, read_problem_file, upsert_problem, remove_problem
 import operator
 from vocabulary.util.ASCIIArt import ASCII_LATEIN_TRAINER,  ASCII_RISING_STAR, ASCII_YOU_ROCK, ASCII_KEEP_WORKING, ASCII_DONT_GIVE_UP
+from vocabulary.util.MqttClient import publishResult
+from vocabulary.util.Mail import sendInfoMail
 #from SpellChecker import checkFile
 
 richtig = 0
@@ -23,6 +25,8 @@ questionType = "translation"
 readQuestion = False
 numberOfQuestions = 100
 currentProblemVocabulary = []
+richtigeVokabeln = []
+falscheVokabeln = []
 
 # keeps track of vocabulyry asked
 tracker = {}
@@ -45,6 +49,8 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 	voiceSelector = "-v Daniel "
 	korrektText = " correct"
 
+	asked = { 'language' : language, 'question' :  question, 'correctAnswer' : correctAnswer, 'answer' :  answer }
+
 	if language == "translation":
 		voiceSelector = "-v Anna "
 		korrektText = " richtig"
@@ -57,9 +63,11 @@ def result(language, isKorrekt, answer, correctAnswer, question, problems):
 	if isKorrekt:
 		richtig = richtig + 1
 		problems = remove_problem(language, problems, question)
+		richtigeVokabeln.append(asked)
 	else:
 		text2Say = "say " + voiceSelector + str(correctAnswer)
 		falsch = falsch + 1
+		falscheVokabeln.append(asked)
 
 		# display problem info
 		print(Color.LIGHTBLUE + "	Richtig wäre gewesen: ",end="",flush=True)
@@ -118,30 +126,16 @@ def runTest( vocabulary , type, problems):
 	for question in vocabulary:
 		wrongAnswer = False
 		count = count + 1
-		#print("question:")
 		#print(question)
 
-		# mix problems randomly in questions
-		if random.random() < percentageOfProblemVokabel and problemCount[qLanguage] > 1:
-			randomKey = random.randint(0, problemCount[qLanguage]-1)
-			#print("YEAH %d" %(randomKey))
-			#print(problems[qLanguage])
-			#print(problems[qLanguage][randomKey])
-			print("Problemvokabel:") #" %d" %(randomKey) )
-			q = problems[qLanguage][randomKey]['question']
-			a = problems[qLanguage][randomKey]['correctAnswer']	
-			#a_genetiv = problems[qLanguage][randomKey]['genetiv']
-			#a_kasus = problems[qLanguage][randomKey]['genetiv']
-			answerSize = 1
-		else:
-			# there is exactly one entry in the given array
-			q = question[qLanguage][0]
-			answerSize = len(question["source"])
-			a = question["source"] # is an array
+		# there is exactly one entry in the given array
+		q = question[qLanguage][0]
+		answerSize = len(question["source"])
+		a = question["source"] # is an array
 
 
-
-		#print("Frage >> " + str(question))
+		#print("Frage >> " + str(q))
+		#print("Antowrt >> " + str(a))
 		#print("Übersetzung für " + Color.BOLD + q + Color.END + "  : ", end="",flush=True)
 		#print("Anzahl Antworten " + str(answerSize))
 		sayQuestion(qLanguage, q)
@@ -152,7 +146,6 @@ def runTest( vocabulary , type, problems):
 		if alleVarianten:
 			#print("ALLE VARAINTS" + str(answerSize))
 			loop = answerSize
-
 
 		# loop over variants - answer (a) contains all variants
 		for variantQuestionCounter in range(0,loop):
@@ -201,7 +194,7 @@ def runTest( vocabulary , type, problems):
 		if "type" in question and question["type"] == "V":
 			# first ask present genus
 			if "present" in question:
-				frageText = "    " + str(count) + ". 1. Person Präsens für " + Color.BOLD + q + Color.END + " : "
+				frageText = "    " + str(count) + ". 1.Person Präsens für " + Color.BOLD + q + Color.END + " : "
 				eingabe = input(frageText)
 				if eingabe == question['present']:
 					result(qLanguage, True, eingabe, [question['present']],q, problems)
@@ -255,10 +248,8 @@ def usage():
 	print('Usage: ./vocabulary.py -i <inputfile> [-v] [-e] [-d] [-m] [-r] [-c n] [-h]')
 	print('	-i <inputfile> :: name of the file containing the vocabulary')
 	print('	-v             :: voice based results (say correct answer)')
-	print('	-n             :: no problem vocabulary')
 	print('	-h             :: prints this help message')
 	print('	-c <Anzahl>    :: number of words to ask')
-#	print('	-a             :: all variants are asked')
 	print()
 	print('Example:')
 	print('	./vocabulary.py -i voc.csv -v')
