@@ -183,10 +183,11 @@ def calcSchulnote(gesamt, fehler):
 	return note
 
 def usage():
-    print('Usage: ./deklinieren.py [-o] [-e] [-a] [-k] [-g <m|n|f>]]')
+    print('Usage: ./deklinieren.py [-o] [-e] [-u] [-a] [-k] [-g <m|n|f>]]')
     print('	-a             :: a Dekliniation)')
     print('	-o             :: o Dekliniation)')
     print('	-e             :: e Dekliniation)')
+    print('	-u             :: u Dekliniation)')
     print('	-k             :: konsonantische Dekliniation)')
     print(' -g <m|n|f>     :: genus')
     print('Example:')
@@ -197,7 +198,7 @@ def parseParamter(argv):
     deklination = ""
     numerus = ""
     try:
-        opts, args = getopt.getopt(argv,"aoekg:",["a","o","e","k","g="])
+        opts, args = getopt.getopt(argv,"aouekg:",["a","o","e","u","k","g="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -211,6 +212,8 @@ def parseParamter(argv):
            deklination = "o"
         elif opt in ("-e", "--e"):
            deklination = "e"
+        elif opt in ("-u", "--u"):
+           deklination = "u"
         elif opt in ("-g", "--g"):
             if arg == "f":
                numerus = "femininum"

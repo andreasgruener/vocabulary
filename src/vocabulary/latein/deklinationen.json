@@ -143,6 +143,35 @@
             ]
         }
     ]
-    }
+    },
+    {
+        "name" : "u-Deklination",
+        "basis" : "cult",
+        "translated" : "Heer",
+        "genus" : "maskulinum",
+        "nominativ" : "cultus",
+        "numerus" : [
+            {
+                "name" : "singular",
+                "kasus" : [
+                    { "kasus" : "Nominativ", "endung" : "us"},
+                    { "kasus" : "Genetiv", "endung" : "us"},
+                    { "kasus" : "Dativ", "endung" : "ui"},
+                    { "kasus" : "Akkusativ", "endung" : "um"},
+                    { "kasus" : "Ablativ", "endung" : "u"}
+                ]
+            },
+            {
+                "name" : "plural",
+                "kasus" : [
+                    { "kasus" : "Nominativ", "endung" : "us"},
+                    { "kasus" : "Genetiv", "endung" : "uum"},
+                    { "kasus" : "Dativ", "endung" : "ibus"},
+                    { "kasus" : "Akkusativ", "endung" : "us"},
+                    { "kasus" : "Ablativ", "endung" : "ibus"}
+                ]
+            }
+        ]
+        }
 ]
 }

@@ -39,8 +39,10 @@ def read_file(name):
 
 			# determine type of entry (latin has a pipe symbol fpr genus, but not multiple options for translations)
 			if len(lang_translations) == 1 and "|" in lang_translations[0]:
-			#	print("Latin entry")
+				print("Latin entry")
 				subentries = lang_translations[0].split("|")
+				print(subentries)
+				print(len(subentries))
 				if len(subentries) < 3 or len(subentries) > 4:
 					print(Color.RED + "Error parsing latin entry expected three entries in " + str(lang_translations) + " got " + str(len(subentries)) + " Full Entry: " + str(translation)+ Color.END)
 					print(Color.RED + "Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount) + Color.END)
@@ -53,7 +55,7 @@ def read_file(name):
 							exit(4)
 					elif len(subentries) == 4: # verb
 						vocabulary_type = "V" # substantive
-		#	print("Vocabulary Type "+ vocabulary_type)
+			print("Vocabulary Type "+ vocabulary_type)
 			if len(lange_source[0]) < 2:
 				print("Fehler in Datei: Leere oder zu kurze Vokabel: >" + lange_source[0] +  "< .Beende lesen der Datei. Datei korrigieren - Zeile: " + str(rowCount))
 				exit(4)
