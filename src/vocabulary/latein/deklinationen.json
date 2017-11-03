@@ -1,235 +1,479 @@
 {
-"Deklinationen" : [{
-    "name" : "a-Deklination",
-    "basis" : "cas",
-    "translated" : "Haus",
-    "nominativ" : "casa",
-    "genus" : "feminium",
-    "numerus" : [
+    "Deklinationen": [
         {
-            "name" : "singular",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "a"},
-                { "kasus" : "Genetiv", "endung" : "ae"},
-                { "kasus" : "Dativ", "endung" : "ae"},
-                { "kasus" : "Akkusativ", "endung" : "am"},
-                { "kasus" : "Ablativ", "endung" : "a"}
-            ]
-        },
-        {
-            "name" : "plural",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "ae"},
-                { "kasus" : "Genetiv", "endung" : "arum"},
-                { "kasus" : "Dativ", "endung" : "is"},
-                { "kasus" : "Akkusativ", "endung" : "as"},
-                { "kasus" : "Ablativ", "endung" : "is"}
-                ]
-        }
-        ]
-    },
-    {
-    "name" : "o-Deklination",
-    "basis" : "av",
-    "translated" : "Vogel",
-    "nominativ" : "avus",
-    "genus" : "maskulinum",
-    "numerus" : [
-        {
-            "name" : "singular",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "us"},
-                { "kasus" : "Genetiv", "endung" : "i"},
-                { "kasus" : "Dativ", "endung" : "o"},
-                { "kasus" : "Akkusativ", "endung" : "um"},
-                { "kasus" : "Ablativ", "endung" : "o"}
-            ]
-        },
-        {
-            "name" : "plural",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "i"},
-                { "kasus" : "Genetiv", "endung" : "orum"},
-                { "kasus" : "Dativ", "endung" : "is"},
-                { "kasus" : "Akkusativ", "endung" : "os"},
-                { "kasus" : "Ablativ", "endung" : "is"}
-            ]
-        }
-    ]
-    },
-    {
-    "name" : "o-Deklination",
-    "basis" : "templ",
-    "translated" : "Tempel",
-    "nominativ" : "templum",
-    "genus" : "neutrum",
-    "numerus" : [
-        {
-            "name" : "singular",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "um"},
-                { "kasus" : "Genetiv", "endung" : "i"},
-                { "kasus" : "Dativ", "endung" : "o"},
-                { "kasus" : "Akkusativ", "endung" : "um"},
-                { "kasus" : "Ablativ", "endung" : "o"}
-            ]
-        },
-        {
-            "name" : "plural",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "a"},
-                { "kasus" : "Genetiv", "endung" : "orum"},
-                { "kasus" : "Dativ", "endung" : "is"},
-                { "kasus" : "Akkusativ", "endung" : "a"},
-                { "kasus" : "Ablativ", "endung" : "is"}
-            ]
-        }
-    ]
-    },    
-    {
-    "name" : "kons.-Deklination",
-    "basis" : "senator",
-    "translated" : "Senator",
-    "nominativ" : "senator",
-    "genus" : "maskulinum",
-    "numerus" : [
-        {
-            "name" : "singular",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : ""},
-                { "kasus" : "Genetiv", "endung" : "is"},
-                { "kasus" : "Dativ", "endung" : "i"},
-                { "kasus" : "Akkusativ", "endung" : "em"},
-                { "kasus" : "Ablativ", "endung" : "e"}
-            ]
-        },
-        {
-            "name" : "plural",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "es"},
-                { "kasus" : "Genetiv", "endung" : "um"},
-                { "kasus" : "Dativ", "endung" : "ibus"},
-                { "kasus" : "Akkusativ", "endung" : "es"},
-                { "kasus" : "Ablativ", "endung" : "ibus"}
-            ]
-        }
-    ]
-    },
-    {
-    "name" : "kons.-Deklination",
-    "basis" : "capit",
-    "translated" : "Haupt",
-    "nominativ" : "caput",
-    "genus" : "neutrum",
-    "numerus" : [
-        {
-            "name" : "singular",
-            "kasus" : [
-                { "kasus" : "Nominativ", "sonderform" : "caput", "endung" : ""},
-                { "kasus" : "Genetiv", "endung" : "is"},
-                { "kasus" : "Dativ", "endung" : "i"},
-                { "kasus" : "Akkusativ", "sonderform" : "caput", "endung" : ""},
-                { "kasus" : "Ablativ", "endung" : "e"}
-            ]
-        },
-        {
-            "name" : "plural",
-            "kasus" : [
-                { "kasus" : "Nominativ", "endung" : "a"},
-                { "kasus" : "Genetiv", "endung" : "um"},
-                { "kasus" : "Dativ", "endung" : "ibus"},
-                { "kasus" : "Akkusativ", "endung" : "a"},
-                { "kasus" : "Ablativ", "endung" : "ibus"}
-            ]
-        }
-    ]
-    },
-    {
-        "name" : "u-Deklination",
-        "basis" : "cult",
-        "translated" : "Heer",
-        "genus" : "maskulinum",
-        "nominativ" : "cultus",
-        "numerus" : [
-            {
-                "name" : "singular",
-                "kasus" : [
-                    { "kasus" : "Nominativ", "endung" : "us"},
-                    { "kasus" : "Genetiv", "endung" : "us"},
-                    { "kasus" : "Dativ", "endung" : "ui"},
-                    { "kasus" : "Akkusativ", "endung" : "um"},
-                    { "kasus" : "Ablativ", "endung" : "u"}
-                ]
-            },
-            {
-                "name" : "plural",
-                "kasus" : [
-                    { "kasus" : "Nominativ", "endung" : "us"},
-                    { "kasus" : "Genetiv", "endung" : "uum"},
-                    { "kasus" : "Dativ", "endung" : "ibus"},
-                    { "kasus" : "Akkusativ", "endung" : "us"},
-                    { "kasus" : "Ablativ", "endung" : "ibus"}
-                ]
-            }
-        ]
-        },
-        {
-            "name" : "e-Deklination",
-            "basis" : "di",
-            "translated" : "Tag",
-            "genus" : "maskulinum",
-            "nominativ" : "dies",
-            "numerus" : [
+            "name": "a-Deklination",
+            "basis": "cas",
+            "translated": "Haus",
+            "nominativ": "casa",
+            "genus": "feminium",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
                         {
-                            "name" : "singular",
-                            "kasus" : [
-                                { "kasus" : "Nominativ", "endung" : "es"},
-                                { "kasus" : "Genetiv", "endung" : "ei"},
-                                { "kasus" : "Dativ", "endung" : "ei"},
-                                { "kasus" : "Akkusativ", "endung" : "em"},
-                                { "kasus" : "Ablativ", "endung" : "i"}
-                            ]
+                            "kasus": "Nominativ",
+                            "endung": "a"
                         },
                         {
-                            "name" : "plural",
-                            "kasus" : [
-                                { "kasus" : "Nominativ", "endung" : "es"},
-                                { "kasus" : "Genetiv", "endung" : "erum"},
-                                { "kasus" : "Dativ", "endung" : "ebus"},
-                                { "kasus" : "Akkusativ", "endung" : "es"},
-                                { "kasus" : "Ablativ", "endung" : "ebus"}
-                            ]
-                        }
-            ]
-            },
-            {
-                "name" : "gemischte-Deklination",
-                "basis" : "gent",
-                "translated" : "Familie",
-                "genus" : "femininum",
-                "nominativ" : "gens",
-                "numerus" : [
-                        {
-                            "name" : "singular",
-                            "kasus" : [
-                                { "kasus" : "Nominativ", "sonderform" : "gens","endung" : ""},
-                                { "kasus" : "Genetiv", "endung" : "is"},
-                                { "kasus" : "Dativ", "endung" : "i"},
-                                { "kasus" : "Akkusativ", "endung" : "em"},
-                                { "kasus" : "Ablativ", "endung" : "e"}
-                            ]
+                            "kasus": "Genetiv",
+                            "endung": "ae"
                         },
                         {
-                            "name" : "plural",
-                            "kasus" : [
-                                { "kasus" : "Nominativ", "endung" : "es"},
-                                { "kasus" : "Genetiv", "endung" : "ium"},
-                                { "kasus" : "Dativ", "endung" : "ibus"},
-                                { "kasus" : "Akkusativ", "endung" : "es"},
-                                { "kasus" : "Ablativ", "endung" : "ibus"}
-                            ]
+                            "kasus": "Dativ",
+                            "endung": "ae"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "am"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "a"
                         }
                     ]
-            }          
-]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "ae"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "arum"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "as"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "is"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "o-Deklination",
+            "basis": "av",
+            "translated": "Vogel",
+            "nominativ": "avus",
+            "genus": "maskulinum",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "us"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "o"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "o"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "orum"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "os"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "is"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "o-Deklination",
+            "basis": "templ",
+            "translated": "Tempel",
+            "nominativ": "templum",
+            "genus": "neutrum",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "o"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "o"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "a"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "orum"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "a"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "is"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "kons.-Deklination",
+            "basis": "senator",
+            "translated": "Senator",
+            "nominativ": "senator",
+            "genus": "maskulinum",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": ""
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "em"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "e"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ibus"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "ibus"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "kons.-Deklination",
+            "basis": "capit",
+            "translated": "Haupt",
+            "nominativ": "caput",
+            "genus": "neutrum",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "sonderform": "caput",
+                            "endung": ""
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "sonderform": "caput",
+                            "endung": ""
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "e"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "a"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ibus"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "a"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "ibus"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "u-Deklination",
+            "basis": "cult",
+            "translated": "Heer",
+            "genus": "maskulinum",
+            "nominativ": "cultus",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "us"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "us"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ui"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "u"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "us"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "uum"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ibus"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "us"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "ibus"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "e-Deklination",
+            "basis": "di",
+            "translated": "Tag",
+            "genus": "maskulinum",
+            "nominativ": "dies",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "ei"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ei"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "em"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "i"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "erum"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ebus"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "ebus"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "gemischte-Deklination",
+            "basis": "gent",
+            "translated": "Familie",
+            "genus": "femininum",
+            "nominativ": "gens",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "sonderform": "gens",
+                            "endung": ""
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "em"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "e"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "ium"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ibus"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "ibus"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
