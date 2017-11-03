@@ -192,6 +192,7 @@ def usage():
     print('	-e             :: e Dekliniation)')
     print('	-u             :: u Dekliniation)')
     print('	-k             :: konsonantische Dekliniation)')
+    print('	-m             :: gemischte Dekliniation)')
     print(' -g <m|n|f>     :: genus')
     print('Example:')
     print('	./deklinieren.py -a')
@@ -201,7 +202,7 @@ def parseParamter(argv):
     deklination = ""
     numerus = ""
     try:
-        opts, args = getopt.getopt(argv,"aouekg:",["a","o","e","u","k","g="])
+        opts, args = getopt.getopt(argv,"aouekmg:",["a","m","o","e","u","k","g="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -217,6 +218,10 @@ def parseParamter(argv):
            deklination = "e"
         elif opt in ("-u", "--u"):
            deklination = "u"
+        elif opt in ("-m", "--m"):
+           deklination = "gemischte"
+        elif opt in ("-k", "--k"):
+           deklination = "konsonantische"
         elif opt in ("-g", "--g"):
             if arg == "f":
                numerus = "femininum"

@@ -180,27 +180,56 @@
             "genus" : "maskulinum",
             "nominativ" : "dies",
             "numerus" : [
-                {
-                    "name" : "singular",
-                    "kasus" : [
-                        { "kasus" : "Nominativ", "endung" : "es"},
-                        { "kasus" : "Genetiv", "endung" : "ei"},
-                        { "kasus" : "Dativ", "endung" : "ei"},
-                        { "kasus" : "Akkusativ", "endung" : "em"},
-                        { "kasus" : "Ablativ", "endung" : "i"}
-                    ]
-                },
-                {
-                    "name" : "plural",
-                    "kasus" : [
-                        { "kasus" : "Nominativ", "endung" : "es"},
-                        { "kasus" : "Genetiv", "endung" : "erum"},
-                        { "kasus" : "Dativ", "endung" : "ebus"},
-                        { "kasus" : "Akkusativ", "endung" : "es"},
-                        { "kasus" : "Ablativ", "endung" : "ebus"}
-                    ]
-                }
+                        {
+                            "name" : "singular",
+                            "kasus" : [
+                                { "kasus" : "Nominativ", "endung" : "es"},
+                                { "kasus" : "Genetiv", "endung" : "ei"},
+                                { "kasus" : "Dativ", "endung" : "ei"},
+                                { "kasus" : "Akkusativ", "endung" : "em"},
+                                { "kasus" : "Ablativ", "endung" : "i"}
+                            ]
+                        },
+                        {
+                            "name" : "plural",
+                            "kasus" : [
+                                { "kasus" : "Nominativ", "endung" : "es"},
+                                { "kasus" : "Genetiv", "endung" : "erum"},
+                                { "kasus" : "Dativ", "endung" : "ebus"},
+                                { "kasus" : "Akkusativ", "endung" : "es"},
+                                { "kasus" : "Ablativ", "endung" : "ebus"}
+                            ]
+                        }
             ]
-            }
+            },
+            {
+                "name" : "gemischte-Deklination",
+                "basis" : "gent",
+                "translated" : "Familie",
+                "genus" : "femininum",
+                "nominativ" : "gens",
+                "numerus" : [
+                        {
+                            "name" : "singular",
+                            "kasus" : [
+                                { "kasus" : "Nominativ", "sonderform" : "gens","endung" : ""},
+                                { "kasus" : "Genetiv", "endung" : "is"},
+                                { "kasus" : "Dativ", "endung" : "i"},
+                                { "kasus" : "Akkusativ", "endung" : "em"},
+                                { "kasus" : "Ablativ", "endung" : "e"}
+                            ]
+                        },
+                        {
+                            "name" : "plural",
+                            "kasus" : [
+                                { "kasus" : "Nominativ", "endung" : "es"},
+                                { "kasus" : "Genetiv", "endung" : "ium"},
+                                { "kasus" : "Dativ", "endung" : "ibus"},
+                                { "kasus" : "Akkusativ", "endung" : "es"},
+                                { "kasus" : "Ablativ", "endung" : "ibus"}
+                            ]
+                        }
+                    ]
+            }          
 ]
 }
