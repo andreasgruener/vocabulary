@@ -96,7 +96,10 @@ def checkKasusList(deklinationJson, numerus, kasusList):
     nominativ = deklinationJson["nominativ"]
     frageText = " " +kasusList["kasus"] + ", " + numerus
     frageText = frageText.ljust(25) 
-    ergebnis = basis+kasusList["endung"]
+     if "sonderform" in kasusList:
+        ergebnis = kasusList["sonderform"]
+    else:
+        ergebnis = basis+kasusList["endung"]
     eingabe = input(frageText+ "> ")
 
     length = 25 + len(eingabe) + 4

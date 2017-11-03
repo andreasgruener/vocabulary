@@ -125,10 +125,10 @@
         {
             "name" : "singular",
             "kasus" : [
-                { "kasus" : "Nominativ", "endung" : ""},
+                { "kasus" : "Nominativ", "sonderform" : "caput", "endung" : ""},
                 { "kasus" : "Genetiv", "endung" : "is"},
                 { "kasus" : "Dativ", "endung" : "i"},
-                { "kasus" : "Akkusativ", "endung" : ""},
+                { "kasus" : "Akkusativ", "sonderform" : "caput", "endung" : ""},
                 { "kasus" : "Ablativ", "endung" : "e"}
             ]
         },
@@ -172,6 +172,35 @@
                 ]
             }
         ]
-        }
+        },
+        {
+            "name" : "e-Deklination",
+            "basis" : "di",
+            "translated" : "Tag",
+            "genus" : "maskulinum",
+            "nominativ" : "dies",
+            "numerus" : [
+                {
+                    "name" : "singular",
+                    "kasus" : [
+                        { "kasus" : "Nominativ", "endung" : "es"},
+                        { "kasus" : "Genetiv", "endung" : "ei"},
+                        { "kasus" : "Dativ", "endung" : "ei"},
+                        { "kasus" : "Akkusativ", "endung" : "em"},
+                        { "kasus" : "Ablativ", "endung" : "i"}
+                    ]
+                },
+                {
+                    "name" : "plural",
+                    "kasus" : [
+                        { "kasus" : "Nominativ", "endung" : "es"},
+                        { "kasus" : "Genetiv", "endung" : "erum"},
+                        { "kasus" : "Dativ", "endung" : "ebus"},
+                        { "kasus" : "Akkusativ", "endung" : "es"},
+                        { "kasus" : "Ablativ", "endung" : "ebus"}
+                    ]
+                }
+            ]
+            }
 ]
 }
