@@ -138,7 +138,7 @@
                 { "kasus" : "Nominativ", "endung" : "a"},
                 { "kasus" : "Genetiv", "endung" : "um"},
                 { "kasus" : "Dativ", "endung" : "ibus"},
-                { "kasus" : "Akkusativ", "endung" : "es"},
+                { "kasus" : "Akkusativ", "endung" : "a"},
                 { "kasus" : "Ablativ", "endung" : "ibus"}
             ]
         }
