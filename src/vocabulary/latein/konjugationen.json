@@ -206,6 +206,315 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "i-Konjugation",
+            "translated": "hören",
+            "infinitive": "audire",
+            "tempus": [
+                {
+                    "name": "Präsens",
+                    "genusverbi": "Aktiv",
+                    "modus": "Indikativ",
+                    "basis": "audi",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "o"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "s"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "t"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "mus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "tis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "unt"
+                        }
+                    ]
+                },
+                {
+                    "name": "Imperfekt",
+                    "genusverbi": "Aktiv",
+                    "modus": "Indikativ",
+                    "basis": "audieba",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "m"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "s"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "t"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "mus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "tis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "nt"
+                        }
+                    ]
+                },
+                {
+                    "name": "Perfekt",
+                    "genusverbi": "aktiv",
+                    "modus": "indikativ",
+                    "basis": "audiv",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "i"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "isti"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "it"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "imus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "istis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "erunt"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "gemischte-Konjugation",
+            "translated": "wünschen",
+            "infinitive": "cupere",
+            "tempus": [
+                {
+                    "name": "Präsens",
+                    "genusverbi": "Aktiv",
+                    "modus": "Indikativ",
+                    "basis": "cupi",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "o"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "s"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "t"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "mus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "tis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "unt"
+                        }
+                    ]
+                },
+                {
+                    "name": "Imperfekt",
+                    "genusverbi": "Aktiv",
+                    "modus": "Indikativ",
+                    "basis": "cupieba",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "m"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "s"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "t"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "mus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "tis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "nt"
+                        }
+                    ]
+                },
+                {
+                    "name": "Perfekt",
+                    "genusverbi": "aktiv",
+                    "modus": "indikativ",
+                    "basis": "cupiv",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "i"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "isti"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "it"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "imus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "istis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "erunt"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "konsonantische-Konjugation",
+            "translated": "laufen",
+            "infinitive": "currere",
+            "tempus": [
+                {
+                    "name": "Präsens",
+                    "genusverbi": "Aktiv",
+                    "modus": "Indikativ",
+                    "basis": "curr",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "o"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "is"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "it"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "imus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "itis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "unt"
+                        }
+                    ]
+                },
+                {
+                    "name": "Imperfekt",
+                    "genusverbi": "Aktiv",
+                    "modus": "Indikativ",
+                    "basis": "curreba",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "m"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "s"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "t"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "mus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "tis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "nt"
+                        }
+                    ]
+                },
+                {
+                    "name": "Perfekt",
+                    "genusverbi": "aktiv",
+                    "modus": "indikativ",
+                    "basis": "cucurr",
+                    "faelle": [
+                        {
+                            "fall": "1. Person Singular",
+                            "endung": "i"
+                        },
+                        {
+                            "fall": "2. Person Singular",
+                            "endung": "isti"
+                        },
+                        {
+                            "fall": "3. Person Singular",
+                            "endung": "it"
+                        },
+                        {
+                            "fall": "1. Person Plural",
+                            "endung": "imus"
+                        },
+                        {
+                            "fall": "2. Person Plural",
+                            "endung": "istis"
+                        },
+                        {
+                            "fall": "3. Person Plural",
+                            "endung": "erunt"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

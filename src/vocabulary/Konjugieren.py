@@ -195,9 +195,10 @@ def calcSchulnote(gesamt, fehler):
 def usage():
     print('Usage: ./konjugieren.py [-i] [-e] [-a] [-k]')
     print('	-a             :: a Konjugation)')
-    print('	-i             :: o Konjugation)')
+    print('	-i             :: i Konjugation)')
     print('	-e             :: e Konjugation)')
     print('	-k             :: konsonantische Konjugation)')
+    print('	-m             :: gemischte Konjugation)')
     print('	-t <präsens|imperfekt|perfekt|plusquamperfekt>    :: tempus')
     print('Example:')
     print('	./konjugieren.py -a')
@@ -206,7 +207,7 @@ def parseParamter(argv):
     setting = {}
     konjugation = ""
     try:
-        opts, args = getopt.getopt(argv,"aiek",["a","i","e","k"])
+        opts, args = getopt.getopt(argv,"aiekm",["a","i","e","k","m"])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -216,10 +217,14 @@ def parseParamter(argv):
             sys.exit()
         elif opt in ("-a", "--a"):
            konjugation = "a"
-        elif opt in ("-o", "--o"):
-           konjugation = "o"
+        elif opt in ("-i", "--i"):
+           konjugation = "i"
         elif opt in ("-e", "--e"):
            konjugation = "e"
+        elif opt in ("-k", "--k"):
+           konjugation = "konsonantische"
+        elif opt in ("-m", "--m"):
+           konjugation = "gemischte"
 
 
     setting["konjugation"] = konjugation
