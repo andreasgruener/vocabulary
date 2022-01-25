@@ -26,7 +26,7 @@ def runTest(deklinationen, setting):
     settingGenus = setting["numerus"]
     kasus = setting['kasus']
 
-    print("Die folgenden Kasus werden abgefragt:" + str(kasus))
+    # print("Die folgenden Kasus werden abgefragt:" + str(kasus))
 
     # measure time
     startTime = time.time()
@@ -130,7 +130,7 @@ def checkDeklination(deklinationJson, kasusList):
     fehlerListe = []
 
     pick_max = len(deklinationJson["nominativ"])
-    print(deklinationJson["nominativ"])
+    #print(deklinationJson["nominativ"])
     pick = random.randint(0,pick_max-1)
     print("")
     print("**** [Vokabel " + str(pick+1) + "/" + str(pick_max) + "] Abfrage für " + Color.BOLD + deklinationJson["nominativ"][pick] + Color.END + " " + deklinationJson['name'] + " " + deklinationJson['genus'] +" ****")  
@@ -224,7 +224,7 @@ def parseParamter(argv):
         usage()
         sys.exit(2)
     for opt, arg in opts:
-        print (str(opt) + " = " + str(arg))
+        # print (str(opt) + " = " + str(arg))
         if opt == '-h':
             usage()
             sys.exit()
@@ -275,7 +275,7 @@ def printHeader():
         " |    |  \_/ __ \|  |/ |  | |  |/    \|  _/ __ \_  __ _/ __ \ /    \  \n"
         " |    `   \  ___/|    <|  |_|  |   |  |  \  ___/|  | \\\\  ___/|   |  \ \n"
         "/_______  /\___  |__|_ |____|__|___|  |__|\___  |__|   \___  |___|  / \n"
-        "        \/     \/     \/            \/        \/           \/     \/ 1.0"
+        "        \/     \/     \/            \/        \/           \/     \/ 1.1"
     )
     print(header)
 
