@@ -20,7 +20,13 @@ def singular(json):
     return [x for x in json["numerus"] if x['name'] == "singular"][0]
 
 
-def runTest(deklinationen, settingDeklination, settingGenus):
+def runTest(deklinationen, setting):
+
+    settingDeklination = setting["deklination"]
+    settingGenus = setting["numerus"]
+    kasus = setting['kasus']
+
+    print("Die folgenden Kasus werden abgefragt:" + str(kasus))
 
     # measure time
     startTime = time.time()
@@ -45,10 +51,10 @@ def runTest(deklinationen, settingDeklination, settingGenus):
         print("")
         print(Color.RED + settingDeklination + "-Deklination für " + settingGenus + "kann nicht geladen werden" + Color.END)
         sys.exit(3)
-
+  
     settingDeklination = deklination["name"]
     #print(deklination)
-    result = checkDeklination(deklination)
+    result = checkDeklination(deklination, kasus)
     richtigListe = result["richtig"]
     fehlerListe = result["falsch"]
     gesamt = result["gesamt"]
@@ -81,19 +87,19 @@ def runTest(deklinationen, settingDeklination, settingGenus):
     #	print("	Dauer  : %2d"  + str(minuten) + " : " + str(sekunden))
     print()
 
-    publishResult(user, "Latein","Deklinieren", settingDeklination, "Pauken",  note, duration, gesamt, fehler)
-    sendInfoMail(start.strftime('%A, der %d.%m.%Y'),start.time().strftime("%H:%M:%S"), 
-    end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,
-    str(gesamt),str(fehler),
-    settingDeklination,
-    "Pauken", 
-    richtigListe, fehlerListe)
+   # publishResult(user, "Latein","Deklinieren", settingDeklination, "Pauken",  note, duration, gesamt, fehler)
+    # sendInfoMail(start.strftime('%A, der %d.%m.%Y'),start.time().strftime("%H:%M:%S"), 
+    # end.time().strftime("%H:%M:%S"),str(note),str(duration),user ,
+    # str(gesamt),str(fehler),
+    # settingDeklination,
+    # "Pauken", 
+    # richtigListe, fehlerListe)
 
 
-def checkKasusList(deklinationJson, numerus, kasusList):
+def checkKasusList(deklinationJson, numerus, kasusList, pick):
     result = {}
-    basis = deklinationJson["basis"]
-    nominativ = deklinationJson["nominativ"]
+    basis = deklinationJson["basis"][pick]
+    # nominativ = deklinationJson["nominativ"][pick]
     frageText = " " +kasusList["kasus"] + ", " + numerus
     frageText = frageText.ljust(25) 
     if "sonderform" in kasusList:
@@ -116,40 +122,49 @@ def checkKasusList(deklinationJson, numerus, kasusList):
         result["correct"] = True
     return result
 
-def checkDeklination(deklinationJson):
+def checkDeklination(deklinationJson, kasusList):
     result ={}
     gesamt = 0
     fehler = 0
     richtigListe = []
     fehlerListe = []
-    
+
+    pick_max = len(deklinationJson["nominativ"])
+    print(deklinationJson["nominativ"])
+    pick = random.randint(0,pick_max-1)
     print("")
-    print("**** Abfrage für " + Color.BOLD + deklinationJson["nominativ"] + Color.END + " " + deklinationJson['name'] + " " + deklinationJson['genus'] +" ****")  
+    print("**** [Vokabel " + str(pick+1) + "/" + str(pick_max) + "] Abfrage für " + Color.BOLD + deklinationJson["nominativ"][pick] + Color.END + " " + deklinationJson['name'] + " " + deklinationJson['genus'] +" ****")  
     print("")
 
     for singularKasusEntry in singular(deklinationJson)["kasus"]:
-        result = checkKasusList(deklinationJson, "Singular", singularKasusEntry)
-        correct = result["correct"]
-        question = result["question"]
-        gesamt += 1
-        if correct:
-            richtigListe.append(question)
-        else:
-            fehler += 1
-            fehlerListe.append(question)
+        if (singularKasusEntry['kasus'] in kasusList):
+            result = checkKasusList(deklinationJson, "Singular", singularKasusEntry, pick)
+            correct = result["correct"]
+            question = result["question"]
+            gesamt += 1
+            if correct:
+                richtigListe.append(question)
+            else:
+                fehler += 1
+                fehlerListe.append(question)
+        # else:
+        #     print("Skipping " +str(singularKasusEntry))
 
     print("")
 
     for pluralKasusList in plural(deklinationJson)["kasus"]:
-        result = correct = checkKasusList(deklinationJson, "Plural", pluralKasusList)
-        correct = result["correct"]
-        question = result["question"]
-        gesamt += 1
-        if correct:
-            richtigListe.append(question)
-        else:
-            fehler += 1
-            fehlerListe.append(question)
+        if (pluralKasusList['kasus'] in kasusList):
+            result = correct = checkKasusList(deklinationJson, "Plural", pluralKasusList, pick)
+            correct = result["correct"]
+            question = result["question"]
+            gesamt += 1
+            if correct:
+                richtigListe.append(question)
+            else:
+                fehler += 1
+                fehlerListe.append(question)
+        # else:
+        #     print("Skipping " +str(pluralKasusList['kasus']))
 
     result["richtig"] = richtigListe
     result["falsch"] = fehlerListe
@@ -191,9 +206,10 @@ def usage():
     print('	-o             :: o Dekliniation)')
     print('	-e             :: e Dekliniation)')
     print('	-u             :: u Dekliniation)')
-    print('	-k             :: konsonantische Dekliniation)')
+    print('	-o             :: konsonantische Dekliniation)')
     print('	-m             :: gemischte Dekliniation)')
     print(' -g <m|n|f>     :: genus')
+    print(' -k <ngdab>     :: kasus Nominativ Genetiv Dativ Akkusativ aBlativ')
     print('Example:')
     print('	./deklinieren.py -a')
 
@@ -201,12 +217,14 @@ def parseParamter(argv):
     setting = {}
     deklination = ""
     numerus = ""
+    kasus = []
     try:
-        opts, args = getopt.getopt(argv,"aouekmg:",["a","m","o","e","u","k","g="])
+        opts, args = getopt.getopt(argv,"amoesuk:g:",["a","m","o","e","s","u","k=","g="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
     for opt, arg in opts:
+        print (str(opt) + " = " + str(arg))
         if opt == '-h':
             usage()
             sys.exit()
@@ -220,7 +238,7 @@ def parseParamter(argv):
            deklination = "u"
         elif opt in ("-m", "--m"):
            deklination = "gemischte"
-        elif opt in ("-k", "--k"):
+        elif opt in ("-s", "--s"):
            deklination = "konsonantische"
         elif opt in ("-g", "--g"):
             if arg == "f":
@@ -229,9 +247,24 @@ def parseParamter(argv):
                 numerus = "maskulinum"
             elif arg == "n":
                 numerus ="neutrum"
+        elif opt in ("-k", "--k"):
+            if "n" in arg:
+               kasus.append("Nominativ")
+            if "g" in arg:
+               kasus.append("Genetiv")
+            if "d" in arg:
+               kasus.append("Dativ")
+            if "a" in arg:
+               kasus.append("Akkusativ")
+            if "l" in arg:
+               kasus.append("Ablativ")
+    
+    if len(kasus) == 0:
+        kasus =  ['Nominativ', 'Genetiv', 'Dativ', 'Akkusativ', 'Ablativ']
 
     setting["deklination"] = deklination
     setting["numerus"] = numerus
+    setting["kasus"] = kasus
     return setting
 
 
@@ -253,7 +286,7 @@ def startTest(argv):
     deklinationen = readDeklination()
     # print(deklination)
     # print(setting)
-    runTest(deklinationen['Deklinationen'], setting["deklination"], setting["numerus"])
+    runTest(deklinationen['Deklinationen'], setting)
 
 
 if __name__ == "__main__":

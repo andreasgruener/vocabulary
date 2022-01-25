@@ -2,9 +2,9 @@
     "Deklinationen": [
         {
             "name": "a-Deklination",
-            "basis": "cas",
-            "translated": "Haus",
-            "nominativ": "casa",
+            "basis": ["cas", "domin"],
+            "translated": ["Haus","Herrin"],
+            "nominativ": ["casa", "domina"], 
             "genus": "feminium",
             "numerus": [
                 {
@@ -61,9 +61,9 @@
         },
         {
             "name": "o-Deklination",
-            "basis": "av",
-            "translated": "Vogel",
-            "nominativ": "avus",
+            "basis": ["av"],
+            "translated": ["Vogel"],
+            "nominativ": ["avus"],
             "genus": "maskulinum",
             "numerus": [
                 {
@@ -120,9 +120,9 @@
         },
         {
             "name": "o-Deklination",
-            "basis": "templ",
-            "translated": "Tempel",
-            "nominativ": "templum",
+            "basis": ["templ"],
+            "translated": ["Tempel"],
+            "nominativ": ["templum"],
             "genus": "neutrum",
             "numerus": [
                 {
@@ -179,9 +179,9 @@
         },
         {
             "name": "kons.-Deklination",
-            "basis": "senator",
-            "translated": "Senator",
-            "nominativ": "senator",
+            "basis": ["senator"],
+            "translated": ["Senator"],
+            "nominativ": ["senator"],
             "genus": "maskulinum",
             "numerus": [
                 {
@@ -237,10 +237,10 @@
             ]
         },
         {
-            "name": "kons.-Deklination",
-            "basis": "capit",
-            "translated": "Haupt",
-            "nominativ": "caput",
+            "name": "konsonantische-Deklination",
+            "basis": ["capit"],
+            "translated": ["Haupt"],
+            "nominativ": ["caput"],
             "genus": "neutrum",
             "numerus": [
                 {
@@ -299,10 +299,10 @@
         },
         {
             "name": "u-Deklination",
-            "basis": "cult",
-            "translated": "Heer",
+            "basis": ["cult"],
+            "translated": ["Heer"],
+            "nominativ": ["cultus"],
             "genus": "maskulinum",
-            "nominativ": "cultus",
             "numerus": [
                 {
                     "name": "singular",
@@ -358,10 +358,10 @@
         },
         {
             "name": "e-Deklination",
-            "basis": "di",
-            "translated": "Tag",
+            "basis": ["di"],
+            "translated": ["Tag"],
+            "nominativ": ["dies"],
             "genus": "maskulinum",
-            "nominativ": "dies",
             "numerus": [
                 {
                     "name": "singular",
@@ -417,10 +417,10 @@
         },
         {
             "name": "gemischte-Deklination",
-            "basis": "gent",
-            "translated": "Familie",
+            "basis": ["gent"],
+            "translated": ["Familie"],
+            "nominativ": ["gens"],
             "genus": "femininum",
-            "nominativ": "gens",
             "numerus": [
                 {
                     "name": "singular",

@@ -189,6 +189,14 @@ quamquam :                     |
 - Install Python3 
   - brew install python3
 - Install enchant (Spellchecker)
-  - brew install enchant
-- Install pyenchant
-  -pip3 install pyenchant
+  - On MAC: 
+    - brew install enchant
+    - Install pyenchant
+      - pip3 install pyenchant
+   - On Ubuntu
+      - sudo apt-get install python3-enchant
+- Install MQTT Client Library
+ -  pip3 install paho-mqtt
+ 
+ # Find Local MODULES
+  export PYTHONPATH=/home/user/path/src
