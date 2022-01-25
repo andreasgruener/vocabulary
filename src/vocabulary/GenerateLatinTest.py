@@ -6,7 +6,7 @@ import getopt
 import os
 import datetime
 import time
-from FileHandler import read_file, write_vocabulary_test
+from vocabulary.util.FileHandler import read_file, write_vocabulary_test
 import operator
 #from SpellChecker import checkFile
 
@@ -202,7 +202,7 @@ def parseParamter(argv):
 
 
 
-def main(argv):
+def startTest(argv):
 	
 	global tracker
 	#print("argv: " + argv[0])

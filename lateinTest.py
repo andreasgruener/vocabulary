@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 import sys
-from vocabulary.Latin import startTest
+from vocabulary.GenerateLatinTest import startTest
 
 def main(args):
     startTest(args)

@@ -164,8 +164,8 @@ def runTest( vocabulary , type, problems):
 				print(Color.RED + "		netter Versuch ... hast du schonmal eingegeben."+ Color.END)
 				eingabe = input(frageText)
 
-
-			variantDuplicateDetection.append(eingabe)
+			if eingabe != "":
+				variantDuplicateDetection.append(eingabe)
 			#print ( eingabe + " == " + a )
 			if eingabe in a:
 				result(qLanguage, True, eingabe, a,q, problems)
