@@ -206,7 +206,7 @@ def usage():
     print('	-o             :: o Dekliniation)')
     print('	-e             :: e Dekliniation)')
     print('	-u             :: u Dekliniation)')
-    print('	-o             :: konsonantische Dekliniation)')
+    print('	-s             :: konsonantische Dekliniation)')
     print('	-m             :: gemischte Dekliniation)')
     print(' -g <m|n|f>     :: genus')
     print(' -k <ngdab>     :: kasus Nominativ Genetiv Dativ Akkusativ aBlativ')
