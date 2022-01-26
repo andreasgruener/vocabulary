@@ -202,12 +202,12 @@ def calcSchulnote(gesamt, fehler):
 
 def usage():
     print('Usage: ./deklinieren.py [-o] [-e] [-u] [-a] [-k] [-g <m|n|f>]]')
-    print('	-a             :: a Dekliniation)')
-    print('	-o             :: o Dekliniation)')
-    print('	-e             :: e Dekliniation)')
-    print('	-u             :: u Dekliniation)')
-    print('	-s             :: konsonantische Dekliniation)')
-    print('	-m             :: gemischte Dekliniation)')
+    print('	-a             :: a Dekliniation')
+    print('	-o             :: o Dekliniation')
+    print('	-e             :: e Dekliniation')
+    print('	-u             :: u Dekliniation')
+    print('	-s             :: konsonantische Dekliniation')
+    print('	-m             :: gemischte Dekliniation')
     print(' -g <m|n|f>     :: genus')
     print(' -k <ngdab>     :: kasus Nominativ Genetiv Dativ Akkusativ aBlativ')
     print('Example:')

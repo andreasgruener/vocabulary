@@ -178,7 +178,67 @@
             ]
         },
         {
-            "name": "kons.-Deklination",
+            "name": "konsonantische-Deklination",
+            "basis": ["voc"],
+            "translated": ["Stimme"],
+            "nominativ": ["vox"],
+            "genus": "femininum",
+            "numerus": [
+                {
+                    "name": "singular",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "sonderform": "vox",
+                            "endung": ""
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "is"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "i"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "em"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "e"
+                        }
+                    ]
+                },
+                {
+                    "name": "plural",
+                    "kasus": [
+                        {
+                            "kasus": "Nominativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Genetiv",
+                            "endung": "um"
+                        },
+                        {
+                            "kasus": "Dativ",
+                            "endung": "ibus"
+                        },
+                        {
+                            "kasus": "Akkusativ",
+                            "endung": "es"
+                        },
+                        {
+                            "kasus": "Ablativ",
+                            "endung": "ibus"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "konsonantische-Deklination",
             "basis": ["senator"],
             "translated": ["Senator"],
             "nominativ": ["senator"],
